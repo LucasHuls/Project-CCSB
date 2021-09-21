@@ -1,0 +1,89 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="63EC0275-D36F-69CB-D695-4D1A0F805367" name="Appointment">
+<createdBy>ljhul</createdBy>
+<createdTime>2021-09-21 07:25:53 UTC</createdTime>
+<ownerDesignName>ERD CCSB</ownerDesignName>
+<engineerTo>
+<item key="16EE26D8-13F8-BBDA-C3A1-1872A26DFE20" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="Date" id="1348423B-E0EB-F643-8F64-41ADC824988C">
+<createdBy>ljhul</createdBy>
+<createdTime>2021-09-21 07:27:21 UTC</createdTime>
+<ownerDesignName>ERD CCSB</ownerDesignName>
+<engineerTo>
+<item key="16EE26D8-13F8-BBDA-C3A1-1872A26DFE20" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="Time" id="DBCB8BA9-74CD-E7C4-2861-01F33AAD6B36">
+<createdBy>ljhul</createdBy>
+<createdTime>2021-09-21 07:27:56 UTC</createdTime>
+<ownerDesignName>ERD CCSB</ownerDesignName>
+<engineerTo>
+<item key="16EE26D8-13F8-BBDA-C3A1-1872A26DFE20" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT014</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="AppointmentType" id="1B9C3EE0-B558-31B9-C36F-E648DD36C674">
+<createdBy>ljhul</createdBy>
+<createdTime>2021-09-21 07:29:07 UTC</createdTime>
+<ownerDesignName>ERD CCSB</ownerDesignName>
+<engineerTo>
+<item key="16EE26D8-13F8-BBDA-C3A1-1872A26DFE20" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT006</logicalDatatype>
+<dataTypeSize>1</dataTypeSize>
+<ownDataTypeParameters>1,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="LicensePlate" id="C8A05E15-2525-041D-A574-19F1751FDCC8">
+<createdBy>ljhul</createdBy>
+<createdTime>2021-09-21 07:39:07 UTC</createdTime>
+<generatorID>CD3A3836-1693-E63D-4E68-FD34AA2BA103</generatorID>
+<ownerDesignName>ERD CCSB</ownerDesignName>
+<engineerTo>
+<item key="16EE26D8-13F8-BBDA-C3A1-1872A26DFE20" value="true"/>
+</engineerTo>
+<referedAttribute>5A9AAE10-D201-A872-668E-F61ACA6137F8</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT037</logicalDatatype>
+<dataTypeSize>10</dataTypeSize>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="CCAD12BE-9F67-9CF2-B528-E8C6D188C601" name="Appointment PK">
+<createdBy>ljhul</createdBy>
+<createdTime>2021-09-21 07:27:20 UTC</createdTime>
+<ownerDesignName>ERD CCSB</ownerDesignName>
+<engineerTo>
+<item key="16EE26D8-13F8-BBDA-C3A1-1872A26DFE20" value="true"/>
+</engineerTo>
+<pk>true</pk>
+<newElementsIDs>1348423B-E0EB-F643-8F64-41ADC824988C,DBCB8BA9-74CD-E7C4-2861-01F33AAD6B36,C8A05E15-2525-041D-A574-19F1751FDCC8</newElementsIDs>
+<usedAttributes>
+<attributeRef>1348423B-E0EB-F643-8F64-41ADC824988C</attributeRef>
+<attributeRef>DBCB8BA9-74CD-E7C4-2861-01F33AAD6B36</attributeRef>
+<attributeRef>C8A05E15-2525-041D-A574-19F1751FDCC8</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

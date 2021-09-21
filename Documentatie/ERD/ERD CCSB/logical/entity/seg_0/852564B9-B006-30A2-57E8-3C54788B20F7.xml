@@ -1,0 +1,199 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="852564B9-B006-30A2-57E8-3C54788B20F7" name="Customer">
+<createdBy>ljhul</createdBy>
+<createdTime>2021-09-21 07:18:08 UTC</createdTime>
+<ownerDesignName>ERD CCSB</ownerDesignName>
+<engineerTo>
+<item key="16EE26D8-13F8-BBDA-C3A1-1872A26DFE20" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="CustomerNumber" id="1A6013AC-1ADE-2F40-7A2A-DF33551DE46A">
+<createdBy>ljhul</createdBy>
+<createdTime>2021-09-21 07:18:24 UTC</createdTime>
+<ownerDesignName>ERD CCSB</ownerDesignName>
+<engineerTo>
+<item key="16EE26D8-13F8-BBDA-C3A1-1872A26DFE20" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="Firstname" id="BB572712-E55A-B02C-C31D-F598023E6357">
+<createdBy>ljhul</createdBy>
+<createdTime>2021-09-21 07:18:45 UTC</createdTime>
+<ownerDesignName>ERD CCSB</ownerDesignName>
+<engineerTo>
+<item key="16EE26D8-13F8-BBDA-C3A1-1872A26DFE20" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT037</logicalDatatype>
+<dataTypeSize>30</dataTypeSize>
+<ownDataTypeParameters>30,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="Middelname" id="1A8EEEED-B42B-87FD-7B07-78D6D240A76A">
+<createdBy>ljhul</createdBy>
+<createdTime>2021-09-21 07:19:52 UTC</createdTime>
+<ownerDesignName>ERD CCSB</ownerDesignName>
+<engineerTo>
+<item key="16EE26D8-13F8-BBDA-C3A1-1872A26DFE20" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT037</logicalDatatype>
+<dataTypeSize>10</dataTypeSize>
+<ownDataTypeParameters>10,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="Lastname" id="05FBB168-4952-51F4-24E4-64125C4524EC">
+<createdBy>ljhul</createdBy>
+<createdTime>2021-09-21 07:20:34 UTC</createdTime>
+<ownerDesignName>ERD CCSB</ownerDesignName>
+<engineerTo>
+<item key="16EE26D8-13F8-BBDA-C3A1-1872A26DFE20" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT037</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<ownDataTypeParameters>50,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="Initials" id="2C174A5D-411E-FF65-1C38-3D315AF81BF0">
+<createdBy>ljhul</createdBy>
+<createdTime>2021-09-21 07:21:00 UTC</createdTime>
+<ownerDesignName>ERD CCSB</ownerDesignName>
+<engineerTo>
+<item key="16EE26D8-13F8-BBDA-C3A1-1872A26DFE20" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT037</logicalDatatype>
+<dataTypeSize>10</dataTypeSize>
+<ownDataTypeParameters>10,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="Email" id="37AB8AA3-12B0-5AA8-EDC2-066B033D3986">
+<createdBy>ljhul</createdBy>
+<createdTime>2021-09-21 07:21:33 UTC</createdTime>
+<ownerDesignName>ERD CCSB</ownerDesignName>
+<engineerTo>
+<item key="16EE26D8-13F8-BBDA-C3A1-1872A26DFE20" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT037</logicalDatatype>
+<dataTypeSize>255</dataTypeSize>
+<ownDataTypeParameters>255,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="PhoneNumber" id="1ACAE145-8926-AD0A-7AE1-C97344171E2D">
+<createdBy>ljhul</createdBy>
+<createdTime>2021-09-21 07:22:12 UTC</createdTime>
+<ownerDesignName>ERD CCSB</ownerDesignName>
+<engineerTo>
+<item key="16EE26D8-13F8-BBDA-C3A1-1872A26DFE20" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>15</dataTypeSize>
+<ownDataTypeParameters>15,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="City" id="E31E94F0-29AF-201D-B196-508080613E9E">
+<createdBy>ljhul</createdBy>
+<createdTime>2021-09-21 07:22:57 UTC</createdTime>
+<ownerDesignName>ERD CCSB</ownerDesignName>
+<engineerTo>
+<item key="16EE26D8-13F8-BBDA-C3A1-1872A26DFE20" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT037</logicalDatatype>
+<dataTypeSize>100</dataTypeSize>
+<ownDataTypeParameters>100,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="Adress" id="29EC20C8-7477-6493-59B5-2ACEB098F271">
+<createdBy>ljhul</createdBy>
+<createdTime>2021-09-21 07:23:30 UTC</createdTime>
+<ownerDesignName>ERD CCSB</ownerDesignName>
+<engineerTo>
+<item key="16EE26D8-13F8-BBDA-C3A1-1872A26DFE20" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT037</logicalDatatype>
+<dataTypeSize>100</dataTypeSize>
+<ownDataTypeParameters>100,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="PostalCode" id="8D33A4EC-8BED-3483-8F65-D1D3B9241D10">
+<createdBy>ljhul</createdBy>
+<createdTime>2021-09-21 07:24:04 UTC</createdTime>
+<ownerDesignName>ERD CCSB</ownerDesignName>
+<engineerTo>
+<item key="16EE26D8-13F8-BBDA-C3A1-1872A26DFE20" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT037</logicalDatatype>
+<dataTypeSize>6</dataTypeSize>
+<ownDataTypeParameters>6,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="Birthdate" id="8DA7C8BB-D0F9-A55E-D6EF-E2ED1B8780F3">
+<createdBy>ljhul</createdBy>
+<createdTime>2021-09-21 07:24:24 UTC</createdTime>
+<ownerDesignName>ERD CCSB</ownerDesignName>
+<engineerTo>
+<item key="16EE26D8-13F8-BBDA-C3A1-1872A26DFE20" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="AccountNumber" id="28D4ACEB-BB24-18C2-3FDB-B12A046596C9">
+<createdBy>ljhul</createdBy>
+<createdTime>2021-09-21 07:24:50 UTC</createdTime>
+<ownerDesignName>ERD CCSB</ownerDesignName>
+<engineerTo>
+<item key="16EE26D8-13F8-BBDA-C3A1-1872A26DFE20" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT037</logicalDatatype>
+<dataTypeSize>30</dataTypeSize>
+<ownDataTypeParameters>30,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="1AC621F3-756C-03E1-841F-D013DF30FEA3" name="Customer PK">
+<createdBy>ljhul</createdBy>
+<createdTime>2021-09-21 07:18:37 UTC</createdTime>
+<ownerDesignName>ERD CCSB</ownerDesignName>
+<engineerTo>
+<item key="16EE26D8-13F8-BBDA-C3A1-1872A26DFE20" value="true"/>
+</engineerTo>
+<pk>true</pk>
+<newElementsIDs>1A6013AC-1ADE-2F40-7A2A-DF33551DE46A</newElementsIDs>
+<usedAttributes>
+<attributeRef>1A6013AC-1ADE-2F40-7A2A-DF33551DE46A</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>
