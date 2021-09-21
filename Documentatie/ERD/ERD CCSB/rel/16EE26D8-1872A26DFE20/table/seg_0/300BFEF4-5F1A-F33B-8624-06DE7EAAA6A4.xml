@@ -1,0 +1,90 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="300BFEF4-5F1A-F33B-8624-06DE7EAAA6A4" name="Appointment">
+<createdBy>elfri</createdBy>
+<createdTime>2021-09-21 08:18:23 UTC</createdTime>
+<generatorID>63EC0275-D36F-69CB-D695-4D1A0F805367</generatorID>
+<ownerDesignName>ERD CCSB</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="Date" id="057DE7C2-CBF0-7AE7-C469-5E1EAFCDA889">
+<createdBy>elfri</createdBy>
+<createdTime>2021-09-21 08:18:23 UTC</createdTime>
+<generatorID>1348423B-E0EB-F643-8F64-41ADC824988C</generatorID>
+<ownerDesignName>ERD CCSB</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Time" id="82BFE65E-32DB-4716-9BC5-D42C1C12E093">
+<createdBy>elfri</createdBy>
+<createdTime>2021-09-21 08:18:23 UTC</createdTime>
+<generatorID>DBCB8BA9-74CD-E7C4-2861-01F33AAD6B36</generatorID>
+<ownerDesignName>ERD CCSB</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT014</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="AppointmentType" id="D8CF9CF6-1DBA-2391-DB9C-68C3EDF0D378">
+<createdBy>elfri</createdBy>
+<createdTime>2021-09-21 08:18:23 UTC</createdTime>
+<generatorID>1B9C3EE0-B558-31B9-C36F-E648DD36C674</generatorID>
+<ownerDesignName>ERD CCSB</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT006</logicalDatatype>
+<dataTypeSize>1</dataTypeSize>
+<ownDataTypeParameters>1,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Vehicle_LicensePlate" id="CE6895F7-A9CE-A7E0-D307-771ED93D9F02">
+<createdBy>elfri</createdBy>
+<createdTime>2021-09-21 08:18:23 UTC</createdTime>
+<generatorID>C8A05E15-2525-041D-A574-19F1751FDCC8</generatorID>
+<ownerDesignName>ERD CCSB</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT037</logicalDatatype>
+<dataTypeSize>10</dataTypeSize>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="DA70E36F-9776-81AA-0CA8-1136E2D3BD7E" referredColumn="E07D28C4-EAD4-E7AD-0B3B-DD3C743A2D87"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="B5E754AD-ECB7-3ECA-366D-C50E02F4BB69" name="Appointment_PK">
+<createdBy>elfri</createdBy>
+<createdTime>2021-09-21 08:18:23 UTC</createdTime>
+<generatorID>CCAD12BE-9F67-9CF2-B528-E8C6D188C601</generatorID>
+<ownerDesignName>ERD CCSB</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="057DE7C2-CBF0-7AE7-C469-5E1EAFCDA889"/>
+<colUsage columnID="82BFE65E-32DB-4716-9BC5-D42C1C12E093"/>
+<colUsage columnID="CE6895F7-A9CE-A7E0-D307-771ED93D9F02"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="5BC8FE02-6744-CC0C-4369-492AFC10CBBE" name="Appointment_Vehicle_FK">
+<createdBy>elfri</createdBy>
+<createdTime>2021-09-21 08:18:24 UTC</createdTime>
+<generatorID>CD3A3836-1693-E63D-4E68-FD34AA2BA103</generatorID>
+<ownerDesignName>ERD CCSB</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="CE6895F7-A9CE-A7E0-D307-771ED93D9F02"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

@@ -1,0 +1,116 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="A4A8A0BA-4DA1-EA87-AAE0-1BA3E2278942" name="Vehicle">
+<createdBy>elfri</createdBy>
+<createdTime>2021-09-21 08:18:23 UTC</createdTime>
+<generatorID>ED0F3D64-12FB-E44F-2459-DAC1CA3863E1</generatorID>
+<ownerDesignName>ERD CCSB</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="LicensePlate" id="E07D28C4-EAD4-E7AD-0B3B-DD3C743A2D87">
+<createdBy>elfri</createdBy>
+<createdTime>2021-09-21 08:18:23 UTC</createdTime>
+<generatorID>5A9AAE10-D201-A872-668E-F61ACA6137F8</generatorID>
+<ownerDesignName>ERD CCSB</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT037</logicalDatatype>
+<dataTypeSize>10</dataTypeSize>
+<ownDataTypeParameters>10,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Type" id="65DE1EAE-A9AE-7946-F176-2A4C4CF50322">
+<createdBy>elfri</createdBy>
+<createdTime>2021-09-21 08:18:23 UTC</createdTime>
+<generatorID>528B3B5D-E5B4-A17B-E899-ADDC9423BD25</generatorID>
+<ownerDesignName>ERD CCSB</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>10</dataTypeSize>
+<ownDataTypeParameters>10,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Brand" id="F7BF804D-A845-FEC7-09F7-071725F98234">
+<createdBy>elfri</createdBy>
+<createdTime>2021-09-21 08:18:23 UTC</createdTime>
+<generatorID>2F0144D8-EF78-D697-FD81-2F37FF7F818E</generatorID>
+<ownerDesignName>ERD CCSB</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT037</logicalDatatype>
+<dataTypeSize>30</dataTypeSize>
+<ownDataTypeParameters>30,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Lenght" id="AD534A2A-3AD7-3140-463C-DFE074442070">
+<createdBy>elfri</createdBy>
+<createdTime>2021-09-21 08:18:23 UTC</createdTime>
+<generatorID>3BE6121A-E0F4-3D6F-3BCF-B59A5D2D80FB</generatorID>
+<ownerDesignName>ERD CCSB</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT037</logicalDatatype>
+<dataTypeSize>5</dataTypeSize>
+<ownDataTypeParameters>5,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Power" id="D2833377-2652-CAEF-F80F-553EF8657964">
+<createdBy>elfri</createdBy>
+<createdTime>2021-09-21 08:18:23 UTC</createdTime>
+<generatorID>028F6F35-2118-B17E-C888-8F55B192F4A1</generatorID>
+<ownerDesignName>ERD CCSB</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT006</logicalDatatype>
+<dataTypeSize>1</dataTypeSize>
+<ownDataTypeParameters>1,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Customer_CustomerNumber" id="B884908C-7762-ECB9-B23F-D13907B71A96">
+<createdBy>elfri</createdBy>
+<createdTime>2021-09-21 08:18:23 UTC</createdTime>
+<generatorID>8A71AA96-C6FD-9CEC-84DC-A23DF58F5FC3</generatorID>
+<ownerDesignName>ERD CCSB</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="7F487861-5DB2-F740-98EA-589658CF3728" referredColumn="4DBA6A7C-29A9-7CF6-E2A5-630C9FC151CB"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="45588EE7-30F1-B30D-FBCE-7A58CAFA668A" name="Vehicle_PK">
+<createdBy>elfri</createdBy>
+<createdTime>2021-09-21 08:18:23 UTC</createdTime>
+<generatorID>189A0FA2-0053-CD9C-718D-5CC7F1307AA5</generatorID>
+<ownerDesignName>ERD CCSB</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="E07D28C4-EAD4-E7AD-0B3B-DD3C743A2D87"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="524045D8-85DD-8AB5-9F63-77FEBD096485" name="Vehicle_Customer_FK">
+<createdBy>elfri</createdBy>
+<createdTime>2021-09-21 08:18:23 UTC</createdTime>
+<generatorID>D3260FED-DCDE-7F24-3ED7-1722F0F8C3C0</generatorID>
+<ownerDesignName>ERD CCSB</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="B884908C-7762-ECB9-B23F-D13907B71A96"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>
