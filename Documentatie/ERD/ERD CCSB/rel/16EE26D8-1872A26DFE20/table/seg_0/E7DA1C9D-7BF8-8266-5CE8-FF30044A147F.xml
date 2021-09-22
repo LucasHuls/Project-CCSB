@@ -1,0 +1,76 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="E7DA1C9D-7BF8-8266-5CE8-FF30044A147F" name="Contract">
+<createdBy>elfri</createdBy>
+<createdTime>2021-09-22 12:58:55 UTC</createdTime>
+<generatorID>72512F60-B5CF-C460-33F9-746B02AD454F</generatorID>
+<ownerDesignName>ERD CCSB</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="ContractNumber" id="1B2B953C-ABAC-345C-AB8D-8F3771C345E2">
+<createdBy>elfri</createdBy>
+<createdTime>2021-09-22 12:58:55 UTC</createdTime>
+<generatorID>3A4E193D-3974-0D89-E4D7-14FAE5367095</generatorID>
+<ownerDesignName>ERD CCSB</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Prijs" id="553CC000-1474-E0E5-CA17-79C560EC1A5F">
+<createdBy>elfri</createdBy>
+<createdTime>2021-09-22 12:58:55 UTC</createdTime>
+<generatorID>355EF657-B93D-AEC3-7B4E-7B2DADDEA6A8</generatorID>
+<ownerDesignName>ERD CCSB</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT044</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Vehicle_LicensePlate" id="25E2380E-EBC4-8B8D-CF92-3E829C852728">
+<createdBy>elfri</createdBy>
+<createdTime>2021-09-22 12:58:55 UTC</createdTime>
+<generatorID>09D9F87C-1959-D909-F8A1-F7CFCC76F951</generatorID>
+<ownerDesignName>ERD CCSB</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT037</logicalDatatype>
+<dataTypeSize>10</dataTypeSize>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="C0F5B4AB-54C7-CE9E-91B2-24B2C67768D5" referredColumn="E07D28C4-EAD4-E7AD-0B3B-DD3C743A2D87"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="58F96288-DA5C-A4CA-18B9-14391BD4C0E8" name="Contract_PK">
+<createdBy>elfri</createdBy>
+<createdTime>2021-09-22 12:58:55 UTC</createdTime>
+<generatorID>598980F9-6C58-2589-EB74-C557578CEC3F</generatorID>
+<ownerDesignName>ERD CCSB</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="1B2B953C-ABAC-345C-AB8D-8F3771C345E2"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="1D3A66B8-ECD0-9918-9943-F92C1A8B985B" name="Contract_Vehicle_FK">
+<createdBy>elfri</createdBy>
+<createdTime>2021-09-22 12:58:55 UTC</createdTime>
+<generatorID>AC8368FB-AA08-C68B-9DC7-615D8648E3C4</generatorID>
+<ownerDesignName>ERD CCSB</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="25E2380E-EBC4-8B8D-CF92-3E829C852728"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

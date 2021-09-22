@@ -1,0 +1,73 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="72512F60-B5CF-C460-33F9-746B02AD454F" name="Contract">
+<createdBy>elfri</createdBy>
+<createdTime>2021-09-22 12:56:11 UTC</createdTime>
+<ownerDesignName>ERD CCSB</ownerDesignName>
+<engineerTo>
+<item key="16EE26D8-13F8-BBDA-C3A1-1872A26DFE20" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="ContractNumber" id="3A4E193D-3974-0D89-E4D7-14FAE5367095">
+<createdBy>elfri</createdBy>
+<createdTime>2021-09-22 12:56:22 UTC</createdTime>
+<ownerDesignName>ERD CCSB</ownerDesignName>
+<engineerTo>
+<item key="16EE26D8-13F8-BBDA-C3A1-1872A26DFE20" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="Prijs" id="355EF657-B93D-AEC3-7B4E-7B2DADDEA6A8">
+<createdBy>elfri</createdBy>
+<createdTime>2021-09-22 12:56:37 UTC</createdTime>
+<ownerDesignName>ERD CCSB</ownerDesignName>
+<engineerTo>
+<item key="16EE26D8-13F8-BBDA-C3A1-1872A26DFE20" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT044</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="LicensePlate" id="09D9F87C-1959-D909-F8A1-F7CFCC76F951">
+<createdBy>elfri</createdBy>
+<createdTime>2021-09-22 12:58:33 UTC</createdTime>
+<generatorID>AC8368FB-AA08-C68B-9DC7-615D8648E3C4</generatorID>
+<ownerDesignName>ERD CCSB</ownerDesignName>
+<engineerTo>
+<item key="16EE26D8-13F8-BBDA-C3A1-1872A26DFE20" value="true"/>
+</engineerTo>
+<referedAttribute>5A9AAE10-D201-A872-668E-F61ACA6137F8</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT037</logicalDatatype>
+<dataTypeSize>10</dataTypeSize>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="598980F9-6C58-2589-EB74-C557578CEC3F" name="Contract PK">
+<createdBy>elfri</createdBy>
+<createdTime>2021-09-22 12:56:29 UTC</createdTime>
+<ownerDesignName>ERD CCSB</ownerDesignName>
+<engineerTo>
+<item key="16EE26D8-13F8-BBDA-C3A1-1872A26DFE20" value="true"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>3A4E193D-3974-0D89-E4D7-14FAE5367095</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>
