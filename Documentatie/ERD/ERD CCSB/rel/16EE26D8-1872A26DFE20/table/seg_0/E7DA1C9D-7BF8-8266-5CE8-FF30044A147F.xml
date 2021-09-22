@@ -19,7 +19,7 @@
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="Prijs" id="553CC000-1474-E0E5-CA17-79C560EC1A5F">
+<Column name="Price" id="553CC000-1474-E0E5-CA17-79C560EC1A5F">
 <createdBy>elfri</createdBy>
 <createdTime>2021-09-22 12:58:55 UTC</createdTime>
 <generatorID>355EF657-B93D-AEC3-7B4E-7B2DADDEA6A8</generatorID>
@@ -40,7 +40,7 @@
 <use>1</use>
 <logicalDatatype>LOGDT037</logicalDatatype>
 <dataTypeSize>10</dataTypeSize>
-<ownDataTypeParameters>,,</ownDataTypeParameters>
+<ownDataTypeParameters>10,,</ownDataTypeParameters>
 <previousColumn>false</previousColumn>
 <autoIncrementCycle>false</autoIncrementCycle>
 <associations>
