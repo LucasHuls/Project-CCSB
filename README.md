@@ -4,7 +4,7 @@
 hebben waar zijn klanten in een kalender kunnen zetten wanneer ze hun camper of caravan willen
 ophalen of brengen.
 
-![screenshot](http://fleapo.com/blog/wp-content/uploads/2019/12/web_develop_img.jpg)
+![screenshot](images/logoCCSB.png)
 
 De heer van der Stal is eigenaar van camper- en caravanstalling Bentelo. In het verleden had hij een
 pluimveebedrijf, maar door de steeds strengere milieueisen die door de overheid zijn opgelegd was
