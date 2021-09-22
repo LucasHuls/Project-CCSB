@@ -14,7 +14,7 @@
 	<br />
     <a href="https://github.com/LucasHuls/Project-CCSB/issues"><strong>Meld een bug »</strong></a>
 	<br />
-    <a href="ttps://github.com/LucasHuls/Project-CCSB"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/LucasHuls/Project-CCSB"><strong>Explore the docs »</strong></a>
 	<br />
 	<a href="https://github.com/LucasHuls/Calc4You-Project-Groep-5/tree/master/readme-bestanden"><strong>GIT Commands & Uitleg »</a>
   </p>
