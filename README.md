@@ -1,10 +1,25 @@
 # Project CCSB
+<p align="center">
+  <a href="https://github.com/LucasHuls/Project-CCSB">
+    <img src="images/logoCCSB" alt="Logo">
+  </a>
 
-> Aangezien Carlo niet altijd bereikbaar is heeft hij bedacht dat het handig zou zijn een website te
-hebben waar zijn klanten in een kalender kunnen zetten wanneer ze hun camper of caravan willen
-ophalen of brengen.
+  <h3 align="center">Project CCSB - Camper & Caravan Stalling Bentelo</h3>
 
-![screenshot](images/logoCCSB.png)
+  <p align="center">
+    <strong>Menu</strong>
+	<br />
+	<a href="https://github.com/LucasHuls/Project-CCSB/wiki"><strong>Wiki »</strong></a>
+	<br />
+    <a href="https://dev.azure.com/Project-CCSB/"><strong>Scrum-Bord »</strong></a>
+	<br />
+    <a href="https://github.com/LucasHuls/Project-CCSB/issues"><strong>Meld een bug »</strong></a>
+	<br />
+    <a href="ttps://github.com/LucasHuls/Project-CCSB"><strong>Explore the docs »</strong></a>
+	<br />
+	<a href="https://github.com/LucasHuls/Calc4You-Project-Groep-5/tree/master/readme-bestanden"><strong>GIT Commands & Uitleg »</a>
+  </p>
+</p>
 
 De heer van der Stal is eigenaar van camper- en caravanstalling Bentelo. In het verleden had hij een
 pluimveebedrijf, maar door de steeds strengere milieueisen die door de overheid zijn opgelegd was
