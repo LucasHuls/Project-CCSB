@@ -54,6 +54,8 @@ namespace Project_CCSB
 
             app.UseRouting();
 
+            app.UseAuthentication();
+
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

@@ -13,12 +13,12 @@ namespace Project_CCSB.Controllers
         private readonly ApplicationDbContext _db;
         UserManager<ApplicationUser> _userManager;
         SignInManager<ApplicationUser> _signInManager;
-        RoleManager<ApplicationUser> _roleManager;
+        RoleManager<IdentityRole> _roleManager;
 
         public AccountController(ApplicationDbContext db,
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
-            RoleManager<ApplicationUser> roleManager)
+            RoleManager<IdentityRole> roleManager)
         {
             _db = db;
             _userManager = userManager;
@@ -28,6 +28,39 @@ namespace Project_CCSB.Controllers
 
         public IActionResult Login()
         {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Login(LoginViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+                ModelState.AddModelError("", "Inloggen mislukt");
+            }
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Logoff()
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("Login");
+        }
+
+        public async Task<IActionResult> Register()
+        {
+            if (!_roleManager.RoleExistsAsync(Helper.Admin).GetAwaiter().GetResult())
+            {
+                await _roleManager.CreateAsync(new IdentityRole(Helper.Admin));
+                await _roleManager.CreateAsync(new IdentityRole(Helper.User));
+            }
             return View();
         }
 
@@ -43,7 +76,12 @@ namespace Project_CCSB.Controllers
                     Email = model.Email,
                     FirstName = model.FirstName,
                     MiddleName = model.MiddleName,
-                    LastName = model.LastName
+                    LastName = model.LastName,
+                    AccountNumber = model.AccountNumber,
+                    City = model.City,
+                    Adress = model.Adress,
+                    ZipCode = model.ZipCode,
+                    BirthDate = model.BirthDate
                 };
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)

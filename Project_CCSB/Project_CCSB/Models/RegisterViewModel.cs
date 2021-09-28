@@ -24,6 +24,26 @@ namespace Project_CCSB.Models
         [Required(ErrorMessage = "{0} is een verplicht veld")]
         public string Email { get; set; }
 
+        [DisplayName("Rekeningnummer")]
+        [Required(ErrorMessage = "{0} is een verplicht veld")]
+        public string AccountNumber { get; set; }
+
+        [DisplayName("Woonplaats")]
+        [Required(ErrorMessage = "{0} is een verplicht veld")]
+        public string City { get; set; }
+
+        [DisplayName("Adres")]
+        [Required(ErrorMessage = "{0} is een verplicht veld")]
+        public string Adress { get; set; }
+
+        [DisplayName("Postcode")]
+        [Required(ErrorMessage = "{0} is een verplicht veld")]
+        public string ZipCode { get; set; }
+
+        [DisplayName("Geboortedatum")]
+        [Required(ErrorMessage = "{0} is een verplicht veld")]
+        public string BirthDate { get; set; }
+
         [DisplayName("Wachtwoord")]
         [Required(ErrorMessage = "{0} is een verplicht veld")]
         [DataType(DataType.Password)]
