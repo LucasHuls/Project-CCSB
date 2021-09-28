@@ -41,8 +41,10 @@ namespace Project_CCSB.Models
         public string ZipCode { get; set; }
 
         [DisplayName("Geboortedatum")]
+        [DataType(DataType.Date)]
         [Required(ErrorMessage = "{0} is een verplicht veld")]
-        public string BirthDate { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = @"{0:dd/MM/yyy}")]
+        public DateTime BirthDate { get; set; }
 
         [DisplayName("Wachtwoord")]
         [Required(ErrorMessage = "{0} is een verplicht veld")]

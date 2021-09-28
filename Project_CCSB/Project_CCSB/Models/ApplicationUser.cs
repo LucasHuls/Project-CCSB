@@ -28,7 +28,7 @@ namespace Project_CCSB.Models
         public string City { get; set; }
         public string Adress { get; set; }
         public string ZipCode { get; set; }
-        public string BirthDate { get; set; }
+        public DateTime BirthDate { get; set; }
         public string AccountNumber { get; set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Project_CCSB.Models;
 using System;
@@ -54,6 +55,7 @@ namespace Project_CCSB.Controllers
             return RedirectToAction("Login");
         }
 
+        [Authorize]
         public async Task<IActionResult> Register()
         {
             if (!_roleManager.RoleExistsAsync(Helper.Admin).GetAwaiter().GetResult())

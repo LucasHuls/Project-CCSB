@@ -5,6 +5,10 @@
     {
       "library": "select2@4.0.13",
       "destination": "wwwroot/lib/select2/"
+    },
+    {
+      "library": "notify.js@3.0.0",
+      "destination": "wwwroot/lib/notify.js/"
     }
   ]
 }
