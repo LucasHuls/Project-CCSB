@@ -13,5 +13,7 @@ namespace Project_CCSB.Models
         {
 
         }
+
+        public DbSet<Vehicle> Vehicles { get; set; }
     }
 }

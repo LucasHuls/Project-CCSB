@@ -20,5 +20,15 @@ namespace Project_CCSB.Models
             };
             return items.OrderBy(s => s.Text).ToList();
         }
+
+        public static List<SelectListItem> GetYesOrNo()
+        {
+            var items = new List<SelectListItem>
+            {
+                new SelectListItem{Value = "true", Text = "Ja"},
+                new SelectListItem{Value = "false", Text = "Nee"}
+            };
+            return items.ToList();
+        }
     }
 }
