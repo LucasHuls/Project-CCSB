@@ -42,8 +42,11 @@ namespace Project_CCSB.Controllers
                     Brand = model.Brand,
                     Length = model.Length,
                     Power = model.Power,
+                    ApplicationUser = await _userManager.GetUserAsync(HttpContext.User)
                 };
-                var result = await _db.Vehicles.AddAsync(newVehicle);
+                _db.Vehicles.Add(newVehicle);
+                await _db.SaveChangesAsync();
+                return RedirectToAction("index", "home");
             }
             return View();
         }

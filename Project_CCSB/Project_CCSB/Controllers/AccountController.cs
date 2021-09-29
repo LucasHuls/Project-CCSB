@@ -55,7 +55,6 @@ namespace Project_CCSB.Controllers
             return RedirectToAction("Login");
         }
 
-        [Authorize]
         public async Task<IActionResult> Register()
         {
             if (!_roleManager.RoleExistsAsync(Helper.Admin).GetAwaiter().GetResult())
