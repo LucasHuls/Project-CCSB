@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Project_CCSB.Models.ViewModels
 {
-    public class VehicleViewModel
+    public class AddVehicleViewModel
     {
         [DisplayName("Kenteken")]
         [Required(ErrorMessage = "{0} is een verplicht veld")]

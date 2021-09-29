@@ -30,5 +30,14 @@ namespace Project_CCSB.Models
             };
             return items.ToList();
         }
+
+        public static List<SelectListItem> GetAllUsers()
+        {
+            var items = new List<SelectListItem>
+            {
+
+            };
+            return items.ToList();
+        }
     }
 }
