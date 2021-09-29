@@ -2,43 +2,63 @@
 
 @if (signInManager.IsSignedIn(User))
 {
-    <ul class="navbar-nav mr-auto">
-        @if (User.Identity.IsAuthenticated)
+<ul class="navbar-nav mr-auto">
+    @if (User.Identity.IsAuthenticated)
+    {
+        @if (User.IsInRole("Beheerder")) //Checks if the user is 'beheerder'
         {
-            @if (User.IsInRole("Beheerder"))
-            {
-                <li class="nav-item">
-                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                </li>
-                <li>
-                    <a id="registerLink" class="nav-link" asp-action="Register" asp-controller="Account">Registreren</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Informatie</a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Openingstijden">Openingstijden</a>
-                        <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Opslag">Opslag</a>
-                        <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Locatie">Locatie</a>
-                        <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Contact">Contact</a>
-                    </div>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Voertuigen</a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" asp-area="" asp-controller="Vehicle" asp-action="AddVehicle">Voertuig aanmaken</a>
-                        <a class="dropdown-item" asp-area="" asp-controller="Vehicle" asp-action="MyVehicles">Voertuig bekijken</a>
-                    </div>
-                </li>
-            }
-            @if (User.IsInRole("Gebruiker"))
-            {
-                <li class="nav-item">
-                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">TestGebruiker</a>
-                </li>
-            }
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+            </li>
+            <li>
+                <a id="registerLink" class="nav-link" asp-action="Register" asp-controller="Account">Registreren</a>
+            </li>
+            <li>
+                <a id="registerLink" class="nav-link" asp-action="#" asp-controller="#">Reserveringen</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Voertuigen</a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item" asp-area="" asp-controller="Vehicle" asp-action="AllVehicles">Alle voertuigen</a>
+                    <a class="dropdown-item" asp-area="" asp-controller="Vehicle" asp-action="AddVehicle">Voertuig aanmaken</a>
+                </div>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Informatie</a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item" asp-area="" asp-controller="#" asp-action="#">Openingstijden</a>
+                    <a class="dropdown-item" asp-area="" asp-controller="#" asp-action="#">Opslag</a>
+                    <a class="dropdown-item" asp-area="" asp-controller="#" asp-action="#">Locatie</a>
+                    <a class="dropdown-item" asp-area="" asp-controller="#" asp-action="#">Contact</a>
+                </div>
+            </li>
         }
-    </ul>
 
+        @if (User.IsInRole("Gebruiker")) //Checks if the user is 'gebruiker'
+        {
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+            </li>
+            <li>
+                <a id="registerLink" class="nav-link" asp-action="#" asp-controller="#">Reserveringen</a>
+            </li>
+            <li>
+                <a id="registerLink" class="nav-link" asp-action="Vehicle" asp-controller="MyVehicles">Voertuigen</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Informatie</a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item" asp-area="" asp-controller="#" asp-action="#">Openingstijden</a>
+                    <a class="dropdown-item" asp-area="" asp-controller="#" asp-action="#">Opslag</a>
+                    <a class="dropdown-item" asp-area="" asp-controller="#" asp-action="#">Locatie</a>
+                    <a class="dropdown-item" asp-area="" asp-controller="#" asp-action="#">Contact</a>
+                </div>
+            </li>
+        }
+    }
+
+</ul>
+<div>
     <form method="post" id="logoutForm" asp-action="Logoff" asp-controller="Account" class="form-inline">
         <ul class="nav navbar-nav">
             <li class="nav-link">Welkom, @User.Identity.Name</li>
@@ -47,15 +67,29 @@
             </li>
         </ul>
     </form>
+</div>
 }
+
 else
 {
-    <ul class="nav navbar-nav">
-        <li>
-            <a id="registerLink" class="nav-link" asp-action="Register" asp-controller="Account">Registreren</a>
-        </li>
-        <li>
-            <a id="loginLink" class="nav-link" asp-action="Login" asp-controller="Account">Inloggen</a>
-        </li>
-    </ul>
+<ul class="nav navbar-nav">
+    <li>
+        <a id="loginLink" class="nav-link" asp-action="" asp-controller="Home">Home</a>
+    </li>
+    <li>
+        <a id="loginLink" class="nav-link" asp-action="Login" asp-controller="Account">Inloggen</a>
+    </li>
+    <li>
+        <a id="loginLink" class="nav-link" asp-action="#" asp-controller="#">Openingstijden</a>
+    </li>
+    <li>
+        <a id="loginLink" class="nav-link" asp-action="#" asp-controller="#">Opslag</a>
+    </li>
+    <li>
+        <a id="loginLink" class="nav-link" asp-action="#" asp-controller="#">Locatie</a>
+    </li>
+    <li>
+        <a id="loginLink" class="nav-link" asp-action="#" asp-controller="#">Contact</a>
+    </li>
+</ul>
 }
