@@ -1,0 +1,35 @@
+﻿@model Project_CCSB.Models.ViewModels.MyVehiclesViewModel
+
+<h2>Alle voertuigen</h2>
+@if (ViewBag.vehicles.Count > 0)
+{
+    <table class="table-bordered w-100">
+        <thead class="">
+            <tr>
+                <th scope="col">Kenteken</th>
+                <th scope="col">Type</th>
+                <th scope="col">Merk</th>
+                <th scope="col">Lengte</th>
+                <th scope="col">Stroom</th>
+                <th scope="col">Eigenaar</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var vehicle in ViewBag.vehicles)
+            {
+                <tr>
+                    <td>@vehicle.LicensePlate</td>
+                    <td>@vehicle.Type</td>
+                    <td>@vehicle.Brand</td>
+                    <td>@vehicle.Length meter</td>
+                    <td>@vehicle.PowerText</td>
+                    <td>@vehicle.FullName</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <h3>Er zijn geen voertuigen van gebruikers geregistreerd.</h3>
+}
