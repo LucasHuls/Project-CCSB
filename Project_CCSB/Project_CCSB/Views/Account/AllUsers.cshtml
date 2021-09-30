@@ -1,0 +1,43 @@
+﻿@model Project_CCSB.Models.ViewModels.UserViewModel
+
+<h4>Gebruikers</h4>
+<table class="table-bordered w-100" id="userTable">
+    <thead>
+        <tr>
+            <th scope="row" class="col-1">Naam</th>
+            <th scope="row" class="col-1">Email</th>
+            <th scope="row" class="col-1">Rol</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var user in ViewBag.Users)
+        {
+            <tr>
+                <td class="col-1">@user.Name</td>
+                <td class="col-1">@user.Email</td>
+                <td class="col-1">@user.Role</td>
+            </tr>
+        }        
+    </tbody>
+</table>
+
+<h4 class="pt-5">Beheerders</h4>
+<table class="table-bordered w-100" id="adminTable">
+    <thead>
+        <tr>
+            <th scope="row" class="col-1">Naam</th>
+            <th scope="row" class="col-1">Email</th>
+            <th scope="row" class="col-1">Rol</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var admin in ViewBag.Admins)
+        {
+            <tr>
+                <td class="col-1">@admin.Name</td>
+                <td class="col-1">@admin.Email</td>
+                <td class="col-1">@admin.Role</td>
+            </tr>
+        }
+    </tbody>
+</table>

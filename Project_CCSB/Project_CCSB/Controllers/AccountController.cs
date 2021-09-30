@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Project_CCSB.Models;
+using Project_CCSB.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -67,6 +68,7 @@ namespace Project_CCSB.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
             if (ModelState.IsValid)
@@ -88,7 +90,6 @@ namespace Project_CCSB.Controllers
                 if (result.Succeeded)
                 {
                     await _userManager.AddToRoleAsync(user, model.RoleName);
-                    await _signInManager.SignInAsync(user, isPersistent: false);
                     return RedirectToAction("index", "home");
                 }
                 // Add all errors to the modelstate
@@ -97,6 +98,39 @@ namespace Project_CCSB.Controllers
                     ModelState.AddModelError("", error.Description);
                 }
             }
+            return View();
+        }
+
+        [Authorize(Roles = "Admin")]
+        public IActionResult AllUsers()
+        {
+            // Get all users
+            var allUsers = (from user in _db.Users
+                            join userRole in _db.UserRoles on user.Id equals userRole.UserId
+                            join role in _db.Roles on userRole.RoleId equals role.Id
+                            select new UserViewModel
+                            {
+                                Id = user.Id,
+                                Name = string.IsNullOrEmpty(user.MiddleName) ?
+                                    user.FirstName + " " + user.LastName :
+                                    user.FirstName + " " + user.MiddleName + " " + user.LastName,
+                                Email = user.Email,
+                                Role = role.Name
+                            }).ToList();
+
+            // Sort result in 'admins' and 'users'
+            List<UserViewModel> users = new List<UserViewModel>();
+            List<UserViewModel> admins = new List<UserViewModel>();
+            foreach (var user in allUsers)
+            {
+                if (user.Role == "Admin")
+                    admins.Add(user);
+                else
+                    users.Add(user);
+            }
+
+            ViewBag.Users = users;
+            ViewBag.Admins = admins;
             return View();
         }
     }
