@@ -8,15 +8,15 @@ namespace Project_CCSB.Models
 {
     public static class Helper
     {
-        public static readonly string Admin = "Beheerder";
-        public static readonly string User = "Gebruiker";
+        public static readonly string Admin = "Admin";
+        public static readonly string User = "User";
         
         public static List<SelectListItem> GetRolesForDropDown(bool isAdmin)
         {
             var items = new List<SelectListItem>
             {
-                new SelectListItem{ Value = Helper.Admin, Text = Helper.Admin},
-                new SelectListItem{ Value = Helper.User, Text = Helper.User}
+                new SelectListItem{ Value = Helper.Admin, Text = "Beheerder"},
+                new SelectListItem{ Value = Helper.User, Text = "Gebruiker"}
             };
             return items.OrderBy(s => s.Text).ToList();
         }
