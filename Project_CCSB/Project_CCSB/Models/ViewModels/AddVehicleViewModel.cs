@@ -28,5 +28,9 @@ namespace Project_CCSB.Models.ViewModels
         [DisplayName("Stroomaansluiting")]
         [Required(ErrorMessage = "{0} is een verplicht veld")]
         public bool Power { get; set; }
+
+        [DisplayName("Gebruiker")]
+        [Required(ErrorMessage = "{0} is een verplicht veld")]
+        public string User { get; set; }
     }
 }
