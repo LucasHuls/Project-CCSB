@@ -101,18 +101,21 @@ h1.backgroundsubtitle {
 #contact {
     font-family: 'Segoe UI';
 }
-.textright {
-    margin-left: -125px;
-}
 
 h1.titlecontact {
-    font-weight: bold;
     font-size: 60px;
+    font-weight: bold;
+    margin-bottom: 50px;
 }
 
 h2.time {
-    
+    margin-bottom: 75px;
 }
+
+h3.contact {
+    margin-bottom: 100px;
+}
+
 
 /*--------------------------------------------------
     End Extra CSS -Bram*/
