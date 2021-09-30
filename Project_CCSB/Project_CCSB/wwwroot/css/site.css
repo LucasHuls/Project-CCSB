@@ -94,3 +94,25 @@ h1.backgroundsubtitle {
 }
 /*--------------------------------------------------
     End Extra CSS -Lucas*/
+
+/* Begin Extra CSS -Bram
+-------------------------------------------------- */
+
+#contact {
+    font-family: 'Segoe UI';
+}
+.textright {
+    margin-left: -125px;
+}
+
+h1.titlecontact {
+    font-weight: bold;
+    font-size: 60px;
+}
+
+h2.time {
+    
+}
+
+/*--------------------------------------------------
+    End Extra CSS -Bram*/
