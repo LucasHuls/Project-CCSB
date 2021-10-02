@@ -43,6 +43,11 @@ namespace Project_CCSB.Controllers
             return View();
         }
 
+        public IActionResult Storage()
+        {
+            return View();
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
