@@ -48,9 +48,9 @@
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">Informatie</a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item" asp-area="" asp-controller="#" asp-action="#">Openingstijden</a>
+                    <a class="dropdown-item" asp-area="" asp-controller="home" asp-action="openinghours">Openingstijden</a>
                     <a class="dropdown-item" asp-area="" asp-controller="#" asp-action="#">Opslag</a>
-                    <a class="dropdown-item" asp-area="" asp-controller="#" asp-action="#">Locatie</a>
+                    <a class="dropdown-item" asp-area="" asp-controller="home" asp-action="location">Locatie</a>
                     <a class="dropdown-item" asp-area="" asp-controller="home" asp-action="contact">Contact</a>
                 </div>
             </li>
@@ -80,13 +80,13 @@ else
         <a id="loginLink" class="nav-link" asp-action="Login" asp-controller="Account">Inloggen</a>
     </li>
     <li>
-        <a id="loginLink" class="nav-link" asp-action="#" asp-controller="#">Openingstijden</a>
+        <a id="loginLink" class="nav-link" asp-action="OpeningHours" asp-controller="Home">Openingstijden</a>
     </li>
     <li>
         <a id="loginLink" class="nav-link" asp-action="#" asp-controller="#">Opslag</a>
     </li>
     <li>
-        <a id="loginLink" class="nav-link" asp-action="#" asp-controller="#">Locatie</a>
+        <a id="loginLink" class="nav-link" asp-action="Location" asp-controller="Home">Locatie</a>
     </li>
     <li>
         <a id="loginLink" class="nav-link" asp-action="contact" asp-controller="home">Contact</a>
