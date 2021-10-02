@@ -5,7 +5,7 @@
 <ul class="navbar-nav mr-auto">
     @if (User.Identity.IsAuthenticated)
     {
-        @if (User.IsInRole("Beheerder")) //Checks if the user is 'beheerder'
+        @if (User.IsInRole(Helper.Admin)) //Checks if the user is 'beheerder'
         {
             <li class="nav-item">
                 <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
@@ -29,12 +29,12 @@
                     <a class="dropdown-item" asp-area="" asp-controller="#" asp-action="#">Openingstijden</a>
                     <a class="dropdown-item" asp-area="" asp-controller="#" asp-action="#">Opslag</a>
                     <a class="dropdown-item" asp-area="" asp-controller="#" asp-action="#">Locatie</a>
-                    <a class="dropdown-item" asp-area="" asp-controller="#" asp-action="#">Contact</a>
+                    <a class="dropdown-item" asp-area="" asp-controller="home" asp-action="contact">Contact</a>
                 </div>
             </li>
         }
 
-        @if (User.IsInRole("Gebruiker")) //Checks if the user is 'gebruiker'
+        @if (User.IsInRole(Helper.User)) //Checks if the user is 'gebruiker'
         {
             <li class="nav-item">
                 <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
@@ -51,7 +51,7 @@
                     <a class="dropdown-item" asp-area="" asp-controller="#" asp-action="#">Openingstijden</a>
                     <a class="dropdown-item" asp-area="" asp-controller="#" asp-action="#">Opslag</a>
                     <a class="dropdown-item" asp-area="" asp-controller="#" asp-action="#">Locatie</a>
-                    <a class="dropdown-item" asp-area="" asp-controller="#" asp-action="#">Contact</a>
+                    <a class="dropdown-item" asp-area="" asp-controller="home" asp-action="contact">Contact</a>
                 </div>
             </li>
         }
@@ -89,7 +89,7 @@ else
         <a id="loginLink" class="nav-link" asp-action="#" asp-controller="#">Locatie</a>
     </li>
     <li>
-        <a id="loginLink" class="nav-link" asp-action="#" asp-controller="#">Contact</a>
+        <a id="loginLink" class="nav-link" asp-action="contact" asp-controller="home">Contact</a>
     </li>
 </ul>
 }
