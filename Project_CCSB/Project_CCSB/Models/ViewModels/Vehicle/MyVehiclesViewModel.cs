@@ -13,7 +13,7 @@ namespace Project_CCSB.Models.ViewModels
 
         public string Brand { get; set; }
 
-        public int Length { get; set; }
+        public decimal Length { get; set; }
 
         public bool Power { get; set; }
 

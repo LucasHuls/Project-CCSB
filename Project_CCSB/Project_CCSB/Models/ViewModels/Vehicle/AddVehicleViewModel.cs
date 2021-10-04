@@ -23,7 +23,8 @@ namespace Project_CCSB.Models.ViewModels
 
         [DisplayName("Lengte")]
         [Required(ErrorMessage = "{0} is een verplicht veld")]
-        public int Length { get; set; }
+        [DisplayFormat(DataFormatString = "{0:D}")]
+        public string Length { get; set; }
 
         [DisplayName("Stroomaansluiting")]
         [Required(ErrorMessage = "{0} is een verplicht veld")]

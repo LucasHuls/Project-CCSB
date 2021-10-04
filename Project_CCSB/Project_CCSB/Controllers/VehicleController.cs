@@ -27,21 +27,25 @@ namespace Project_CCSB.Controllers
         [Authorize(Roles = "Admin")]
         public IActionResult AddVehicle()
         {
-            // Get all users with role of 'user'
+
+            ViewBag.UserSelect = _GetUsers();
+            return View();
+        }
+
+        private SelectList _GetUsers()
+        {
             var users = (from user in _db.Users
                          join userRole in _db.UserRoles on user.Id equals userRole.UserId
                          join role in _db.Roles.Where(x => x.Name == Helper.User) on userRole.RoleId equals role.Id
                          select new UserViewModel
-                         { 
+                         {
                              Id = user.Id,
-                             Name = string.IsNullOrEmpty(user.MiddleName) ? 
-                                user.FirstName + " " + user.LastName :
-                                user.FirstName + " " + user.MiddleName + " " + user.LastName
+                             Name = string.IsNullOrEmpty(user.MiddleName) ?
+                             user.FirstName + " " + user.LastName :
+                             user.FirstName + " " + user.MiddleName + " " + user.LastName
                          }).OrderBy(u => u.Name).ToList();
 
-            SelectList items = new SelectList(users, "Id", "Name");
-            ViewBag.UserSelect = items;
-            return View();
+            return new SelectList(users, "Id", "Name");
         }
 
         /// <summary>
@@ -57,12 +61,30 @@ namespace Project_CCSB.Controllers
 
             if (ModelState.IsValid)
             {
+                // First check if license plate is not a duplicate
+                var duplicate = _db.Vehicles.Any(x => x.LicensePlate == model.LicensePlate);
+                if (duplicate)
+                {
+                    ModelState.AddModelError("", "Kenteken bestaat al");
+                    ViewBag.UserSelect = _GetUsers();
+                    return View();
+                }
+
+                // Check if input length is decimal value
+                if (!decimal.TryParse(model.Length, out _))
+                {
+                    ModelState.AddModelError("", "Geen geldige lengte");
+                    ViewBag.UserSelect = _GetUsers();
+                    return View();
+                }
+
+
                 Vehicle newVehicle = new Vehicle()
                 {
                     LicensePlate = model.LicensePlate,
                     Type = model.Type,
                     Brand = model.Brand,
-                    Length = model.Length,
+                    Length = decimal.Parse(model.Length.Replace('.', ',')),
                     Power = model.Power,
                     ApplicationUser = user
                 };

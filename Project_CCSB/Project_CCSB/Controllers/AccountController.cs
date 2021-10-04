@@ -13,9 +13,9 @@ namespace Project_CCSB.Controllers
     public class AccountController : Controller
     {
         private readonly ApplicationDbContext _db;
-        UserManager<ApplicationUser> _userManager;
-        SignInManager<ApplicationUser> _signInManager;
-        RoleManager<IdentityRole> _roleManager;
+        readonly UserManager<ApplicationUser> _userManager;
+        readonly SignInManager<ApplicationUser> _signInManager;
+        readonly RoleManager<IdentityRole> _roleManager;
 
         public AccountController(ApplicationDbContext db,
             UserManager<ApplicationUser> userManager,
@@ -56,6 +56,7 @@ namespace Project_CCSB.Controllers
             return RedirectToAction("Login");
         }
 
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Register()
         {
             if (!_roleManager.RoleExistsAsync(Helper.Admin).GetAwaiter().GetResult())
@@ -90,7 +91,7 @@ namespace Project_CCSB.Controllers
                 if (result.Succeeded)
                 {
                     await _userManager.AddToRoleAsync(user, model.RoleName);
-                    return RedirectToAction("index", "home");
+                    return RedirectToAction("AllUsers", "Account");
                 }
                 // Add all errors to the modelstate
                 foreach (var error in result.Errors)
