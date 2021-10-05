@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Camper & Caravan Stalling Bentelo</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" href="~/css/site.css" />
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" />
@@ -14,19 +14,17 @@
     <link href="~/lib/select2/css/select2.css" rel="stylesheet" />
 </head>
 <body>
-    <header class="color">
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" href="#">
-                    <img src="/img/web_icon.svg" width="30" height="30" class="d-inline-block align-top" alt="">
-                    CCSB
-                </a>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <partial name="_LoginPartial" />
-                </div>
-            </div>
-        </nav>
-    </header>
+       <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light box-shadow mb-3" style="background-color: #d3d3d3 ;">
+           <div class="container">
+               <a class="navbar-brand" href="#">
+                   <img src="/img/picto CCSB.png" width="30" height="30" class="d-inline-block align-top" alt="">
+                   CCSB
+               </a>
+               <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                   <partial name="_LoginPartial" />
+               </div>
+           </div>
+       </nav>
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
