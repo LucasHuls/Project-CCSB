@@ -31,6 +31,16 @@ namespace Project_CCSB.Models
             return items.ToList();
         }
 
+        public static List<SelectListItem> GetBringOrReceive()
+        {
+            var items = new List<SelectListItem>
+            {
+                new SelectListItem{Value = "true", Text = "Brengen"},
+                new SelectListItem{Value = "false", Text = "Ophalen"}
+            };
+            return items.ToList();
+        }
+
         public static List<SelectListItem> GetAllUsers()
         {
             var items = new List<SelectListItem>
