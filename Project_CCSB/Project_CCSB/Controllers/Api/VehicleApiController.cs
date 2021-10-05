@@ -15,9 +15,10 @@ namespace Project_CCSB.Controllers.Api
         private readonly IVehicleService _vehicleService;
         private readonly HttpContextAccessor _httpContextAccessor;
 
-        public VehicleApiController(IVehicleService vehicleService, HttpContextAccessor)
+        public VehicleApiController(IVehicleService vehicleService, HttpContextAccessor httpContextAccessor)
         {
             _vehicleService = vehicleService;
+            _httpContextAccessor = httpContextAccessor;
         }
     }
 }
