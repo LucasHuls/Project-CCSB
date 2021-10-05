@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Project_CCSB.Models;
 using Project_CCSB.Models.ViewModels;
+using Project_CCSB.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,35 +18,22 @@ namespace Project_CCSB.Controllers
         private readonly ApplicationDbContext _db;
         UserManager<ApplicationUser> _userManager;
 
+        private readonly IVehicleService _vehicleService;
+
         public VehicleController(ApplicationDbContext db,
-            UserManager<ApplicationUser> userManager)
+            UserManager<ApplicationUser> userManager, IVehicleService vehicleService)
         {
             _db = db;
             _userManager = userManager;
+            _vehicleService = vehicleService;
         }
 
         [Authorize(Roles = "Admin")]
         public IActionResult AddVehicle()
         {
 
-            ViewBag.UserSelect = _GetUsers();
+            ViewBag.UserSelect = new SelectList(_vehicleService.GetUserList(), "Id", "Name");
             return View();
-        }
-
-        private SelectList _GetUsers()
-        {
-            var users = (from user in _db.Users
-                         join userRole in _db.UserRoles on user.Id equals userRole.UserId
-                         join role in _db.Roles.Where(x => x.Name == Helper.User) on userRole.RoleId equals role.Id
-                         select new UserViewModel
-                         {
-                             Id = user.Id,
-                             Name = string.IsNullOrEmpty(user.MiddleName) ?
-                             user.FirstName + " " + user.LastName :
-                             user.FirstName + " " + user.MiddleName + " " + user.LastName
-                         }).OrderBy(u => u.Name).ToList();
-
-            return new SelectList(users, "Id", "Name");
         }
 
         /// <summary>
@@ -66,7 +54,7 @@ namespace Project_CCSB.Controllers
                 if (duplicate)
                 {
                     ModelState.AddModelError("", "Kenteken bestaat al");
-                    ViewBag.UserSelect = _GetUsers();
+                    ViewBag.UserSelect = new SelectList(_vehicleService.GetUserList(), "Id", "Name");
                     return View();
                 }
 
@@ -74,7 +62,7 @@ namespace Project_CCSB.Controllers
                 if (!decimal.TryParse(model.Length, out _))
                 {
                     ModelState.AddModelError("", "Geen geldige lengte");
-                    ViewBag.UserSelect = _GetUsers();
+                    ViewBag.UserSelect = new SelectList(_vehicleService.GetUserList(), "Id", "Name");
                     return View();
                 }
 
@@ -118,6 +106,14 @@ namespace Project_CCSB.Controllers
                             }).ToList();
             ViewBag.Vehicles = vehicles;
             return View();
+        }
+
+        [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
+        public IActionResult DeleteVehicle(string id)
+        {
+            Console.WriteLine(id);
+            return RedirectToAction("AllVehicles", "Vehicle");
         }
 
         /// <summary>
