@@ -90,7 +90,24 @@ h1.backgroundsubtitle {
     position: absolute;
     top: 50%;
     margin-top: -50px;
+}
 
+.fade-in-text {
+    display: inline-block;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 150px;
+    color: black;
+    animation: fadeIn linear 3s;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
 }
 /*--------------------------------------------------
     End Extra CSS -Lucas*/
@@ -109,13 +126,16 @@ h1.titlecontact {
 }
 
 h2.time {
-    margin-bottom: 75px;
-}
-
-h3.contact {
     margin-bottom: 100px;
 }
 
+h3.contact {
+    margin-bottom: 125px;
+}
+
+a:link {
+    color: black;   
+}
 
 /*--------------------------------------------------
     End Extra CSS -Bram*/
