@@ -109,13 +109,16 @@ h1.titlecontact {
 }
 
 h2.time {
-    margin-bottom: 75px;
-}
-
-h3.contact {
     margin-bottom: 100px;
 }
 
+h3.contact {
+    margin-bottom: 125px;
+}
+
+a:link {
+    color: black;   
+}
 
 /*--------------------------------------------------
     End Extra CSS -Bram*/
