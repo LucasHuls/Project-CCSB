@@ -1,10 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Project_CCSB.Models.ViewModels;
 using Project_CCSB.Services;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Project_CCSB.Controllers.Api
 {
@@ -13,12 +11,39 @@ namespace Project_CCSB.Controllers.Api
     public class VehicleApiController : ControllerBase
     {
         private readonly IVehicleService _vehicleService;
-        private readonly HttpContextAccessor _httpContextAccessor;
 
-        public VehicleApiController(IVehicleService vehicleService, HttpContextAccessor httpContextAccessor)
+        public VehicleApiController(IVehicleService vehicleService)
         {
             _vehicleService = vehicleService;
-            _httpContextAccessor = httpContextAccessor;
+        }
+
+        [HttpPost]
+        [Route("SaveVehicle")]
+        public IActionResult SaveVehicle(VehicleViewModel data)
+        {
+            Console.WriteLine("SaveVehicle");
+            CommonResponse<int> commonResponse = new CommonResponse<int>();
+            try
+            {
+                commonResponse.Status = _vehicleService.AddUpdate(data).Result;
+                if (commonResponse.Status == 1)
+                {
+                    // Update vehicle success
+                    commonResponse.Message = "Voertuig is aangepast";
+                }
+                else if (commonResponse.Status == 2)
+                {
+                    // Succesful added vehicle
+                    commonResponse.Message = "Voertuig is toegevoegd";
+                }
+            }
+            catch (Exception ex)
+            {
+                commonResponse.Message = ex.Message;
+                commonResponse.Status = 0;
+            }
+            Console.WriteLine(commonResponse.Message);
+            return Ok(commonResponse);
         }
     }
 }

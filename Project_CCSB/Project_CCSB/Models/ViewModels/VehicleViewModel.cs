@@ -7,31 +7,24 @@ using System.Threading.Tasks;
 
 namespace Project_CCSB.Models.ViewModels
 {
-    public class AddVehicleViewModel
+    public class VehicleViewModel
     {
         [DisplayName("Kenteken")]
-        [Required(ErrorMessage = "{0} is een verplicht veld")]
         public string LicensePlate { get; set; }
 
-        [DisplayName("Soort voertuig")]
-        [Required(ErrorMessage = "{0} is een verplicht veld")]
+        [DisplayName("Type")]
         public string Type { get; set; }
 
         [DisplayName("Merk")]
-        [Required(ErrorMessage = "{0} is een verplicht veld")]
         public string Brand { get; set; }
 
         [DisplayName("Lengte")]
-        [Required(ErrorMessage = "{0} is een verplicht veld")]
-        [DisplayFormat(DataFormatString = "{0:D}")]
         public string Length { get; set; }
 
         [DisplayName("Stroomaansluiting")]
-        [Required(ErrorMessage = "{0} is een verplicht veld")]
-        public bool Power { get; set; }
+        public string Power { get; set; }
 
         [DisplayName("Gebruiker")]
-        [Required(ErrorMessage = "{0} is een verplicht veld")]
         public string User { get; set; }
     }
 }

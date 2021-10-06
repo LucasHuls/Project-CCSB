@@ -1,5 +1,4 @@
 ﻿using Project_CCSB.Models.ViewModels;
-using Project_CCSB.Models.ViewModels.Vehicle;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,5 +10,6 @@ namespace Project_CCSB.Services
     {
         public List<VehicleViewModel> GetVehicleList();
         public List<UserViewModel> GetUserList();
+        public Task<int> AddUpdate(VehicleViewModel model);
     }
 }

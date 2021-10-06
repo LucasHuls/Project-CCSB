@@ -41,20 +41,14 @@ namespace Project_CCSB.Models
             return items.ToList();
         }
 
-        public static List<SelectListItem> GetAllUsers()
+        public static List<SelectListItem> GetVehicleType()
         {
             var items = new List<SelectListItem>
             {
-
+                new SelectListItem{Value = "Camper", Text = "Camper"},
+                new SelectListItem{Value = "Caravan", Text = "Caravan"}
             };
             return items.ToList();
-        }
-
-        public static string GetFullName(string fn, string mn, string ln) // First, middle and last name
-        {
-            return string.IsNullOrEmpty(mn) ?
-                fn + " " + ln :
-                fn + " " + mn + " " + ln;
         }
     }
 }

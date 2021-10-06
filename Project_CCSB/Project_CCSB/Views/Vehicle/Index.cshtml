@@ -1,35 +1,34 @@
-﻿@model Project_CCSB.Models.ViewModels.AddVehicleViewModel
+﻿@model Project_CCSB.Models.ViewModels.VehicleViewModel
 
 <h2>Voertuig</h2>
-<form method="post" asp-action="AddVehicle" asp-controller="Vehicle">
     <h4>Nieuw voertuig</h4>
     <hr />
     <div asp-validation-summary="All" class="text-danger"></div>
     <div class="form-group row">
         <label class="col-md-2" asp-for="LicensePlate"></label>
         <div class="col-md-10">
-            <input asp-for="LicensePlate" class="form-control" />
+            <input asp-for="LicensePlate" id="inputLicensePlate" class="form-control" />
             <span asp-validation-for="LicensePlate" class="text-danger"></span>
         </div>
     </div>
     <div class="form-group row">
         <label class="col-md-2" asp-for="Type"></label>
         <div class="col-md-10">
-            <input asp-for="Type" class="form-control" />
+            <input asp-for="Type" id="inputType" class="form-control" />
             <span asp-validation-for="Type" class="text-danger"></span>
         </div>
     </div>
     <div class="form-group row">
         <label class="col-md-2" asp-for="Brand"></label>
         <div class="col-md-10">
-            <input asp-for="Brand" class="form-control" />
+            <input asp-for="Brand" id="inputBrand" class="form-control" />
             <span asp-validation-for="Brand" class="text-danger"></span>
         </div>
     </div>
     <div class="form-group row">
         <label class="col-md-2" asp-for="Length"></label>
         <div class="col-md-10">
-            <input type="text" asp-for="Length" class="form-control" />
+            <input asp-for="Length" id="inputLength" class="form-control" />
             <span asp-validation-for="Length" class="text-danger"></span>
         </div>
     </div>
@@ -38,6 +37,7 @@
         <div class="col-md-10">
             <select asp-for="Power"
                     asp-items="@Project_CCSB.Models.Helper.GetYesOrNo()"
+                    id="inputPower"
                     class="form-control">
                 <option selected>Kies ja of nee</option>
             </select>
@@ -45,22 +45,49 @@
         </div>
     </div>
     <div class="form-group row">
-        <label class="col-md-2" asp-for="User">Gebruiker</label>
+        <label class="col-md-2" asp-for="User"></label>
         <div class="col-md-10">
             <select asp-for="User"
-                    asp-items="@ViewBag.UserSelect"
+                    asp-items="@ViewBag.UserList"
+                    id="inputUser"
                     class="form-control">
                 <option selected>Kies een gebruiker</option>
             </select>
+            <span asp-validation-for="User" class="text-danger"></span>
         </div>
-        <span asp-validation-for="User" class="text-danger"></span>
     </div>
     <div class="form-group">
         <div class="col-md-10 offset-md-2">
-            <input type="submit" value="Toevoegen" class="btn btn-success" />
+            <input type="submit" value="Toevoegen" onclick="OnSubmit()" class="btn btn-success" />
         </div>
     </div>
-</form>
+<script>
+    function OnSubmit() {
+        console.log("Klik");
+        var routeURL = location.protocol + "//" + location.host;
+        var data = {
+            LicensePlate: $("#inputLicensePlate").val(),
+            Type: $("#inputType").val(),
+            Brand: $("#inputBrand").val(),
+            Length: $("#inputLength").val(),
+            Power: $("#inputPower").val(),
+            User: $("#inputUser").val()
+        }
+
+        $.ajax({
+            url: routeURL + "/api/VehicleApi/SaveVehicle",
+            type: "POST",
+            data: JSON.stringify(data),
+            contentType: "application/json",
+            success: function (response) {
+                console.log(response);
+            },
+            error: function (err) {
+                console.log(err.responseText);
+            }
+        });
+    }
+</script>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

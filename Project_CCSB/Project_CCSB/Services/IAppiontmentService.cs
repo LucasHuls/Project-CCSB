@@ -5,7 +5,8 @@ using System.Threading.Tasks;
 
 namespace Project_CCSB.Services
 {
-    interface IAppiontmentService
+    public interface IAppiontmentService
     {
+
     }
 }
