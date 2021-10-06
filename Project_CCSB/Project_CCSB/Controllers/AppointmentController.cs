@@ -20,6 +20,7 @@ namespace Project_CCSB.Controllers
         public IActionResult Index()
         {
             ViewBag.Vehicles = new SelectList(_vehicleService.GetVehicleList(), "LicensePlate", "LicensePlate", "", "Brand");
+            ViewBag.Users = new SelectList(_vehicleService.GetUserList(), "Name", "Name");
             return View();
         }
     }

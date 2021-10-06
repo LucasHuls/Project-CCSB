@@ -27,5 +27,8 @@ namespace Project_CCSB.Models.ViewModels.Appointment
 
         [DisplayName("Voertuig:")]
         public string AppointmentVehicle { get; set; }
+
+        [DisplayName("Gebruiker:")]
+        public string AppointmentUser { get; set; }
     }
 }

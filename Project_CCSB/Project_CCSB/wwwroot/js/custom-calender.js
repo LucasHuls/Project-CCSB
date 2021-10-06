@@ -28,6 +28,11 @@ function InitializeCalendar() {
         alert(e);
     }
 }
-function onShowModal(obj, isEventDeail) {
+
+function onShowModal(obj, isEventDeail) { //Opens popup modal
     $("#appointmentInput").modal("show");
+}
+
+function onSubmitForm() {
+    //TODO: .....
 }
