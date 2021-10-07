@@ -14,9 +14,14 @@
     <div class="form-group row">
         <label class="col-md-2" asp-for="Type"></label>
         <div class="col-md-10">
-            <input asp-for="Type" id="inputType" class="form-control" />
+            <select asp-for="Type"
+                    asp-items="@Project_CCSB.Models.Helper.GetVehicleType()"
+                    id="inputType"
+                    class="form-control">
+                <option selected>Kies caravan of camper</option>
+            </select>
             <span asp-validation-for="Type" class="text-danger"></span>
-        </div>
+    </div>
     </div>
     <div class="form-group row">
         <label class="col-md-2" asp-for="Brand"></label>
@@ -29,7 +34,7 @@
         <label class="col-md-2" asp-for="Length"></label>
         <div class="col-md-10">
             <input asp-for="Length" id="inputLength" class="form-control" />
-            <span asp-validation-for="Length" class="text-danger"></span>
+            <span asp-validation-for="Length" id="errorLength" class="text-danger"></span>
         </div>
     </div>
     <div class="form-group row">
@@ -63,7 +68,10 @@
     </div>
 <script>
     function OnSubmit() {
-        console.log("Klik");
+        console.log("valideren");
+        if (!Validate()) return;
+        console.log("Gevalideerd");
+
         var routeURL = location.protocol + "//" + location.host;
         var data = {
             LicensePlate: $("#inputLicensePlate").val(),
@@ -81,11 +89,23 @@
             contentType: "application/json",
             success: function (response) {
                 console.log(response);
+                window.location = routeURL + "/Vehicle/AllVehicles";
             },
             error: function (err) {
                 console.log(err.responseText);
             }
         });
+    }
+    function Validate() {
+        var length = $("#inputLength").val();
+        length = length.split('.').join();
+        if (length.length <= 0) {
+            $("#errorLength").text("Lengte is geen nummer");
+            return false;
+        }
+        console.log(length);
+
+        return true;
     }
 </script>
 

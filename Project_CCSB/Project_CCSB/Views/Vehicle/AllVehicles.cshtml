@@ -1,0 +1,27 @@
+﻿@model Project_CCSB.Models.ViewModels.VehicleViewModel
+
+<h2>Alle voertuigen</h2>
+
+<div class="container-fluid">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th scope="col">Kenteken</th>
+                <th scope="col">Merk</th>
+                <th scope="col">Lengte</th>
+                <th scope="col">Stroom</th>
+                <th scope="col">Gebruiker</th>
+            </tr>
+        </thead>
+        @foreach (var vehicle in ViewBag.Vehicles)
+        {
+            <tr>
+                <td>@vehicle.LicensePlate</td>
+                <td>@vehicle.Brand</td>
+                <td>@vehicle.Length meter</td>
+                <td>@vehicle.PowerText</td>
+                <td>@vehicle.FullName</td>
+            </tr>
+        }
+    </table>
+</div>

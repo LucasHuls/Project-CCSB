@@ -134,5 +134,16 @@ namespace Project_CCSB.Controllers
             ViewBag.Admins = admins;
             return View();
         }
+        
+        public async Task<IActionResult> Profile()
+        {
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+
+            return View(new ApplicationUser {
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Email = user.Email
+            });
+        }
     }
 }

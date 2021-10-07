@@ -22,12 +22,17 @@ namespace Project_CCSB.Services
         public List<VehicleViewModel> GetVehicleList()
         {
             var vehicles = (from vehicle in _db.Vehicles
+                            join user in _db.Users on vehicle.ApplicationUser.Id equals user.Id
                             select new VehicleViewModel 
                             {
                                 LicensePlate = vehicle.LicensePlate,
                                 Brand = vehicle.Brand,
                                 Power = vehicle.Power.ToString(),
-                                Type = vehicle.Type
+                                Length = vehicle.Length.ToString(),
+                                Type = vehicle.Type,
+                                FirstName = user.FirstName,
+                                MiddleName = user.MiddleName,
+                                LastName = user.LastName
                             }).OrderBy(x => x.Brand).ToList();
 
             return vehicles;
