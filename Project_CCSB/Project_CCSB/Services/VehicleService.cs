@@ -59,7 +59,9 @@ namespace Project_CCSB.Services
         {
             // Get User
             var user = await _userManager.FindByIdAsync(model.User);
+            Console.WriteLine("Voor " + model.Length);
             decimal length = Decimal.Parse(model.Length);
+            Console.WriteLine("Na " + length);
             bool power = model.Power == "true" ? true : false;
 
             if (model != null && _db.Vehicles.Any(x => x.LicensePlate == model.LicensePlate))

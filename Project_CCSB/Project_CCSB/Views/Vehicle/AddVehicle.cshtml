@@ -8,7 +8,7 @@
         <label class="col-md-2" asp-for="LicensePlate"></label>
         <div class="col-md-10">
             <input asp-for="LicensePlate" id="inputLicensePlate" class="form-control" />
-            <span asp-validation-for="LicensePlate" class="text-danger"></span>
+            <span asp-validation-for="LicensePlate" id="licensePlateError" class="text-danger"></span>
         </div>
     </div>
     <div class="form-group row">
@@ -33,7 +33,7 @@
     <div class="form-group row">
         <label class="col-md-2" asp-for="Length"></label>
         <div class="col-md-10">
-            <input asp-for="Length" id="inputLength" class="form-control" onchange="change()" />
+            <input asp-for="Length" id="inputLength" class="form-control" />
             <span asp-validation-for="Length" id="errorLength" class="text-danger"></span>
         </div>
     </div>
@@ -68,14 +68,17 @@
     </div>
 <script>
     function OnSubmit() {
-        if (!Validate()) return;
+        var length = $("#inputLength").val();
+        if (!Validate(length)) return;
+
+        length = length.replace(".", ","); // Change the . to a ,
 
         var routeURL = location.protocol + "//" + location.host;
         var data = {
             LicensePlate: $("#inputLicensePlate").val(),
             Type: $("#inputType").val(),
             Brand: $("#inputBrand").val(),
-            Length: $("#inputLength").val(),
+            Length: length,
             Power: $("#inputPower").val(),
             User: $("#inputUser").val()
         }
@@ -87,7 +90,11 @@
             contentType: "application/json",
             success: function (response) {
                 console.log(response);
-                //window.location = routeURL + "/Vehicle/AllVehicles";
+                if (response.status == 1) {
+                    $("#licensePlateError").text("Dit kenteken bestaat al");
+                } else {
+                    window.location = routeURL + "/Vehicle/AllVehicles";
+                }
             },
             error: function (err) {
                 console.log(err.responseText);
@@ -95,20 +102,13 @@
         });
     }
 
-    function change() {
-        console.log(Validate());
-    }
-    function Validate() {
-        var length = $("#inputLength").val();
-
+    function Validate(length) {
         length = length.replace(",", ".");
         if (isNaN(length)) {
             $("#errorLength").text("Lengte is geen nummer");
             return false;
         }
-        length = length.replace(".", ",");
 
-        console.log(length);
         return true;
     }
 </script>
