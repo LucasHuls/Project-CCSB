@@ -21,7 +21,6 @@ namespace Project_CCSB.Controllers.Api
         [Route("SaveVehicle")]
         public IActionResult SaveVehicle(VehicleViewModel data)
         {
-            Console.WriteLine("SaveVehicle");
             CommonResponse<int> commonResponse = new CommonResponse<int>();
             try
             {
@@ -42,7 +41,29 @@ namespace Project_CCSB.Controllers.Api
                 commonResponse.Message = ex.Message;
                 commonResponse.Status = 0;
             }
-            Console.WriteLine(commonResponse.Message);
+            return Ok(commonResponse);
+        }
+
+        [HttpDelete]
+        [Route("DeleteVehicle")]
+        public IActionResult DeleteVehicle([FromHeader]string licensePlate)
+        {
+            Console.WriteLine("APIController " + licensePlate);
+            CommonResponse<int> commonResponse = new CommonResponse<int>();
+            try
+            {
+                commonResponse.Status = _vehicleService.DeleteVehicle(licensePlate).Result;
+                if (commonResponse.Status == 1)
+                {
+                    // Delete vehicle success
+                    commonResponse.Message = "Voertuig is verwijderd";
+                }
+            }
+            catch (Exception ex)
+            {
+                commonResponse.Message = ex.Message;
+                commonResponse.Status = 0;
+            }
             return Ok(commonResponse);
         }
     }

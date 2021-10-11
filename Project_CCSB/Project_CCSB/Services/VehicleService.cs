@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Project_CCSB.Models;
 using Project_CCSB.Models.ViewModels;
 using System;
@@ -82,6 +83,24 @@ namespace Project_CCSB.Services
                 await _db.SaveChangesAsync();
                 return 2;
             }
+        }
+
+        public async Task<int> DeleteVehicle(string licensePlate)
+        {
+            var vehicle = _db.Vehicles.Where(x => x.LicensePlate == licensePlate).AsNoTracking().ToList();
+
+            Vehicle vehicleToDelete = new Vehicle 
+            { 
+                ApplicationUser = vehicle[0].ApplicationUser,
+                LicensePlate = vehicle[0].LicensePlate,
+                Brand = vehicle[0].Brand,
+                Length = vehicle[0].Length,
+                Power = vehicle[0].Power,
+                Type = vehicle[0].Type
+            };
+            _db.Vehicles.Remove(vehicleToDelete);
+            await _db.SaveChangesAsync();
+            return 1;
         }
     }
 }

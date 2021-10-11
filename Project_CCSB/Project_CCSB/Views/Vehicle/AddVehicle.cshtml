@@ -33,7 +33,7 @@
     <div class="form-group row">
         <label class="col-md-2" asp-for="Length"></label>
         <div class="col-md-10">
-            <input asp-for="Length" id="inputLength" class="form-control" />
+            <input asp-for="Length" id="inputLength" class="form-control" onchange="change()" />
             <span asp-validation-for="Length" id="errorLength" class="text-danger"></span>
         </div>
     </div>
@@ -68,9 +68,7 @@
     </div>
 <script>
     function OnSubmit() {
-        console.log("valideren");
         if (!Validate()) return;
-        console.log("Gevalideerd");
 
         var routeURL = location.protocol + "//" + location.host;
         var data = {
@@ -89,22 +87,28 @@
             contentType: "application/json",
             success: function (response) {
                 console.log(response);
-                window.location = routeURL + "/Vehicle/AllVehicles";
+                //window.location = routeURL + "/Vehicle/AllVehicles";
             },
             error: function (err) {
                 console.log(err.responseText);
             }
         });
     }
+
+    function change() {
+        console.log(Validate());
+    }
     function Validate() {
         var length = $("#inputLength").val();
-        length = length.split('.').join();
-        if (length.length <= 0) {
+
+        length = length.replace(",", ".");
+        if (isNaN(length)) {
             $("#errorLength").text("Lengte is geen nummer");
             return false;
         }
-        console.log(length);
+        length = length.replace(".", ",");
 
+        console.log(length);
         return true;
     }
 </script>

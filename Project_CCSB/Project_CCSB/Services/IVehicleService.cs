@@ -11,5 +11,6 @@ namespace Project_CCSB.Services
         public List<VehicleViewModel> GetVehicleList();
         public List<UserViewModel> GetUserList();
         public Task<int> AddUpdate(VehicleViewModel model);
+        public Task<int> DeleteVehicle(string licensePlate);
     }
 }
