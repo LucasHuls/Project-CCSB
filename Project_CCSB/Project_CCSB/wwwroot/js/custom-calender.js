@@ -1,4 +1,9 @@
-﻿$(document).ready(function () {
+﻿var routeURL = location.protocol + "//" + location.host;
+$(document).ready(function () {
+    $("#appointmentDate").kendoDateTimePicker({
+        value: new Date(),
+        dateInput: false
+    });
     InitializeCalendar();
 });
 var calendar;
@@ -33,6 +38,34 @@ function onShowModal(obj, isEventDeail) { //Opens popup modal
     $("#appointmentInput").modal("show");
 }
 
+function onCloseModal(obj, isEventDeail) { //Closes popup modal
+    $("#appointmentInput").modal("hide");
+}
+
 function onSubmitForm() {
-    //TODO: .....
+    var requestData = {
+        Date: $('#date').val(),
+        Time: $('#time').val(),
+        VehicleLicensePlate: $('#licensePlate').val(),
+        AppointMentType: $('#appointmentType').val()
+    };
+    console.log(requestData);
+
+    $.ajax({
+        url: routeURL + "/api/AppointmentApi/SaveCalendarData",
+        type: "POST",
+        data: JSON.stringify(requestData),
+        contentType: "application/json",
+        success: function (response) {
+            if (response.status === 1 || response.status === 2) {
+                $.notify(response.message, "succes");
+                onCloseModal();
+            } else {
+                $.notify(response.message, "error");
+            }
+        },
+        error: function (xhr) {
+            $.notify("Error", "Foutje");
+        }
+    })
 }

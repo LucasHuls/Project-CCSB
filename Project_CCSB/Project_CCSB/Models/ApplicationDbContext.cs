@@ -15,5 +15,13 @@ namespace Project_CCSB.Models
         }
 
         public DbSet<Vehicle> Vehicles { get; set; }
+        public DbSet<Appointment> Appointments { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Appointment>().HasKey(a => new { a.Date, a.Time, a.VehicleLicensePlate });
+
+            base.OnModelCreating(modelBuilder);
+        }
     }
 }

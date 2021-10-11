@@ -12,21 +12,21 @@
                     <div class="form-group row">
                         <label class="col-md-2" asp-for="AppointmentDate"></label>
                         <div class="col-md-10">
-                            <input asp-for="AppointmentDate" class="form-control" />
+                            <input id="date" asp-for="AppointmentDate" class="form-control" />
                             <span asp-validation-for="AppointmentDate" class="text-danger"></span>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-md-2" asp-for="AppointmentTime"></label>
                         <div class="col-md-10">
-                            <input asp-for="AppointmentTime" class="form-control" />
+                            <input id="time" asp-for="AppointmentTime" class="form-control" />
                             <span asp-validation-for="AppointmentTime" class="text-danger"></span>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-md-2" asp-for="AppointmentType"></label>
                         <div class="col-md-10">
-                            <select asp-for="AppointmentType"
+                            <select id="appointmentType" asp-for="AppointmentType"
                                     asp-items="@Project_CCSB.Models.Helper.GetBringOrReceive()"
                                     class="form-control">
                                 <option selected>Kies brengen of ophalen</option>
@@ -36,7 +36,7 @@
                     <div class="form-group row">
                         <label class="col-md-2" asp-for="AppointmentVehicle"></label>
                         <div class="col-md-10">
-                            <select asp-for="AppointmentVehicle"
+                            <select id="licensePlate" asp-for="AppointmentVehicle"
                                     asp-items="@ViewBag.Vehicles" class="form-control"></select>
                             <span asp-validation-for="AppointmentVehicle" class="text-danger"></span>
                         </div>
@@ -51,8 +51,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Sluiten</button>
-                    <button type="button" class="btn btn-primary">Opslaan</button>
+                    <button type="button" class="btn btn-secondary" onclick="onCloseModal()">Sluiten</button>
+                    <button type="button" class="btn btn-primary" onclick="onSubmitForm()">Opslaan</button>
                 </div>
             </form>
         </div>
