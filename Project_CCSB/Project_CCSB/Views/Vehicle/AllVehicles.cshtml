@@ -11,7 +11,7 @@
                 <th scope="col">Lengte</th>
                 <th scope="col">Stroom</th>
                 <th scope="col">Gebruiker</th>
-                <th scope="col">Verwijder</th>
+                <th scope="col" class="col-1">Verwijder</th>
             </tr>
         </thead>
         @foreach (var vehicle in ViewBag.Vehicles)
@@ -22,7 +22,7 @@
                 <td>@vehicle.Length meter</td>
                 <td>@vehicle.PowerText</td>
                 <td>@vehicle.FullName</td>
-                <td><button class="btn" onclick="PopUpShow('@vehicle.LicensePlate')">X</button></td>
+                <td class="col-1"><button class="btn" onclick="PopUpShow('@vehicle.LicensePlate')">X</button></td>
             </tr>
         }
     </table>

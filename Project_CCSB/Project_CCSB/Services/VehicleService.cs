@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Project_CCSB.Models;
 using Project_CCSB.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace Project_CCSB.Services
@@ -13,11 +15,16 @@ namespace Project_CCSB.Services
     {
         private readonly ApplicationDbContext _db;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly string _userId;
 
-        public VehicleService(ApplicationDbContext db, UserManager<ApplicationUser> userManager)
+        public VehicleService(
+            ApplicationDbContext db,
+            UserManager<ApplicationUser> userManager,
+            IHttpContextAccessor httpContextAccessor)
         {
             _db = db;
             _userManager = userManager;
+            _userId = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
         }
 
         public List<VehicleViewModel> GetVehicleList()
@@ -47,26 +54,43 @@ namespace Project_CCSB.Services
                          select new UserViewModel
                          {
                              Id = user.Id,
-                             Name = string.IsNullOrEmpty(user.MiddleName) ?
-                             user.FirstName + " " + user.LastName :
-                             user.FirstName + " " + user.MiddleName + " " + user.LastName
-                         }).OrderBy(u => u.Name).ToList();
+                             FirstName = user.FirstName,
+                             MiddleName = user.MiddleName,
+                             LastName = user.LastName
+                         }).OrderBy(u => u.LastName).ToList();
 
             return users;
         }
 
-        public async Task<int> AddUpdate(VehicleViewModel model)
+        public List<VehicleViewModel> GetUserVehicleList()
         {
-            // Get User
-            var user = await _userManager.FindByIdAsync(model.User);
-            Console.WriteLine("Voor " + model.Length);
-            decimal length = Decimal.Parse(model.Length);
-            Console.WriteLine("Na " + length);
-            bool power = model.Power == "true" ? true : false;
+            var vehicles = (from vehicle in _db.Vehicles
+                            join user in _db.Users on vehicle.ApplicationUser.Id equals user.Id
+                            where user.Id == _userId
+                            select new VehicleViewModel
+                            {
+                                LicensePlate = vehicle.LicensePlate,
+                                Brand = vehicle.Brand,
+                                Power = vehicle.Power.ToString(),
+                                Length = vehicle.Length.ToString(),
+                                Type = vehicle.Type,
+                                FirstName = user.FirstName,
+                                MiddleName = user.MiddleName,
+                                LastName = user.LastName
+                            }).OrderBy(x => x.Brand).ToList();
+
+            return vehicles;
+        }
+
+        public async Task<int> StoreVehicle(VehicleViewModel model)
+        {
+            var user = await _userManager.FindByIdAsync(model.User);    // Get User
+            decimal length = Decimal.Parse(model.Length);               // Convert string to correct type (decimal)
+            bool power = model.Power == "true" ? true : false;          // Turn string into correct type (boolean)
 
             if (model != null && _db.Vehicles.Any(x => x.LicensePlate == model.LicensePlate))
             {
-                // Add code for update
+                // Vehicle already exists
                 return 1;
             }
             else

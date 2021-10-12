@@ -24,7 +24,7 @@ namespace Project_CCSB.Controllers.Api
             CommonResponse<int> commonResponse = new CommonResponse<int>();
             try
             {
-                commonResponse.Status = _vehicleService.AddUpdate(data).Result;
+                commonResponse.Status = _vehicleService.StoreVehicle(data).Result;
                 if (commonResponse.Status == 1)
                 {
                     // Update vehicle success

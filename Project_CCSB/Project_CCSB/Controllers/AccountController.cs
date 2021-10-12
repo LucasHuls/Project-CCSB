@@ -112,9 +112,9 @@ namespace Project_CCSB.Controllers
                             select new UserViewModel
                             {
                                 Id = user.Id,
-                                Name = string.IsNullOrEmpty(user.MiddleName) ?
-                                    user.FirstName + " " + user.LastName :
-                                    user.FirstName + " " + user.MiddleName + " " + user.LastName,
+                                FirstName = user.FirstName,
+                                MiddleName = user.MiddleName,
+                                LastName = user.LastName,
                                 Email = user.Email,
                                 Role = role.Name
                             }).ToList();

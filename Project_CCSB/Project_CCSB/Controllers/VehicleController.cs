@@ -21,6 +21,14 @@ namespace Project_CCSB.Controllers
             return View();
         }
 
+        public IActionResult UserVehicles()
+        {
+            var vehicles = _vehicleService.GetUserVehicleList();
+            ViewBag.Vehicles = vehicles;
+            return View();
+        }
+
+        [Authorize(Roles = "Admin")]
         public IActionResult AllVehicles()
         {
             var vehicles = _vehicleService.GetVehicleList();
