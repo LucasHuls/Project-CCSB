@@ -27,7 +27,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
-    <PackageReference Include="Postal.Mvc5" Version="1.2.0" />
+    <PackageReference Include="NETCore.MailKit" Version="2.0.3" />
   </ItemGroup>
 
 </Project>
