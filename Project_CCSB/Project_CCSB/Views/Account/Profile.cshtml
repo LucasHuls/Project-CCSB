@@ -24,10 +24,28 @@
             <div class="col-md-4"><label class="labels">Adres</label><p>@Model.Adress</p></div>
             <div class="col-md-4"><label class="labels">PostCode</label><p>@Model.ZipCode</p></div>
         </div>
+        <hr />
+        <div class="row mt-2">
+            <div class="col-md-12"><label class="labels">Wachtwoord</label>
+                <p><a class="btn-block nav-link changePasswordBtn" asp-action="ChangePassWord" asp-controller="Account">Verander</a></p></div>
+        </div>
     </div>
 </div>
 <style>
     label {
         font-weight: bold;
+    }
+
+    .changePasswordBtn {
+        width: fit-content;
+        padding: 0.5rem;
+        border: 0.1rem solid #000;
+        border-radius: 0.2rem;
+        text-decoration: none;
+        color: black;
+    }
+    .changePasswordBtn:hover {
+        color: #fff;
+        background: #000;
     }
 </style>

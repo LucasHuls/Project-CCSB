@@ -101,6 +101,34 @@ namespace Project_CCSB.Controllers
             return View();
         }
 
+        public IActionResult ChangePassWord()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ChangePassWord(ChangePasswordViewModel model)
+        {
+            if (model.NewPassWord != model.NewPassWordConfirm)
+            {
+                ModelState.AddModelError("", "Wachtwoorden komen niet overeen");
+                return View();
+            }
+
+            ApplicationUser user = await _userManager.GetUserAsync(HttpContext.User);
+
+            var result = await _userManager.ChangePasswordAsync(user, model.OldPassWord, model.NewPassWord);
+
+            if (result.Succeeded)
+            {
+                await _signInManager.SignOutAsync();
+                return RedirectToAction("Login");
+            }
+            ModelState.AddModelError("", "Oud wachtwoord is verkeerd");
+            return View();
+        }
+
         [Authorize(Roles = "Admin")]
         public IActionResult AllUsers()
         {
