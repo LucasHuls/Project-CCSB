@@ -19,7 +19,7 @@ namespace Project_CCSB.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Appointment>().HasKey(a => new { a.Date, a.Time, a.VehicleLicensePlate });
+            modelBuilder.Entity<Appointment>().HasKey(a => new { a.Date, a.LicensePlate });
 
             base.OnModelCreating(modelBuilder);
         }

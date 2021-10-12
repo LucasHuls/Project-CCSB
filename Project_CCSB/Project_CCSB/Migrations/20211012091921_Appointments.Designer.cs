@@ -10,8 +10,8 @@ using Project_CCSB.Models;
 namespace Project_CCSB.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20211007090824_Appointment added")]
-    partial class Appointmentadded
+    [Migration("20211012091921_Appointments")]
+    partial class Appointments
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -246,16 +246,13 @@ namespace Project_CCSB.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("Time")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("VehicleLicensePlate")
+                    b.Property<string>("LicensePlate")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<bool>("AppointmentType")
-                        .HasColumnType("bit");
+                    b.Property<string>("AppointmentType")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Date", "Time", "VehicleLicensePlate");
+                    b.HasKey("Date", "LicensePlate");
 
                     b.ToTable("Appointments");
                 });

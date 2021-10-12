@@ -12,6 +12,6 @@ namespace Project_CCSB.Models.ViewModels
         public DateTime Date { get; set; }
         public DateTime Time { get; set; }
         public string LicensePlate { get; set; }
-        public bool AppointmentType { get; set; }
+        public string AppointmentType { get; set; }
     }
 }

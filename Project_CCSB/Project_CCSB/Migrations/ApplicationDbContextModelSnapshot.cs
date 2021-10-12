@@ -244,16 +244,13 @@ namespace Project_CCSB.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("Time")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("VehicleLicensePlate")
+                    b.Property<string>("LicensePlate")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<bool>("AppointmentType")
-                        .HasColumnType("bit");
+                    b.Property<string>("AppointmentType")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Date", "Time", "VehicleLicensePlate");
+                    b.HasKey("Date", "LicensePlate");
 
                     b.ToTable("Appointments");
                 });

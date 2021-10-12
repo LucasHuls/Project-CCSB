@@ -14,11 +14,8 @@ namespace Project_CCSB.Models
         public DateTime Date { get; set; }
 
         [Key, Column(Order = 2)]
-        public DateTime Time { get; set; }
+        public string LicensePlate { get; set; }
 
-        [Key, Column(Order = 3)]
-        public string VehicleLicensePlate { get; set; }
-
-        public bool AppointmentType { get; set; }
+        public string AppointmentType { get; set; }
     }
 }

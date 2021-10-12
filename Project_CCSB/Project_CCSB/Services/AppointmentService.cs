@@ -29,8 +29,7 @@ namespace Project_CCSB.Services
                 Appointment appointment = new Appointment()
                 {
                     Date = model.Date,
-                    Time = model.Time,
-                    VehicleLicensePlate = model.LicensePlate,
+                    LicensePlate = model.LicensePlate,
                     AppointmentType = model.AppointmentType
                 };
                 _db.Appointments.Add(appointment);

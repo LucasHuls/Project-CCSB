@@ -30,6 +30,7 @@ namespace Project_CCSB
             services.AddControllersWithViews();
 
             services.AddTransient<IVehicleService, VehicleService>();
+            services.AddTransient<IAppointmentService, AppointmentService>();
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();

@@ -1,6 +1,6 @@
 ﻿var routeURL = location.protocol + "//" + location.host;
 $(document).ready(function () {
-    $("#appointmentDate").kendoDateTimePicker({
+    $("#DateAndTime").kendoDateTimePicker({
         value: new Date(),
         dateInput: false
     });
@@ -45,10 +45,9 @@ function onCloseModal(obj, isEventDeail) { //Closes popup modal
 function onSubmitForm() {
     var requestData = {
         Date: $('#date').val(),
-        Time: $('#time').val(),
-        VehicleLicensePlate: $('#licensePlate').val(),
+        LicensePlate: $('#licensePlate').val(),
         AppointMentType: $('#appointmentType').val()
-    };
+    }
     console.log(requestData);
 
     $.ajax({

@@ -49,8 +49,8 @@ namespace Project_CCSB.Models
         {
             var items = new List<SelectListItem>
             {
-                new SelectListItem{Value = "true", Text = "Brengen"},
-                new SelectListItem{Value = "false", Text = "Ophalen"}
+                new SelectListItem{Value = "Brengen", Text = "Brengen"},
+                new SelectListItem{Value = "Brengen", Text = "Ophalen"}
             };
             return items.ToList();
         }
