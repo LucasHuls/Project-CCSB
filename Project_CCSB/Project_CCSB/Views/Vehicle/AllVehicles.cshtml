@@ -27,45 +27,7 @@
         }
     </table>
 
-    <div class="popUpDeleteVehicleBackground" hidden>
-        <div class="popUpDeleteVehicle">
-            <h3>Weet je zeker dat je dit<br />voertuig wilt verwijderen?</h3>
-            <div class="popUpDeleteVehicleButtonDiv">
-                <button class="btn-block btn-success deleteVehicleConfirm">JA</button>
-                <button class="btn-block btn-danger" onclick="PopUpRemove()">NEE</button>
-            </div>
-        </div>
-    </div>
-    <style>
-        .popUpDeleteVehicleBackground {
-            display: block;
-            position: absolute;
-            top: 0;
-            left: 0;
-            height: 100vh;
-            width: 100vw;
-            background: rgba(0, 0, 0, 0.5);
-        }
-        .popUpDeleteVehicle {
-            display: block;
-            position: absolute;
-            left: 50%;
-            top: 40%;
-            transform: translate(-50%, -50%);
-            background: lightgray;
-            padding: 1rem;
-            border-radius: 0.2rem;
-        }
-        .popUpDeleteVehicleButtonDiv {
-            display: block;
-            margin-top: 1rem;
-        }
-        .popUpDeleteVehicleButtonDiv button {
-            outline: 0;
-            height: 100%;
-            border: none;
-        }
-    </style>
+    <partial name="_ConfirmPopUp" />
 </div>
 
 <script>
@@ -82,17 +44,5 @@
                 location.reload();
             }
         });
-    }
-
-    function PopUpShow(licensePlate) {
-        $(".popUpDeleteVehicleBackground").attr("hidden", false);
-
-        $(".deleteVehicleConfirm").on("click", () => {
-            Delete(licensePlate);
-            PopUpRemove();
-        });
-    }
-    function PopUpRemove() {
-        $(".popUpDeleteVehicleBackground").attr("hidden", true);
     }
 </script>
