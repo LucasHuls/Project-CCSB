@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Project_CCSB.Models;
+using Project_CCSB.Services;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -12,14 +13,18 @@ namespace Project_CCSB.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IEmailSender _emailSender;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IEmailSender emailSender)
         {
             _logger = logger;
+            _emailSender = emailSender;
         }
 
         public IActionResult Index()
         {
+            var message = new Message(new string[] { "prive@lucashuls.nl" }, "Test email", "GayLord");
+            _emailSender.SendEmail(message);
             return View();
         }
 
