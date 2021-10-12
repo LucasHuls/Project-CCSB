@@ -1,13 +1,33 @@
 ﻿@model Project_CCSB.Models.ApplicationUser
 
-<h2>Jouw profiel</h2>
-<div class="container">
-    <div class="row">
-        <p class="col">Naam</p>
-        <p class="col">@Model.FullName</p>
+<div class="col-md">
+    <div class="p-3 py-5">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h4 class="text-right">Mijn Profiel</h4>
+        </div>
+        <div class="row mt-2">
+            <div class="col-md-4"><label class="labels">Voornaam</label><p>@Model.FirstName</p></div>
+            @if (!string.IsNullOrEmpty(Model.MiddleName))
+            {
+                <div class="col-md-4"><label class="labels">Tussenvoegsel</label><p>@Model.MiddleName</p></div>
+            }
+            <div class="col-md-4"><label class="labels">Achternaam</label><p>@Model.LastName</p></div>
+        </div>
+        <hr />
+        <div class="row mt-3">
+            <div class="col-md-12"><label class="labels">Email</label><p>@Model.Email</p></div>
+            <div class="col-md-12"><label class="labels">Rekeningnummer</label><p>@Model.AccountNumber</p></div>
+        </div>
+        <hr />
+        <div class="row mt-2">
+            <div class="col-md-4"><label class="labels">Stad</label><p>@Model.City</p></div>
+            <div class="col-md-4"><label class="labels">Adres</label><p>@Model.Adress</p></div>
+            <div class="col-md-4"><label class="labels">PostCode</label><p>@Model.ZipCode</p></div>
+        </div>
     </div>
-    <div class="row">
-
-    </div>
-
 </div>
+<style>
+    label {
+        font-weight: bold;
+    }
+</style>

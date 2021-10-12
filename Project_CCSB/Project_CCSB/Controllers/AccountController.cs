@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Project_CCSB.Models;
 using Project_CCSB.Models.ViewModels;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -142,7 +141,11 @@ namespace Project_CCSB.Controllers
             return View(new ApplicationUser {
                 FirstName = user.FirstName,
                 LastName = user.LastName,
-                Email = user.Email
+                Email = user.Email,
+                AccountNumber = user.AccountNumber,
+                City = user.City,
+                Adress = user.Adress,
+                ZipCode = user.ZipCode
             });
         }
     }

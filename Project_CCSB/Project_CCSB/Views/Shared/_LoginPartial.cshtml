@@ -61,7 +61,7 @@
 <div>
     <form method="post" id="logoutForm" asp-action="Logoff" asp-controller="Account" class="form-inline">
         <ul class="nav navbar-nav">
-            <li class="nav-link">Welkom, @User.Identity.Name</li>
+            <li><a class="nav-link" asp-action="Profile" asp-controller="Account">Welkom, @User.Identity.Name</a></li>
             <li>
                 <button type="submit" class="btn btn-outline-dark">Uitloggen</button>
             </li>
