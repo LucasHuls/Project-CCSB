@@ -1,8 +1,12 @@
 ﻿<li class="nav-item">
     <a class="nav-link text-dark" asp-controller="Home" asp-action="Index">Home</a>
 </li>
-<li>
-    <a id="registerLink" class="nav-link" asp-action="Register" asp-controller="Account">Registreren</a>
+<li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">Gebruikers</a>
+    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+        <a class="dropdown-item" asp-action="AllUsers" asp-controller="Account">Alle gebruikers</a>
+        <a class="dropdown-item" asp-action="Register" asp-controller="Account">Nieuwe gebruiker</a>
+    </div>
 </li>
 <li>
     <a id="registerLink" class="nav-link" asp-controller="Appointment" asp-action="Index">Reserveringen</a>
