@@ -1,0 +1,25 @@
+﻿<li class="nav-item">
+    <a class="nav-link text-dark" asp-controller="Home" asp-action="Index">Home</a>
+</li>
+<li>
+    <a id="registerLink" class="nav-link" asp-action="Register" asp-controller="Account">Registreren</a>
+</li>
+<li>
+    <a id="registerLink" class="nav-link" asp-controller="Appointment" asp-action="Index">Reserveringen</a>
+</li>
+<li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">Voertuigen</a>
+    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+        <a class="dropdown-item" asp-area="" asp-controller="Vehicle" asp-action="AllVehicles">Alle voertuigen</a>
+        <a class="dropdown-item" asp-area="" asp-controller="Vehicle" asp-action="AddVehicle">Voertuig aanmaken</a>
+    </div>
+</li>
+<li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">Informatie</a>
+    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+        <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="OpeningHours">Openingstijden</a>
+        <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Storage">Opslag</a>
+        <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Location">Locatie</a>
+        <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Contact">Contact</a>
+    </div>
+</li>

@@ -14,13 +14,19 @@
     <link href="~/lib/select2/css/select2.css" rel="stylesheet" />
 </head>
 <body>
-       <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light box-shadow mb-3 dropdown-header" style="background-color: #d3d3d3 ;">
+       <nav class="navbar navbar-expand-md navbar-toggleable-md navbar-light box-shadow mb-3 dropdown-header"
+            style="background-color: #d3d3d3; z-index: 1;">
            <div class="container">
                <a class="navbar-brand" href="/">
-                   <img src="/img/picto CCSB.png" width="30" height="30" class="d-inline-block align-top" alt="">
+                   <img src="/img/web_icon.svg" width="30" height="30" class="d-inline-block align-top" alt="">
                    CCSB
                </a>
-               <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+               <button class="navbar-toggler" type="button"
+                       data-toggle="collapse" data-target="#navbarSupportedContent"
+                       aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                   <span class="navbar-toggler-icon"></span>
+               </button>
+               <div class="navbar-collapse collapse d-md-inline-flex justify-content-between" id="navbarSupportedContent">
                    <partial name="_LoginPartial" />
                </div>
            </div>
