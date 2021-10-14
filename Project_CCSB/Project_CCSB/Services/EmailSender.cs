@@ -1,6 +1,8 @@
 ﻿using MailKit.Net.Smtp;
 using MimeKit;
 using Project_CCSB.Models;
+using System;
+using System.IO;
 
 namespace Project_CCSB.Services
 {
@@ -22,18 +24,19 @@ namespace Project_CCSB.Services
 
         private MimeMessage CreateEmailMessage(Message message)
         {
+            string emailFormat = System.IO.File.ReadAllText("Views/EmailFormat/emailFormat.html");
+
             var emailMessage = new MimeMessage();
             emailMessage.From.Add(new MailboxAddress(_emailConfig.From));
             emailMessage.To.AddRange(message.To);
-            emailMessage.Subject = message.Subject;         
-            emailMessage.Body = new TextPart(MimeKit.Text.TextFormat.Html)
-            {
-                Text = string.Format(
-                    "<h1 style='background-color: Gray; color: white; font-weight: bold; text-align: center;'><br/>Project CCSB</h1>" +
-                    "<h2 style='background-color: DodgerBlue; color: white; text-align: center;'><br/>{0}</h2>" +
-                    "<h6 style='text-align: left;'>Copyright ©</h6>"
-
-                    , message.Content)
+            emailMessage.Subject = message.Subject;
+            emailMessage.Body = new TextPart(MimeKit.Text.TextFormat.Html) { Text = string.Format(emailFormat, message.Content) };
+            };
+            };
+            };
+            };
+            };
+            };
             };
 
             return emailMessage;
