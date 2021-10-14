@@ -38,7 +38,7 @@ namespace Project_CCSB.Controllers
 
         public IActionResult OpeningHours()
         {
-            var message = new Message(new string[] { "projectCCSB@gmail.com" }, "Test email","Afspraak is bevestigd");
+            var message = new Message(new string[] { "projectCCSB@gmail.com" }, "Afspraak gemaakt","Afspraak bevestigd");
             _emailSender.SendEmail(message);
             return View();
         }

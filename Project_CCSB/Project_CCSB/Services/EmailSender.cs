@@ -31,13 +31,8 @@ namespace Project_CCSB.Services
             emailMessage.To.AddRange(message.To);
             emailMessage.Subject = message.Subject;
             emailMessage.Body = new TextPart(MimeKit.Text.TextFormat.Html) { Text = string.Format(emailFormat, message.Content) };
-            };
-            };
-            };
-            };
-            };
-            };
-            };
+        
+            
 
             return emailMessage;
         }
