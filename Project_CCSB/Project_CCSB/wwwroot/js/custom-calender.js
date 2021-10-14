@@ -7,7 +7,7 @@ $(document).ready(function () {
     InitializeCalendar();
 });
 var calendar;
-function InitializeCalendar() {
+async function InitializeCalendar() {
     try {
         var calendarEl = document.getElementById('calendar');
         if (calendarEl != null) {
@@ -22,9 +22,35 @@ function InitializeCalendar() {
                 selectable: true,
                 weekNumbers: false,
                 editable: false,
-                select: function (event) {
-                    onShowModal(event, null);
-                }
+                dateClick: function (info) {
+                    onShowModal(event, null, info.dateStr);
+                    //alert('clicked ' + info.dateStr);
+                },
+                eventClick: function (info) {
+                    alert('Title: ' + info.event.title + '\nLicensePlate: ' + info.event.description + '\nDate: ' + info.event.start);
+                },
+                events: function (fetchInfo, successCallback, failureCallback) {
+                    $.ajax({
+                        url: '/api/AppointmentApi/GetCalendarEvents',
+                        type: "GET",
+                        dataType: "JSON",
+                        success: function (result) {
+                            var events = [];
+                            $.each(result, function (i, data) {
+                                events.push(
+                                    {
+                                        title: data.LicensePlate,
+                                        description: data.AppointmentType,
+                                        start: data.Date,
+                                        end: data.Date,
+                                        color: getColorBasedOnType(data.AppointmentType),
+                                        textColor: 'black'
+                                    });
+                            });
+                            successCallback(events);
+                        },
+                    });
+                }      
             });
             calendar.render();
         }
@@ -34,8 +60,13 @@ function InitializeCalendar() {
     }
 }
 
-function onShowModal(obj, isEventDeail) { //Opens popup modal
+function onShowModal(obj, isEventDeail, eventDate) { //Opens popup modal
     $("#appointmentInput").modal("show");
+    $('#dateInput').eq(0).val(eventDate + "T13:00");
+}
+
+function openEventOnClick(eventTitle, eventDate, eventLicensePlate) { //Opens eventeditor modal
+    $("#EventEditor").modal("show");
 }
 
 function onCloseModal(obj, isEventDeail) { //Closes popup modal
@@ -44,7 +75,7 @@ function onCloseModal(obj, isEventDeail) { //Closes popup modal
 
 function onSubmitForm() {
     var requestData = {
-        Date: $('#date').val(),
+        Date: $('#dateInput').val(),
         LicensePlate: $('#licensePlate').val(),
         AppointMentType: $('#appointmentType').val()
     }
@@ -59,6 +90,7 @@ function onSubmitForm() {
             if (response.status === 1 || response.status === 2) {
                 $.notify(response.message, "succes");
                 onCloseModal();
+                calendar.refetchEvents()
             } else {
                 $.notify(response.message, "error");
             }
@@ -67,4 +99,12 @@ function onSubmitForm() {
             $.notify("Error", "Foutje");
         }
     })
+}
+
+function getColorBasedOnType(type) {
+    if (type == "Brengen") {
+        return "green";
+    } else {
+        return "red";
+    }
 }

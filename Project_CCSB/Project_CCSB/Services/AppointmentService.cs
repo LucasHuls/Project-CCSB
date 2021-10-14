@@ -18,9 +18,16 @@ namespace Project_CCSB.Services
 
         public async Task<int> AddUpdate(AppointmentViewModel model)
         {
-            if (model != null)
+            if (model != null && _db.Appointments.Any(x => x.LicensePlate == model.LicensePlate) && _db.Appointments.Any(x => x.Date == model.Date))
             {
-                //TODO: Add code for update appointment
+                Appointment appointmentToDelete = new Appointment
+                {
+                    Date = model.Date,
+                    LicensePlate = model.LicensePlate,
+                    AppointmentType = model.AppointmentType
+                };
+                _db.Appointments.Remove(appointmentToDelete);
+                await _db.SaveChangesAsync();
                 return 1;
             }
             else
@@ -36,6 +43,18 @@ namespace Project_CCSB.Services
                 await _db.SaveChangesAsync();
                 return 2;
             }
+        }
+
+        public List<Appointment> GetAppointments()
+        {
+            var appointmentlist = (from appointment in _db.Appointments
+                                   select new Appointment
+                                   {
+                                       Date = appointment.Date,
+                                       AppointmentType = appointment.AppointmentType,
+                                       LicensePlate = appointment.LicensePlate
+                                   }).ToList();
+            return appointmentlist;
         }
     }
 }

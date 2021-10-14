@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace Project_CCSB.Controllers.Api
@@ -53,6 +54,16 @@ namespace Project_CCSB.Controllers.Api
                 commonResponse.Status = Helper.Failure_code;
             }
             return Ok(commonResponse);
+        }
+
+        [HttpGet]
+        [Route("GetCalendarEvents")]
+        public string GetCalendarEvents()
+        {
+            var appointments = _appointmentService.GetAppointments();
+            var json = JsonSerializer.Serialize(appointments);
+
+            return json;
         }
     }
 }
