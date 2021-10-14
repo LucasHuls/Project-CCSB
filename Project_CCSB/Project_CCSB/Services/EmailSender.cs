@@ -26,7 +26,16 @@ namespace Project_CCSB.Services
             emailMessage.From.Add(new MailboxAddress(_emailConfig.From));
             emailMessage.To.AddRange(message.To);
             emailMessage.Subject = message.Subject;
-            emailMessage.Body = new TextPart(MimeKit.Text.TextFormat.Text) { Text = message.Content };
+            emailMessage.Body = new TextPart(MimeKit.Text.TextFormat.Html)
+            {
+                Text = string.Format(
+                    "<h1 style='font-weight: bold;'>Project CCSB</h1>" +
+                    "<h2 style='color:red;'>{0}</h2>" +
+                    "<div style='border: 2px solid black;'>Mooi vak</div>" +
+                    "<p style='margin-top:10px'>Dit is een leuk bericht</p>",
+
+                    message.Content)
+            };
 
             return emailMessage;
         }
