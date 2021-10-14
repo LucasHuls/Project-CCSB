@@ -21,6 +21,10 @@ namespace Project_CCSB.Models
         {
             modelBuilder.Entity<Appointment>().HasKey(a => new { a.Date, a.LicensePlate });
 
+            modelBuilder.Entity<Vehicle>()
+                .Property(p => p.Length)
+                .HasColumnType("decimal(18,4)");
+
             base.OnModelCreating(modelBuilder);
         }
     }
