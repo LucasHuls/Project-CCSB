@@ -1,0 +1,18 @@
+﻿<li class="nav-item">
+    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+</li>
+<li>
+    <a id="registerLink" class="nav-link" asp-controller="Appointment" asp-action="Index">Reserveringen</a>
+</li>
+<li>
+    <a id="registerLink" class="nav-link" asp-action="UserVehicles" asp-controller="Vehicle">Voertuigen</a>
+</li>
+<li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">Informatie</a>
+    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+        <a class="dropdown-item" asp-area="" asp-controller="home" asp-action="openinghours">Openingstijden</a>
+        <a class="dropdown-item" asp-area="" asp-controller="home" asp-action="storage">Opslag</a>
+        <a class="dropdown-item" asp-area="" asp-controller="home" asp-action="location">Locatie</a>
+        <a class="dropdown-item" asp-area="" asp-controller="home" asp-action="contact">Contact</a>
+    </div>
+</li>
