@@ -2,11 +2,7 @@
 using Microsoft.Extensions.Logging;
 using Project_CCSB.Models;
 using Project_CCSB.Services;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Project_CCSB.Controllers
 {
@@ -38,7 +34,7 @@ namespace Project_CCSB.Controllers
 
         public IActionResult OpeningHours()
         {
-            var message = new Message(new string[] { "projectCCSB@gmail.com" }, "Afspraak gemaakt","Afspraak bevestigd");
+            var message = new Message(new string[] { "projectCCSB@gmail.com" }, "Account", "Account geristreerd", "accountRegistered");
             _emailSender.SendEmail(message);
             return View();
         }

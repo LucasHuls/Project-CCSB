@@ -24,7 +24,7 @@ namespace Project_CCSB.Services
 
         private MimeMessage CreateEmailMessage(Message message)
         {
-            string emailFormat = System.IO.File.ReadAllText("Views/EmailFormat/emailFormat.html");
+            string emailFormat = System.IO.File.ReadAllText($"Views/EmailFormat/{message.Format}Format.html");
 
             var emailMessage = new MimeMessage();
             emailMessage.From.Add(new MailboxAddress(_emailConfig.From));
