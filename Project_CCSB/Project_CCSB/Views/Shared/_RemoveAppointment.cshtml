@@ -1,0 +1,20 @@
+﻿@model Project_CCSB.Models.ViewModels.Appointment.AddAppointmentViewModel
+
+<div class="modal fade" role="dialog" id="removeAppointment" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <form id="appointmentForm" autocomplete="off" novalidate="novalidate">
+                <div class="modal-header">
+                    <h4 class="modal-title">Wil je deze afspraak verwijderen?</h4>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="onCloseModal()">Sluiten</button>
+                    <button type="button" class="btn btn-primary" onclick="onSubmitForm()">Opslaan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script src="~/js/custom-calendar.js"></script>
+}

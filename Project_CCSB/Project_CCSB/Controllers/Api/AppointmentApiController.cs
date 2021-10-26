@@ -16,17 +16,19 @@ namespace Project_CCSB.Controllers.Api
     [ApiController]
     public class AppointmentApiController : Controller
     {
+        private readonly IEmailSender _emailSender;
         private readonly IAppointmentService _appointmentService;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly string loginUserId;
         private readonly string role;
 
-        public AppointmentApiController(IAppointmentService appointmentService, IHttpContextAccessor httpContextAccessor)
+        public AppointmentApiController(IAppointmentService appointmentService, IHttpContextAccessor httpContextAccessor, IEmailSender EmailSender )
         {
             _appointmentService = appointmentService;
             _httpContextAccessor = httpContextAccessor;
             loginUserId = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
             role = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.Role);
+            _emailSender = EmailSender;
         }
 
         [HttpPost]
@@ -46,6 +48,8 @@ namespace Project_CCSB.Controllers.Api
                 {
                     //Successful addition
                     commonResponse.Message = Helper.AppointmentAdded;
+                    var message = new Message(new string[] { "projectCCSB@gmail.com" }, "Afspraak", "Afspraken bekijken", "emailAfspraak");
+                    _emailSender.SendEmail(message);
                 }
             }
             catch (Exception ex)
