@@ -24,10 +24,9 @@ async function InitializeCalendar() {
                 editable: false,
                 dateClick: function (info) {
                     onShowModal(event, null, info.dateStr);
-                    //alert('clicked ' + info.dateStr);
                 },
                 eventClick: function (info) {
-                    alert('Title: ' + info.event.title + '\nLicensePlate: ' + info.event.description + '\nDate: ' + info.event.start);
+                    openEventOnClick();
                 },
                 events: function (fetchInfo, successCallback, failureCallback) {
                     $.ajax({
@@ -62,11 +61,11 @@ async function InitializeCalendar() {
 
 function onShowModal(obj, isEventDeail, eventDate) { //Opens popup modal
     $("#appointmentInput").modal("show");
-    $('#dateInput').eq(0).val(eventDate + "T13:00");
+    $('#dateInput').eq(0).val(eventDate + "T12:00");
 }
 
 function openEventOnClick(eventTitle, eventDate, eventLicensePlate) { //Opens eventeditor modal
-    $("#EventEditor").modal("show");
+    $("#removeAppointment").modal("show");
 }
 
 function onCloseModal(obj, isEventDeail) { //Closes popup modal
