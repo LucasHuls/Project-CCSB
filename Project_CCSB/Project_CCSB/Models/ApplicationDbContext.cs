@@ -1,9 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Project_CCSB.Models
 {
@@ -16,6 +12,8 @@ namespace Project_CCSB.Models
 
         public DbSet<Vehicle> Vehicles { get; set; }
         public DbSet<Appointment> Appointments { get; set; }
+        public DbSet<Contract> Contrats { get; set; }
+        public DbSet<Invoice> Invoices { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -23,6 +21,10 @@ namespace Project_CCSB.Models
 
             modelBuilder.Entity<Vehicle>()
                 .Property(p => p.Length)
+                .HasColumnType("decimal(18,4)");
+
+            modelBuilder.Entity<Invoice>()
+                .Property(p => p.Amount)
                 .HasColumnType("decimal(18,4)");
 
             base.OnModelCreating(modelBuilder);
