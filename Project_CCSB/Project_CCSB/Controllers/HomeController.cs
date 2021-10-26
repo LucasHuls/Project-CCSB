@@ -46,6 +46,8 @@ namespace Project_CCSB.Controllers
 
         public IActionResult Storage()
         {
+            var message = new Message(new string[] { "projectCCSB@gmail.com" }, "Account", "Factuur downloaden", "invoiceEmail");
+            _emailSender.SendEmail(message);
             return View();
         }
 
