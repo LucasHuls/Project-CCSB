@@ -1,4 +1,5 @@
-﻿using Project_CCSB.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using Project_CCSB.Models;
 using Project_CCSB.Models.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -55,6 +56,21 @@ namespace Project_CCSB.Services
                                        LicensePlate = appointment.LicensePlate
                                    }).ToList();
             return appointmentlist;
+        }
+
+        public async Task<int> DeleteAppointment(DateTime date)
+        {
+            var appointment = _db.Appointments.Where(x => x.Date == date).AsNoTracking().ToList();
+
+            Appointment appointmentToDelete = new Appointment
+            {
+                Date = appointment[0].Date,
+                AppointmentType = appointment[0].AppointmentType,
+                LicensePlate = appointment[0].LicensePlate
+            };
+            _db.Appointments.Remove(appointmentToDelete);
+            await _db.SaveChangesAsync();
+            return 1;
         }
     }
 }

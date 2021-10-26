@@ -25,8 +25,8 @@ async function InitializeCalendar() {
                 dateClick: function (info) {
                     onShowModal(event, null, info.dateStr);
                 },
-                eventClick: function (info) {
-                    openEventOnClick();
+                eventClick: function (info) {   // If appointment is clicked
+                    OpenPopUp(info.event);
                 },
                 events: function (fetchInfo, successCallback, failureCallback) {
                     $.ajax({
@@ -59,17 +59,22 @@ async function InitializeCalendar() {
     }
 }
 
-function onShowModal(obj, isEventDeail, eventDate) { //Opens popup modal
+function onShowModal(obj, isEventDeail, eventDate) {    // Opens popup modal
     $("#appointmentInput").modal("show");
     $('#dateInput').eq(0).val(eventDate + "T12:00");
 }
 
-function openEventOnClick(eventTitle, eventDate, eventLicensePlate) { //Opens eventeditor modal
-    $("#removeAppointment").modal("show");
+function onCloseModal() {   // Close popup modal
+    $("#appointmentInput").modal("hide");
 }
 
-function onCloseModal(obj, isEventDeail) { //Closes popup modal
-    $("#appointmentInput").modal("hide");
+function OpenPopUp(e) {  // Opens Remove pop up
+    $("#removeAppointment").modal("show");
+    $("#appointment_licensePlate").html(e.start);
+}
+
+function ClosePopUp() { // Closes Remove pop up
+    $("#removeAppointment").modal("hide");
 }
 
 function onSubmitForm() {
@@ -78,7 +83,6 @@ function onSubmitForm() {
         LicensePlate: $('#licensePlate').val(),
         AppointMentType: $('#appointmentType').val()
     }
-    console.log(requestData);
 
     $.ajax({
         url: routeURL + "/api/AppointmentApi/SaveCalendarData",
@@ -98,6 +102,23 @@ function onSubmitForm() {
             $.notify("Error", "Foutje");
         }
     })
+}
+
+function DeleteAppointment() {
+    var date = $("#appointment_licensePlate").html();
+    date = date.substring(0, 33);
+
+    $.ajax({
+        url: "https://localhost:5001/api/AppointmentApi/DeleteAppointment",
+        type: "Delete",
+        headers: {
+            "startDate": date
+        },
+        success: function (response) {
+            console.log(response);
+            location.reload();
+        }
+    });
 }
 
 function getColorBasedOnType(type) {
