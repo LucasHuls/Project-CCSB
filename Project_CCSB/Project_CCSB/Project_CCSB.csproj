@@ -15,7 +15,6 @@
 
   <ItemGroup>
     <Content Include="Views\EmailFormat\accountRegisteredFormat.html" />
-    <Content Include="Views\EmailFormat\emailAfspraakFormat.html" />
   </ItemGroup>
 
   <ItemGroup>
