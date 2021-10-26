@@ -1,16 +1,16 @@
 ﻿@inject Microsoft.AspNetCore.Identity.SignInManager<Project_CCSB.Models.ApplicationUser> signInManager
 
-@if (signInManager.IsSignedIn(User))
+@if (signInManager.IsSignedIn(User)) // User is signed in
 {
 <ul class="navbar-nav mr-auto">
     @if (User.Identity.IsAuthenticated)
     {
-        @if (User.IsInRole(Helper.Admin)) //Checks if the user is 'beheerder'
+        @if (User.IsInRole(Helper.Admin)) // Checks if the user is 'beheerder'
         {
             <partial name="Navbar/_NavbarAdmin" />
         }
 
-        @if (User.IsInRole(Helper.User)) //Checks if the user is 'gebruiker'
+        @if (User.IsInRole(Helper.User)) // Checks if the user is 'gebruiker'
         {
             <partial name="Navbar/_NavbarUser" />
         }
@@ -29,14 +29,11 @@
 </div>
 }
 
-else
+else // User is not signed in
 {
 <ul class="nav navbar-nav">
     <li>
         <a id="loginLink" class="nav-link" asp-action="" asp-controller="Home">Home</a>
-    </li>
-    <li>
-        <a id="loginLink" class="nav-link" asp-action="Login" asp-controller="Account">Inloggen</a>
     </li>
     <li>
         <a id="loginLink" class="nav-link" asp-action="OpeningHours" asp-controller="Home">Openingstijden</a>
@@ -48,7 +45,14 @@ else
         <a id="loginLink" class="nav-link" asp-action="Location" asp-controller="Home">Locatie</a>
     </li>
     <li>
-        <a id="loginLink" class="nav-link" asp-action="contact" asp-controller="home">Contact</a>
+        <a id="loginLink" class="nav-link" asp-action="Contact" asp-controller="Home">Contact</a>
     </li>
 </ul>
+<div>
+    <ul class="nav navbar-nav">
+        <li>
+            <a id="loginLink" class="btn btn-outline-dark" asp-action="Login" asp-controller="Account">Inloggen</a>
+        </li>
+    </ul>
+</div>
 }
