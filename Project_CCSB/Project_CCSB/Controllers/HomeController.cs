@@ -41,6 +41,9 @@ namespace Project_CCSB.Controllers
 
         public IActionResult Location()
         {
+            // Delete appointment 
+            var message = new Message(new string[] { "projectCCSB@gmail.com" }, "Afspraak", "Bekijk Afspraken", "deleteAppointment");
+            _emailSender.SendEmail(message);
             return View();
         }
 
