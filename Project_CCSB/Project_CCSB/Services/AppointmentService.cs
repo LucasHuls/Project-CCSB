@@ -46,16 +46,31 @@ namespace Project_CCSB.Services
             }
         }
 
-        public List<Appointment> GetAppointments()
+        public List<AppointmentViewModel> GetAppointments()
         {
             var appointmentlist = (from appointment in _db.Appointments
-                                   select new Appointment
+                                   join vehicle in _db.Vehicles on appointment.LicensePlate equals vehicle.LicensePlate
+                                   select new AppointmentViewModel
                                    {
                                        Date = appointment.Date,
                                        AppointmentType = appointment.AppointmentType,
-                                       LicensePlate = appointment.LicensePlate
+                                       LicensePlate = appointment.LicensePlate,
+                                       ApplicationUserFullName = vehicle.ApplicationUser.FullName
                                    }).ToList();
             return appointmentlist;
+        }
+
+        public string GetUserByLicensePlate(string licensePlate)
+        {
+            var userName = (from vehicle in _db.Vehicles.Where(x => x.LicensePlate == licensePlate)
+                            join user in _db.Users on vehicle.ApplicationUser.Id equals user.Id
+                            select new ApplicationUser
+                            {
+                                FirstName = user.FirstName,
+                                MiddleName = user.MiddleName,
+                                LastName = user.LastName
+                            }).FirstOrDefault();
+            return userName.FullName;
         }
 
         public async Task<int> DeleteAppointment(DateTime date)

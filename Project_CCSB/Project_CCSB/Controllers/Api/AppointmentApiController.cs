@@ -1,15 +1,10 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Project_CCSB.Models;
 using Project_CCSB.Models.ViewModels;
 using Project_CCSB.Services;
 using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Security.Claims;
 using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace Project_CCSB.Controllers.Api
 {
@@ -19,16 +14,10 @@ namespace Project_CCSB.Controllers.Api
     {
         private readonly IEmailSender _emailSender;
         private readonly IAppointmentService _appointmentService;
-        private readonly IHttpContextAccessor _httpContextAccessor;
-        private readonly string loginUserId;
-        private readonly string role;
 
-        public AppointmentApiController(IAppointmentService appointmentService, IHttpContextAccessor httpContextAccessor, IEmailSender EmailSender )
+        public AppointmentApiController(IAppointmentService appointmentService, IEmailSender EmailSender )
         {
             _appointmentService = appointmentService;
-            _httpContextAccessor = httpContextAccessor;
-            loginUserId = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            role = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.Role);
             _emailSender = EmailSender;
         }
 
@@ -49,7 +38,7 @@ namespace Project_CCSB.Controllers.Api
                 {
                     //Successful addition
                     commonResponse.Message = Helper.AppointmentAdded;
-                    var message = new Message(new string[] { "projectCCSB@gmail.com" }, "Afspraak", "Afspraken bekijken", "emailAfspraak");
+                    var message = new Message(new string[] { "projectCCSB@gmail.com" }, "Afspraak", "Afspraken bekijken", "addAppointment");
                     _emailSender.SendEmail(message);
                 }
             }
@@ -99,6 +88,13 @@ namespace Project_CCSB.Controllers.Api
             var json = JsonSerializer.Serialize(appointments);
 
             return json;
+        }
+
+        [HttpGet]
+        [Route("GetUserByVehicle/{licensePlate}")]
+        public string GetUserByVehicle(string licensePlate)
+        {
+            return _appointmentService.GetUserByLicensePlate(licensePlate);
         }
     }
 }

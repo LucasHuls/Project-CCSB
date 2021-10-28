@@ -9,7 +9,8 @@ namespace Project_CCSB.Services
     public interface IAppointmentService
     {
         public Task<int> AddUpdate(AppointmentViewModel model);
-        public List<Appointment> GetAppointments();
+        public List<AppointmentViewModel> GetAppointments();
+        public string GetUserByLicensePlate(string licensePlate);
         public Task<int> DeleteAppointment(DateTime date);
     }
 }

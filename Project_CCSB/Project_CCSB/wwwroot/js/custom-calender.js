@@ -24,9 +24,11 @@ async function InitializeCalendar() {
                 editable: false,
                 dateClick: function (info) {
                     onShowModal(event, null, info.dateStr);
+                    GetUser(document.getElementById("licensePlate").value);
                 },
                 eventClick: function (info) {   // If appointment is clicked
                     OpenPopUp(info.event);
+                    GetUserRemove(document.getElementById("licensePlateRemove").value);
                 },
                 events: function (fetchInfo, successCallback, failureCallback) {
                     $.ajax({
@@ -43,7 +45,8 @@ async function InitializeCalendar() {
                                         start: data.Date,
                                         end: data.Date,
                                         color: getColorBasedOnType(data.AppointmentType),
-                                        textColor: 'black'
+                                        textColor: 'black',
+                                        userName: data.ApplicationUserFullName
                                     });
                             });
                             successCallback(events);
@@ -69,8 +72,24 @@ function onCloseModal() {   // Close popup modal
 }
 
 function OpenPopUp(e) {  // Opens Remove pop up
+    $('#removeAppointmentDiv').data("oldData", e); // Set data so that if inputs are changed appointment can still be deleted
+    
     $("#removeAppointment").modal("show");
-    $("#appointment_licensePlate").html(e.start);
+    $("#subtitleRemove").text(date);
+    var date = ConvertStringToDateInput(e.start);
+    $('#dateInputRemove').eq(0).val(date);
+    $("#appointmentTypeRemove").val(e.extendedProps.description);
+    $("#licensePlateRemove").val(e.title);
+    $("#userRemove").val(e.extendedProps.userName);
+}
+
+function ConvertStringToDateInput(string) {
+    var date = new Date(string),
+        mnth = ("0" + (date.getMonth() + 1)).slice(-2),
+        day = ("0" + date.getDate()).slice(-2);
+    hours = ("0" + date.getHours()).slice(-2);
+    minutes = ("0" + date.getMinutes()).slice(-2);
+    return [date.getFullYear(), mnth, day].join("-") + "T" + hours + ":" + minutes;
 }
 
 function ClosePopUp() { // Closes Remove pop up
@@ -105,8 +124,10 @@ function onSubmitForm() {
 }
 
 function DeleteAppointment() {
-    var date = $("#appointment_licensePlate").html();
-    date = date.substring(0, 33);
+    var data = $("#removeAppointmentDiv").data("oldData");
+
+    var date = data.start;
+    date = date.toString().substring(0, 33);
 
     $.ajax({
         url: "https://localhost:5001/api/AppointmentApi/DeleteAppointment",
@@ -127,4 +148,30 @@ function getColorBasedOnType(type) {
     } else {
         return "red";
     }
+}
+
+function GetUser(licensePlate) {
+    fetch(routeURL + "/api/AppointmentApi/GetUserByVehicle/" + licensePlate, {
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        }
+    })
+        .then((response) => response.json())
+        .then((data) => {
+            document.getElementById("userText").innerText = data;
+        });
+}
+
+function GetUserRemove(licensePlate) {
+    fetch(routeURL + "/api/AppointmentApi/GetUserByVehicle/" + licensePlate, {
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        }
+    })
+        .then((response) => response.json())
+        .then((data) => {
+            document.getElementById("userTextRemove").innerText = data;
+        });
 }
