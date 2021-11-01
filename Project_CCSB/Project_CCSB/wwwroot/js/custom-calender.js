@@ -65,6 +65,8 @@ async function InitializeCalendar() {
 function onShowModal(obj, isEventDeail, eventDate) {    // Opens popup modal
     $("#appointmentInput").modal("show");
     $('#dateInput').eq(0).val(eventDate + "T12:00");
+
+    ClearDOMElements();
 }
 
 function onCloseModal() {   // Close popup modal
@@ -96,7 +98,49 @@ function ClosePopUp() { // Closes Remove pop up
     $("#removeAppointment").modal("hide");
 }
 
+function ClearDOMElements() {
+    $("#appointmentTypeValidation").html("");
+    $("#dateValidation").html("");
+}
+
+function ValidateNewAppointment() {
+    ClearDOMElements();
+
+    // Validate appointment type
+    var typeCheck = $("#appointmentType").val();
+    if (typeCheck == "Kies brengen of ophalen") {
+        $("#appointmentTypeValidation").html("Kies brengen of ophalen!");
+        return false;
+    }
+
+    // Validate appointment if date is in the past
+    var date = $("#dateInput").val();
+    var test = new Date(date);
+    if (test < new Date()) {
+        $("#dateValidation").html("Datum is in het verleden!");
+        return false;
+    }
+
+
+    var day = parseInt(date.split("-")[2].substring(0, 2));
+
+    var currentDate = new Date().toISOString();
+    var currentDay = parseInt(currentDate.split("-")[2].substring(0, 2));
+
+    if (day - currentDay <= 2) {
+        $("#dateValidation").html("Afspraak moet 2 dagen van tevoren gepland worden!");
+        return false;
+    }
+
+    // Passed validation
+    return true;
+}
+
 function onSubmitForm() {
+    if (!ValidateNewAppointment()) {
+        return;
+    }
+
     var requestData = {
         Date: $('#dateInput').val(),
         LicensePlate: $('#licensePlate').val(),
@@ -136,7 +180,6 @@ function DeleteAppointment() {
             "startDate": date
         },
         success: function (response) {
-            console.log(response);
             calendar.refetchEvents();
             ClosePopUp();
         }
