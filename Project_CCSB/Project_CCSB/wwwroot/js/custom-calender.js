@@ -137,7 +137,43 @@ function DeleteAppointment() {
         },
         success: function (response) {
             console.log(response);
-            location.reload();
+            calendar.refetchEvents();
+            ClosePopUp();
+        }
+    });
+}
+
+function EditAppointment() {
+    var requestData = {
+        Date: $('#dateInputRemove').val(),
+        LicensePlate: $('#licensePlateRemove').val(),
+        AppointMentType: $('#appointmentTypeRemove').val()
+    }
+
+    var oldDate = $("#removeAppointmentDiv").data("oldData").start;
+    oldDate = oldDate.toString().substring(0, 33);
+
+    $.ajax({
+        url: routeURL + "/api/AppointmentApi/EditAppointment",
+        type: "POST",
+        data: JSON.stringify(requestData),
+        contentType: "application/json",
+        headers: {
+            "oldDate": oldDate
+        },
+        success: function (response) {
+            if (response.status === 2) {
+                $.notify(response.message, "succes");
+                ClosePopUp();
+                calendar.refetchEvents();
+            } else {
+                console.log(response.message);
+                $.notify(response.message, "error");
+            }
+        },
+        error: function (err) {
+            $.notify("Error", "Foutje");
+            console.log(err);
         }
     });
 }

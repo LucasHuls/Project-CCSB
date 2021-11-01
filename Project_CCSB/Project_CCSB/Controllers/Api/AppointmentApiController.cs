@@ -5,6 +5,7 @@ using Project_CCSB.Services;
 using System;
 using System.Globalization;
 using System.Text.Json;
+using System.Threading.Tasks;
 
 namespace Project_CCSB.Controllers.Api
 {
@@ -50,6 +51,31 @@ namespace Project_CCSB.Controllers.Api
             return Ok(commonResponse);
         }
 
+        [HttpPost]
+        [Route("EditAppointment")]
+        public IActionResult EditAppointment([FromHeader]string oldDate, AppointmentViewModel data)
+        {
+            CommonResponse<int> commonResponse = new CommonResponse<int>();
+            try
+            {
+                DateTime formatDate = FormatDate(oldDate);
+                int deleted = _appointmentService.DeleteAppointment(formatDate).Result;
+
+                commonResponse.Status = _appointmentService.AddUpdate(data).Result;
+                if (commonResponse.Status == 2)
+                {
+                    //Successful addition
+                    commonResponse.Message = Helper.AppointmentUpdated;
+                }
+            }
+            catch (Exception ex)
+            {
+                commonResponse.Message = ex.Message;
+                commonResponse.Status = Helper.Failure_code;
+            }
+            return Ok(commonResponse);
+        }
+
         [HttpDelete]
         [Route("DeleteAppointment")]
         public IActionResult DeleteAppointment([FromHeader]string startDate)
@@ -57,14 +83,8 @@ namespace Project_CCSB.Controllers.Api
             CommonResponse<int> commonResponse = new CommonResponse<int>();
             try
             {
-                // Format date string to DateTime (https://stackoverflow.com/questions/31244552/how-to-parse-string-which-contains-gmt-to-datetime)
-                DateTime formatDate;
-                string dateFormat = "ddd MMM dd yyyy HH:mm:ss 'GMT'K";
-                bool validFormat = DateTime.TryParseExact(startDate, 
-                                                          dateFormat,
-                                                          CultureInfo.InvariantCulture,
-                                                          DateTimeStyles.None,
-                                                          out formatDate);
+                DateTime formatDate = FormatDate(startDate);
+                Console.WriteLine(formatDate);
 
                 commonResponse.Status = _appointmentService.DeleteAppointment(formatDate).Result;
                 if (commonResponse.Status == 1)
@@ -95,6 +115,19 @@ namespace Project_CCSB.Controllers.Api
         public string GetUserByVehicle(string licensePlate)
         {
             return _appointmentService.GetUserByLicensePlate(licensePlate);
+        }
+
+        private DateTime FormatDate(string date)
+        {
+            // Format date string to DateTime (https://stackoverflow.com/questions/31244552/how-to-parse-string-which-contains-gmt-to-datetime)
+            DateTime formatDate;
+            string dateFormat = "ddd MMM dd yyyy HH:mm:ss 'GMT'K";
+            DateTime.TryParseExact(date,
+                                    dateFormat,
+                                    CultureInfo.InvariantCulture,
+                                    DateTimeStyles.None,
+                                    out formatDate);
+            return formatDate;
         }
     }
 }
