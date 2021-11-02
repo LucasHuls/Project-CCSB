@@ -66,6 +66,8 @@ namespace Project_CCSB.Controllers.Api
                 {
                     //Successful addition
                     commonResponse.Message = Helper.AppointmentUpdated;
+                    var message = new Message(new string[] { "projectCCSB@gmail.com" }, "Afspraak gewijzigd", "Afspraken bekijken", "changeAppointment");
+                    _emailSender.SendEmail(message);
                 }
             }
             catch (Exception ex)
