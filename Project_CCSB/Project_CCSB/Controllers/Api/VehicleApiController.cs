@@ -48,7 +48,6 @@ namespace Project_CCSB.Controllers.Api
         [Route("DeleteVehicle")]
         public IActionResult DeleteVehicle([FromHeader]string licensePlate)
         {
-            Console.WriteLine("APIController " + licensePlate);
             CommonResponse<int> commonResponse = new CommonResponse<int>();
             try
             {

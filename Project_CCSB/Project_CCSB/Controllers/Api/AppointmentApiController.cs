@@ -1,12 +1,9 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Project_CCSB.Models;
 using Project_CCSB.Models.ViewModels;
 using Project_CCSB.Services;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
+using System.Globalization;
 using System.Text.Json;
 using System.Threading.Tasks;
 
@@ -18,16 +15,10 @@ namespace Project_CCSB.Controllers.Api
     {
         private readonly IEmailSender _emailSender;
         private readonly IAppointmentService _appointmentService;
-        private readonly IHttpContextAccessor _httpContextAccessor;
-        private readonly string loginUserId;
-        private readonly string role;
 
-        public AppointmentApiController(IAppointmentService appointmentService, IHttpContextAccessor httpContextAccessor, IEmailSender EmailSender )
+        public AppointmentApiController(IAppointmentService appointmentService, IEmailSender EmailSender )
         {
             _appointmentService = appointmentService;
-            _httpContextAccessor = httpContextAccessor;
-            loginUserId = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            role = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.Role);
             _emailSender = EmailSender;
         }
 
@@ -48,7 +39,7 @@ namespace Project_CCSB.Controllers.Api
                 {
                     //Successful addition
                     commonResponse.Message = Helper.AppointmentAdded;
-                    var message = new Message(new string[] { "projectCCSB@gmail.com" }, "Afspraak", "Afspraken bekijken", "emailAfspraak");
+                    var message = new Message(new string[] { "projectCCSB@gmail.com" }, "Afspraak", "Afspraken bekijken", "addAppointment");
                     _emailSender.SendEmail(message);
                 }
             }
@@ -56,6 +47,55 @@ namespace Project_CCSB.Controllers.Api
             {
                 commonResponse.Message = ex.Message;
                 commonResponse.Status = Helper.Failure_code;
+            }
+            return Ok(commonResponse);
+        }
+
+        [HttpPost]
+        [Route("EditAppointment")]
+        public IActionResult EditAppointment([FromHeader]string oldDate, AppointmentViewModel data)
+        {
+            CommonResponse<int> commonResponse = new CommonResponse<int>();
+            try
+            {
+                DateTime formatDate = FormatDate(oldDate);
+                int deleted = _appointmentService.DeleteAppointment(formatDate).Result;
+
+                commonResponse.Status = _appointmentService.AddUpdate(data).Result;
+                if (commonResponse.Status == 2)
+                {
+                    //Successful addition
+                    commonResponse.Message = Helper.AppointmentUpdated;
+                }
+            }
+            catch (Exception ex)
+            {
+                commonResponse.Message = ex.Message;
+                commonResponse.Status = Helper.Failure_code;
+            }
+            return Ok(commonResponse);
+        }
+
+        [HttpDelete]
+        [Route("DeleteAppointment")]
+        public IActionResult DeleteAppointment([FromHeader]string startDate)
+        {
+            CommonResponse<int> commonResponse = new CommonResponse<int>();
+            try
+            {
+                DateTime formatDate = FormatDate(startDate);
+                Console.WriteLine(formatDate);
+
+                commonResponse.Status = _appointmentService.DeleteAppointment(formatDate).Result;
+                if (commonResponse.Status == 1)
+                {
+                    // Delete Appointment success
+                    commonResponse.Message = "Afspraak is verwijderd";
+                }
+            } catch (Exception ex)
+            {
+                commonResponse.Message = ex.Message;
+                commonResponse.Status = 0;
             }
             return Ok(commonResponse);
         }
@@ -68,6 +108,26 @@ namespace Project_CCSB.Controllers.Api
             var json = JsonSerializer.Serialize(appointments);
 
             return json;
+        }
+
+        [HttpGet]
+        [Route("GetUserByVehicle/{licensePlate}")]
+        public string GetUserByVehicle(string licensePlate)
+        {
+            return _appointmentService.GetUserByLicensePlate(licensePlate);
+        }
+
+        private DateTime FormatDate(string date)
+        {
+            // Format date string to DateTime (https://stackoverflow.com/questions/31244552/how-to-parse-string-which-contains-gmt-to-datetime)
+            DateTime formatDate;
+            string dateFormat = "ddd MMM dd yyyy HH:mm:ss 'GMT'K";
+            DateTime.TryParseExact(date,
+                                    dateFormat,
+                                    CultureInfo.InvariantCulture,
+                                    DateTimeStyles.None,
+                                    out formatDate);
+            return formatDate;
         }
     }
 }
