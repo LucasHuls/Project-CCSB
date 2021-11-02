@@ -91,6 +91,8 @@ namespace Project_CCSB.Controllers.Api
                 {
                     // Delete Appointment success
                     commonResponse.Message = "Afspraak is verwijderd";
+                    var message = new Message(new string[] { "projectCCSB@gmail.com" }, "Afspraak verwijderd", "Afspraken bekijken", "deleteAppointment");
+                    _emailSender.SendEmail(message);
                 }
             } catch (Exception ex)
             {
