@@ -1,5 +1,61 @@
 ﻿@model Project_CCSB.Models.ViewModels.Appointment.AddAppointmentViewModel
 
+<<<<<<< HEAD
+        <div class="modal fade" role="dialog" id="appointmentInput" data-backdrop="static" data-keyboard="false">
+            <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <form id="appointmentForm" autocomplete="off" novalidate="novalidate">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Toevoegen/wijzigen afspraak</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div asp-validation-summary="All" class="text-danger"></div>
+                                <div class="form-group row">
+                                    <label class="col-md-2" asp-for="AppointmentDate"></label>
+                                    <div class="col-md-10">
+                                        <input name="bookId" id="dateInput" asp-for="AppointmentDate" class="form-control" />
+                                        <span asp-validation-for="AppointmentDate" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-md-2" asp-for="AppointmentType"></label>
+                                    <div class="col-md-10">
+                                        <select id="appointmentType" asp-for="AppointmentType"
+                                                asp-items="@Project_CCSB.Models.Helper.GetBringOrReceive()"
+                                                class="form-control">
+                                            <option selected>Kies brengen of ophalen</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-md-2" asp-for="AppointmentVehicle"></label>
+                                    <div class="col-md-10">
+                                        <select id="licensePlate" asp-for="AppointmentVehicle"
+                                                asp-items="@ViewBag.Vehicles" class="form-control"></select>
+                                        <span asp-validation-for="AppointmentVehicle" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-md-2" asp-for="AppointmentUser"></label>
+                                    <div class="col-md-10">
+                                        <select asp-for="AppointmentUser"
+                                                asp-items="@ViewBag.Users" class="form-control"></select>
+                                        <span asp-validation-for="AppointmentUser" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" onclick="onCloseModal()">Sluiten</button>
+                                <button type="button" class="btn btn-primary" onclick="onSubmitForm()">Opslaan</button>
+                            </div>
+                        </form>
+                    </div>
+            </div>
+        </div>
+    @section Scripts{
+        <script src="~/js/custom-calendar.js"></script>
+    }
+=======
 <div class="modal fade" role="dialog" id="appointmentInput" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -62,3 +118,4 @@
 @section Scripts{
     <script src="~/js/custom-calendar.js"></script>
 }
+>>>>>>> ff8692683ee8481a477ba311ea4d143828f9c998
