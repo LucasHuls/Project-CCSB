@@ -1,11 +1,13 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Project_CCSB.Models
 {
     public class Contract
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ContractID { get; set; }
         public ApplicationUser ApplicationUser { get; set; }
         public Vehicle Vehicle { get; set; }

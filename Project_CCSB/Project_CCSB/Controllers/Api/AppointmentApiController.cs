@@ -5,6 +5,7 @@ using Project_CCSB.Services;
 using System;
 using System.Globalization;
 using System.Text.Json;
+using System.Threading.Tasks;
 
 namespace Project_CCSB.Controllers.Api
 {
@@ -14,11 +15,13 @@ namespace Project_CCSB.Controllers.Api
     {
         private readonly IEmailSender _emailSender;
         private readonly IAppointmentService _appointmentService;
+        private readonly IContractService _contractService;
 
-        public AppointmentApiController(IAppointmentService appointmentService, IEmailSender EmailSender )
+        public AppointmentApiController(IAppointmentService appointmentService, IEmailSender EmailSender, IContractService contractService )
         {
             _appointmentService = appointmentService;
             _emailSender = EmailSender;
+            _contractService = contractService;
         }
 
         [HttpPost]

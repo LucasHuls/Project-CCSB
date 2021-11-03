@@ -12,7 +12,7 @@ namespace Project_CCSB.Models
 
         public DbSet<Vehicle> Vehicles { get; set; }
         public DbSet<Appointment> Appointments { get; set; }
-        public DbSet<Contract> Contrats { get; set; }
+        public DbSet<Contract> Contracts { get; set; }
         public DbSet<Invoice> Invoices { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

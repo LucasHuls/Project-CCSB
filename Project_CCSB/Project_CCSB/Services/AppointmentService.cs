@@ -20,7 +20,7 @@ namespace Project_CCSB.Services
         public async Task<int> AddUpdate(AppointmentViewModel model)
         {
             // Check for valid appointment type
-            if (model.AppointmentType != "Brengen" || model.AppointmentType != "Ophalen")
+            if ((model.AppointmentType != "Brengen") && (model.AppointmentType != "Ophalen"))
             {
                 return -1;
             }
