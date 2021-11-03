@@ -14,6 +14,7 @@ namespace Project_CCSB.Models
         public DbSet<Appointment> Appointments { get; set; }
         public DbSet<Contract> Contracts { get; set; }
         public DbSet<Invoice> Invoices { get; set; }
+        public DbSet<Rate> Rate { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -26,6 +27,10 @@ namespace Project_CCSB.Models
             modelBuilder.Entity<Invoice>()
                 .Property(p => p.Amount)
                 .HasColumnType("decimal(18,4)");
+
+            modelBuilder.Entity<Rate>()
+                .Property(p => p.Price)
+                .HasColumnType("decimal(18,2)");
 
             base.OnModelCreating(modelBuilder);
         }

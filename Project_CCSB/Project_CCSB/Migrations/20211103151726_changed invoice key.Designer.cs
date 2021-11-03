@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Project_CCSB.Models;
 
 namespace Project_CCSB.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211103151726_changed invoice key")]
+    partial class changedinvoicekey
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -304,19 +306,6 @@ namespace Project_CCSB.Migrations
                     b.HasKey("InvoiceId");
 
                     b.ToTable("Invoices");
-                });
-
-            modelBuilder.Entity("Project_CCSB.Models.Rate", b =>
-                {
-                    b.Property<string>("VehicleType")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.HasKey("VehicleType");
-
-                    b.ToTable("Rate");
                 });
 
             modelBuilder.Entity("Project_CCSB.Models.Vehicle", b =>

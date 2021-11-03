@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Project_CCSB.Models;
 
 namespace Project_CCSB.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211103130712_Changed invoice")]
+    partial class Changedinvoice
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -268,7 +270,7 @@ namespace Project_CCSB.Migrations
                     b.Property<DateTime>("End")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("InvoiceId")
+                    b.Property<int?>("InvoiceNumber")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("Start")
@@ -281,7 +283,7 @@ namespace Project_CCSB.Migrations
 
                     b.HasIndex("ApplicationUserId");
 
-                    b.HasIndex("InvoiceId");
+                    b.HasIndex("InvoiceNumber");
 
                     b.HasIndex("VehicleLicensePlate");
 
@@ -290,7 +292,7 @@ namespace Project_CCSB.Migrations
 
             modelBuilder.Entity("Project_CCSB.Models.Invoice", b =>
                 {
-                    b.Property<int>("InvoiceId")
+                    b.Property<int>("InvoiceNumber")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -301,22 +303,14 @@ namespace Project_CCSB.Migrations
                     b.Property<DateTime>("InvoiceDate")
                         .HasColumnType("datetime2");
 
-                    b.HasKey("InvoiceId");
-
-                    b.ToTable("Invoices");
-                });
-
-            modelBuilder.Entity("Project_CCSB.Models.Rate", b =>
-                {
-                    b.Property<string>("VehicleType")
+                    b.Property<string>("VehicleLicensePlate")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
+                    b.HasKey("InvoiceNumber");
 
-                    b.HasKey("VehicleType");
+                    b.HasIndex("VehicleLicensePlate");
 
-                    b.ToTable("Rate");
+                    b.ToTable("Invoices");
                 });
 
             modelBuilder.Entity("Project_CCSB.Models.Vehicle", b =>
@@ -405,7 +399,7 @@ namespace Project_CCSB.Migrations
 
                     b.HasOne("Project_CCSB.Models.Invoice", "Invoice")
                         .WithMany()
-                        .HasForeignKey("InvoiceId");
+                        .HasForeignKey("InvoiceNumber");
 
                     b.HasOne("Project_CCSB.Models.Vehicle", "Vehicle")
                         .WithMany()
@@ -414,6 +408,15 @@ namespace Project_CCSB.Migrations
                     b.Navigation("ApplicationUser");
 
                     b.Navigation("Invoice");
+
+                    b.Navigation("Vehicle");
+                });
+
+            modelBuilder.Entity("Project_CCSB.Models.Invoice", b =>
+                {
+                    b.HasOne("Project_CCSB.Models.Vehicle", "Vehicle")
+                        .WithMany()
+                        .HasForeignKey("VehicleLicensePlate");
 
                     b.Navigation("Vehicle");
                 });

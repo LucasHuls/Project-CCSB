@@ -1,0 +1,30 @@
+﻿@model Project_CCSB.Models.Rate
+
+<form id="pricingForm" method="post" asp-action="SetNewPrice" asp-controller="Home">
+    <div class="form-group"><h3>Verander prijs:</h3></div>
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="form-group row">
+        <label class="col-md-2">Voertuig type:</label>
+        <div class="col-md-10">
+            <select asp-for="VehicleType"
+                    class="form-control">
+                <option selected>Selecteer optie</option>
+                <option value="Camper">Camper</option>
+                <option value="Caravan">Caravan</option>
+            </select>
+            <span asp-validation-for="VehicleType" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-md-2">Hoeveelheid:</label>
+        <div class="col-md-10">
+            <input asp-for="Price" class="form-control" />
+            <span asp-validation-for="Price" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-10 offset-md-2">
+            <input type="submit" value="Verander" class="btn btn-success" />
+        </div>
+    </div>
+</form>

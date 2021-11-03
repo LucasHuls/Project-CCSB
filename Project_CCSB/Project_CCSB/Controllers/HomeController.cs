@@ -1,20 +1,22 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Project_CCSB.Models;
 using Project_CCSB.Services;
 using System.Diagnostics;
+using System.Threading.Tasks;
 
 namespace Project_CCSB.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
         private readonly IEmailSender _emailSender;
+        private readonly IContractService _contractService;
 
-        public HomeController(ILogger<HomeController> logger, IEmailSender emailSender)
+        public HomeController(IEmailSender emailSender, IContractService contractService)
         {
-            _logger = logger;
             _emailSender = emailSender;
+            _contractService = contractService;
         }
 
         public IActionResult Index()
@@ -50,6 +52,31 @@ namespace Project_CCSB.Controllers
             var message = new Message(new string[] { "projectCCSB@gmail.com" }, "Account", "Factuur downloaden", "invoiceEmail");
             _emailSender.SendEmail(message);
             return View();
+        }
+
+        [Authorize(Roles = "Admin")]
+        public IActionResult AdminPanel()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult SetNewPrice(Rate model)
+        {
+            if (ModelState.IsValid)
+            {
+                if (model.VehicleType == "Caravan" || model.VehicleType == "Camper")
+                {
+                    _contractService.SetNewPrice(model);
+                    return RedirectToAction("AdminPanel", "Home");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Kies Caravan of Camper");
+                }
+            }
+            return View("AdminPanel", model);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

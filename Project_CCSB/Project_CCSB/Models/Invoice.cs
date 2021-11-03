@@ -8,7 +8,7 @@ namespace Project_CCSB.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int InvoiceNumber { get; set; }
+        public int InvoiceId { get; set; }
 
         public DateTime InvoiceDate { get; set; }
 

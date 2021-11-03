@@ -26,8 +26,13 @@ namespace Project_CCSB.Controllers.Api
 
         [HttpPost]
         [Route("SaveCalendarData")]
-        public IActionResult SaveCalendarData(AppointmentViewModel data)
+        public async Task<IActionResult> SaveCalendarData(AppointmentViewModel data)
         {
+            if (_contractService.IsFirstAppointment(data.LicensePlate)) // Check if new contract is needed
+            {
+            }
+               await _contractService.MakeContract(data);
+
             CommonResponse<int> commonResponse = new CommonResponse<int>();
             try
             {

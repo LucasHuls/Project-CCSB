@@ -8,6 +8,8 @@ namespace Project_CCSB.Services
 {
     public class ContractService : IContractService
     {
+        //TODO: Figure out correct dates for contracts
+
         private readonly ApplicationDbContext _db;
 
         public ContractService(ApplicationDbContext db)
@@ -15,11 +17,6 @@ namespace Project_CCSB.Services
             _db = db;
         }
 
-        /// <summary>
-        /// Check if an appointment is the first appointment
-        /// </summary>
-        /// <param name="licensePlate"></param>
-        /// <returns>True or False</returns>
         public bool IsFirstAppointment(string licensePlate)
         {
             bool isFirst = _db.Appointments.Any(x => x.LicensePlate == licensePlate);
@@ -32,72 +29,94 @@ namespace Project_CCSB.Services
 
         public async Task MakeContract(AppointmentViewModel appointment)
         {
-            // Get length of vehicle
+            // Get vehicle
             Vehicle vehicle = _db.Vehicles.Where(x => x.LicensePlate == appointment.LicensePlate).FirstOrDefault();
 
-            // Create new incoive
-            Invoice invoice = CreateNewInvoice(vehicle.Length, appointment.Date);
-            _db.Invoices.Add(invoice);
+            // Get user Id using vehicle
+            string userId = _db.Vehicles.Where(x => x.LicensePlate == appointment.LicensePlate)
+                                        .Select(x => x.ApplicationUser.Id)
+                                        .FirstOrDefault();
+
+            // Get User using id
+            ApplicationUser user = _db.Users.Where(x => x.Id == userId).FirstOrDefault();
+
+            // Create new invoice
+            Invoice invoice = CreateNewInvoice(vehicle, DateTime.Now);
 
             // Create new contract
-            Contract contract = CreateNewContract(vehicle, invoice);
+            Contract contract = CreateNewContract(user, vehicle, appointment, invoice);
+
+            // Add the contract to the database then save
             _db.Contracts.Add(contract);
-            
-            // Save new changes to the database
             await _db.SaveChangesAsync();
         }
 
         /// <summary>
-        /// Makes new Contract based on vehicle and invoice
+        /// Creates a new Contract.
         /// </summary>
+        /// <param name="user"></param>
         /// <param name="vehicle"></param>
+        /// <param name="appointment"></param>
         /// <param name="invoice"></param>
         /// <returns>Returns Contract</returns>
-        private Contract CreateNewContract(Vehicle vehicle, Invoice invoice)
+        private Contract CreateNewContract(ApplicationUser user, Vehicle vehicle, AppointmentViewModel appointment, Invoice invoice)
         {
-            // Get user by vehicle
-            ApplicationUser user = _db.Users.Where(x => x.Id == vehicle.ApplicationUser.Id).FirstOrDefault();
-
-            Contract contract = new Contract()
+            return new Contract()
             {
                 ApplicationUser = user,
-                Invoice = invoice,
                 Vehicle = vehicle,
-                Start = DateTime.Now,
-                End = DateTime.Now
-            };
+                Start = appointment.Date,
+                End = DateTime.Now,
 
-            return contract;
+                Invoice = invoice
+            };
         }
 
         /// <summary>
         /// Create new Invoice based on vehicle length and date
         /// </summary>
-        /// <param name="vehicleLength"></param>
+        /// <param name="vehicle"></param>
         /// <param name="date"></param>
         /// <returns>returns Invoice</returns>
-        private Invoice CreateNewInvoice(decimal vehicleLength, DateTime date)
+        private Invoice CreateNewInvoice(Vehicle vehicle, DateTime date)
         {
             return new Invoice()
             {
-                Amount = CalculateInvoicePrice(vehicleLength),
-                InvoiceDate = date
+                Amount = CalculateInvoicePrice(vehicle.Length, vehicle.Type),
+                InvoiceDate = date,
             };
         }
 
         /// <summary>
-        /// Calculate the price of invoice based on length
+        /// Calculate the price of invoice based on length and vehicle type
         /// </summary>
         /// <param name="length"></param>
+        /// <param name="vehicleType"></param>
         /// <returns>Price in decimal</returns>
-        private decimal CalculateInvoicePrice(decimal length)
+        private decimal CalculateInvoicePrice(decimal length, string vehicleType)
         {
             // Round length to nearest 0.5
             decimal vehicleLength = Math.Round(length * 2, MidpointRounding.AwayFromZero) / 2;
 
-            decimal price = 45;
+            // Get price from database based on vehicle type
+            decimal price = _db.Rate
+                           .Where(x => x.VehicleType == vehicleType)
+                           .Select(x => x.Price)
+                           .FirstOrDefault();
 
             return vehicleLength * price;
+        }
+
+        public void SetNewPrice(Rate model)
+        {
+            // Remove old rate
+            Rate rateToRemove = _db.Rate.Where(x => x.VehicleType == model.VehicleType).FirstOrDefault();
+            _db.Rate.Remove(rateToRemove);
+
+            // Add new rate
+            _db.Rate.Add(model);
+
+            _db.SaveChanges();
         }
     }
 }
