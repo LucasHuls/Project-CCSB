@@ -19,6 +19,18 @@ namespace Project_CCSB.Services
 
         public async Task<int> AddUpdate(AppointmentViewModel model)
         {
+            // Check for valid appointment type
+            if (model.AppointmentType != "Brengen" || model.AppointmentType != "Ophalen")
+            {
+                return -1;
+            }
+
+            // Check for valid date
+            if (model.Date < DateTime.Now)
+            {
+                return -1;
+            }
+
             if (model != null && _db.Appointments.Any(x => x.LicensePlate == model.LicensePlate) && _db.Appointments.Any(x => x.Date == model.Date))
             {
                 Appointment appointmentToDelete = new Appointment

@@ -13,7 +13,7 @@
                         <label class="col-md-2" asp-for="AppointmentDate"></label>
                         <div class="col-md-10">
                             <input name="bookId" id="dateInputRemove" asp-for="AppointmentDate" class="form-control" />
-                            <span asp-validation-for="AppointmentDate" class="text-danger"></span>
+                            <span asp-validation-for="AppointmentDate" id="dateInputRemoveValidation" class="text-danger"></span>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -24,6 +24,7 @@
                                     class="form-control">
                                 <option selected>Kies brengen of ophalen</option>
                             </select>
+                            <span asp-validation-for="AppointmentType" id="appointmentTypeRemoveValidation" class="text-danger"></span>
                         </div>
                     </div>
                     <div class="form-group row">
