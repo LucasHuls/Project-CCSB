@@ -15,17 +15,24 @@ namespace Project_CCSB.Controllers.Api
     {
         private readonly IEmailSender _emailSender;
         private readonly IAppointmentService _appointmentService;
+        private readonly IContractService _contractService;
 
-        public AppointmentApiController(IAppointmentService appointmentService, IEmailSender EmailSender )
+        public AppointmentApiController(IAppointmentService appointmentService, IEmailSender EmailSender, IContractService contractService )
         {
             _appointmentService = appointmentService;
             _emailSender = EmailSender;
+            _contractService = contractService;
         }
 
         [HttpPost]
         [Route("SaveCalendarData")]
-        public IActionResult SaveCalendarData(AppointmentViewModel data)
+        public async Task<IActionResult> SaveCalendarData(AppointmentViewModel data)
         {
+            if (_contractService.IsFirstAppointment(data.LicensePlate)) // Check if new contract is needed
+            {
+            }
+               await _contractService.MakeContract(data);
+
             CommonResponse<int> commonResponse = new CommonResponse<int>();
             try
             {

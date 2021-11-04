@@ -98,37 +98,39 @@ function ClosePopUp() { // Closes Remove pop up
     $("#removeAppointment").modal("hide");
 }
 
-function ClearDOMElements() {
-    $("#appointmentTypeValidation").html("");
-    $("#dateValidation").html("");
+function ClearDOMElements(dateEl, dateElValidation, appointmentEl, appointmentElValidation) {
+    $("#" + dateEl).html("");
+    $("#" + dateElValidation).html("");
+
+    $("#" + appointmentElValidation).html("");
 }
 
-function ValidateNewAppointment() {
-    ClearDOMElements();
+function ValidateNewAppointment(dateEl, dateElValidation, appointmentEl, appointmentElValidation) {
+    ClearDOMElements(dateEl, dateElValidation, appointmentEl, appointmentElValidation);
 
     // Validate appointment type
-    var typeCheck = $("#appointmentType").val();
+    var typeCheck = $("#" + appointmentEl).val();
     if (typeCheck == "Kies brengen of ophalen") {
-        $("#appointmentTypeValidation").html("Kies brengen of ophalen!");
+        $("#" + appointmentElValidation).html("Kies tussen brengen of ophalen!");
         return false;
     }
 
     // Validate appointment if date is in the past
-    var date = $("#dateInput").val();
+    var date = $("#" + dateEl).val();
     var test = new Date(date);
     if (test < new Date()) {
-        $("#dateValidation").html("Datum is in het verleden!");
+        $("#" + dateElValidation).html("Datum is in het verleden!");
         return false;
     }
 
 
     var day = parseInt(date.split("-")[2].substring(0, 2));
-
+    
     var currentDate = new Date().toISOString();
     var currentDay = parseInt(currentDate.split("-")[2].substring(0, 2));
-
+    
     if (day - currentDay <= 2) {
-        $("#dateValidation").html("Afspraak moet 2 dagen van tevoren gepland worden!");
+        $("#" + dateElValidation).html("Afspraak moet 2 dagen van tevoren gepland worden!");
         return false;
     }
 
@@ -137,7 +139,7 @@ function ValidateNewAppointment() {
 }
 
 function onSubmitForm() {
-    if (!ValidateNewAppointment()) {
+    if (!ValidateNewAppointment("dateInput", "dateValidation", "appointmentType", "appointmentTypeValidation")) {
         return;
     }
 
@@ -158,7 +160,7 @@ function onSubmitForm() {
                 onCloseModal();
                 calendar.refetchEvents()
             } else {
-                $.notify(response.message, "error");
+                $.notify("Er is iets fout gegaan.", "error");
             }
         },
         error: function (xhr) {
@@ -187,6 +189,10 @@ function DeleteAppointment() {
 }
 
 function EditAppointment() {
+    if (!ValidateNewAppointment("dateInputRemove", "dateInputRemoveValidation", "appointmentTypeRemove", "appointmentTypeRemoveValidation")) {
+        return;
+    }
+
     var requestData = {
         Date: $('#dateInputRemove').val(),
         LicensePlate: $('#licensePlateRemove').val(),
