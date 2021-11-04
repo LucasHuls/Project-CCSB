@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Project_CCSB.Models;
@@ -16,10 +17,13 @@ namespace Project_CCSB.Controllers
         private readonly IEmailSender _emailSender;
         private readonly IContractService _contractService;
 
-        public HomeController(IEmailSender emailSender, IContractService contractService)
+        IWebHostEnvironment _env;
+
+        public HomeController(IEmailSender emailSender, IContractService contractService, IWebHostEnvironment env)
         {
             _emailSender = emailSender;
             _contractService = contractService;
+            _env = env;
         }
 
 
