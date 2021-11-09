@@ -136,7 +136,7 @@ namespace Project_CCSB.Services
         {
             DateTime newYears = DateTime.Parse($"01/01/{contractStart.AddYears(1).Year}");
             return (newYears.Year * 12 + newYears.Month) - (contractStart.Year * 12 + contractStart.Month);
-        }        
+        }
 
         /// <summary>
         /// Creates a new Contract.
@@ -207,10 +207,45 @@ namespace Project_CCSB.Services
             _db.SaveChanges();
         }
 
-        public async Task RenewContracts()
+        public void RenewContracts()
         {
             Console.WriteLine("Renewing contracts");
-            return;
+
+            // Get all contracts
+            List<ContractVehicleUser> contractsList = (from contracts in _db.Contracts
+                                                       join users in _db.Users on contracts.ApplicationUser.Id equals users.Id
+                                                       join vehicles in _db.Vehicles on contracts.Vehicle.LicensePlate equals vehicles.LicensePlate
+                                                       where contracts.End.Year == DateTime.Now.Year
+                                                       select new ContractVehicleUser
+                                                       {
+                                                           ApplicationUser = users,
+                                                           Vehicle = vehicles,
+                                                           Contract = contracts
+                                                       }).ToList();
+
+            // Loop through contracts and renew
+            foreach (ContractVehicleUser contract in contractsList)
+            {
+                Contract newContract = new()
+                {
+                    ApplicationUser = contract.ApplicationUser,
+                    Invoice = CreateNewInvoice(contract.Vehicle, DateTime.Now.AddDays(1).Date),
+                    Vehicle = contract.Vehicle,
+                    Start = DateTime.Now.AddDays(1).Date,
+                    End = DateTime.Now.AddDays(1).AddYears(1).Date
+                };
+                _db.Contracts.Add(newContract);
+            }
+
+            // Save new contracts to database
+            _db.SaveChanges();
         }
+    }
+
+    public class ContractVehicleUser
+    {
+        public Contract Contract { get; set; }
+        public Vehicle Vehicle { get; set; }
+        public ApplicationUser ApplicationUser { get; set; }
     }
 }

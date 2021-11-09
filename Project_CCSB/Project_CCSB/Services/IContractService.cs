@@ -23,6 +23,9 @@ namespace Project_CCSB.Services
         /// <param name="model"></param>
         public void SetNewPrice(Rate model);
 
-        public Task RenewContracts();
+        /// <summary>
+        /// Renews contracts every 31 of December
+        /// </summary>
+        public void RenewContracts();
     }
 }
