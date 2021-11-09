@@ -1,6 +1,18 @@
-﻿<a asp-controller="Pdf" asp-action="Pdf" class="btn pull-right btn-secondary" role="button" aria-pressed="true">Uitdraai calender</a>
-<h2>Beheerders paneel</h2>
+﻿<h2>Beheerders paneel</h2>
 <hr />
 
-
 <partial name="_ChangeRate" />
+<hr />
+
+<div style="display: flex; justify-content: space-between; width: 100%;">
+    <h3>PDF's:</h3>
+    <div>
+        <style>
+            .pdfBtn:hover {
+                text-decoration: underline;
+            }
+        </style>
+        <a asp-controller="Pdf" asp-action="Pdf" class="btn pdfBtn">Afspraken deze week</a>
+        <a asp-controller="Pdf" asp-action="PdfAll" class="btn pdfBtn">Alle afspraken</a>
+    </div>
+</div>

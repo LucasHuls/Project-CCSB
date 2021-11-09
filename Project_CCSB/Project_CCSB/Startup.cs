@@ -42,9 +42,10 @@ namespace Project_CCSB
                                 .Get<EmailConfiguration>());
 
             services.AddScoped<IEmailSender, EmailSender>();
+            services.AddScoped<CustomViewRendererService>();
 
-            services.AddTransient<CheckContractService>();
-            services.AddHostedService<CronJobService>();
+            //services.AddTransient<CheckContractService>();
+            //services.AddHostedService<CronJobService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
