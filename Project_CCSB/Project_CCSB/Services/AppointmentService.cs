@@ -76,6 +76,22 @@ namespace Project_CCSB.Services
             return appointmentlist;
         }
 
+        public List<AppointmentViewModel> GetUserAppointments(string userId)
+        {
+            List<AppointmentViewModel> appointmentList = (from appointment in _db.Appointments
+                                                          join vehicle in _db.Vehicles on appointment.LicensePlate equals vehicle.LicensePlate
+                                                          where vehicle.ApplicationUser.Id == userId
+                                                          select new AppointmentViewModel
+                                                          {
+                                                              Date = appointment.Date,
+                                                              AppointmentType = appointment.AppointmentType,
+                                                              LicensePlate = appointment.LicensePlate,
+                                                              ApplicationUserFullName = vehicle.ApplicationUser.FullName
+                                                          }).ToList();
+
+            return appointmentList;
+        }
+
         public string GetUserByLicensePlate(string licensePlate)
         {
             var userName = (from vehicle in _db.Vehicles.Where(x => x.LicensePlate == licensePlate)

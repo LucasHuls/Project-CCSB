@@ -15,7 +15,7 @@ namespace Project_CCSB.Services
     {
         private readonly ApplicationDbContext _db;
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly string _userId;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
         public VehicleService(
             ApplicationDbContext db,
@@ -24,7 +24,7 @@ namespace Project_CCSB.Services
         {
             _db = db;
             _userManager = userManager;
-            _userId = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public List<VehicleViewModel> GetVehicleList()
@@ -64,9 +64,10 @@ namespace Project_CCSB.Services
 
         public List<VehicleViewModel> GetUserVehicleList()
         {
+            string userId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
             var vehicles = (from vehicle in _db.Vehicles
                             join user in _db.Users on vehicle.ApplicationUser.Id equals user.Id
-                            where user.Id == _userId
+                            where user.Id == userId
                             select new VehicleViewModel
                             {
                                 LicensePlate = vehicle.LicensePlate,

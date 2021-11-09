@@ -1,9 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Project_CCSB.Models;
 using Project_CCSB.Models.ViewModels;
 using Project_CCSB.Services;
 using System;
+using System.Collections.Generic;
 using System.Globalization;
+using System.Security.Claims;
 using System.Text.Json;
 using System.Threading.Tasks;
 
@@ -16,12 +20,17 @@ namespace Project_CCSB.Controllers.Api
         private readonly IEmailSender _emailSender;
         private readonly IAppointmentService _appointmentService;
         private readonly IContractService _contractService;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public AppointmentApiController(IAppointmentService appointmentService, IEmailSender EmailSender, IContractService contractService )
+        public AppointmentApiController(IAppointmentService appointmentService, IEmailSender EmailSender,
+            IContractService contractService, IHttpContextAccessor httpContextAccessor, UserManager<ApplicationUser> userManager )
         {
             _appointmentService = appointmentService;
             _emailSender = EmailSender;
             _contractService = contractService;
+            _httpContextAccessor = httpContextAccessor;
+            _userManager = userManager;
         }
 
         [HttpPost]
@@ -30,8 +39,8 @@ namespace Project_CCSB.Controllers.Api
         {
             if (_contractService.IsFirstAppointment(data.LicensePlate)) // Check if new contract is needed
             {
+                await _contractService.MakeContract(data);
             }
-            await _contractService.MakeContract(data);
 
             CommonResponse<int> commonResponse = new CommonResponse<int>();
             try
@@ -117,12 +126,21 @@ namespace Project_CCSB.Controllers.Api
 
         [HttpGet]
         [Route("GetCalendarEvents")]
-        public string GetCalendarEvents()
+        public async Task<string> GetCalendarEvents()
         {
-            var appointments = _appointmentService.GetAppointments();
-            var json = JsonSerializer.Serialize(appointments);
+            string userId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var user = await _userManager.FindByIdAsync(userId);
+            var roles = await _userManager.GetRolesAsync(user);
 
-            return json;
+            if (roles[0] == "Admin")
+            {
+                var appointments = _appointmentService.GetAppointments();
+                return JsonSerializer.Serialize(appointments);
+            } else
+            {
+                var appointments = _appointmentService.GetUserAppointments(userId);
+                return JsonSerializer.Serialize(appointments);
+            }
         }
 
         [HttpGet]

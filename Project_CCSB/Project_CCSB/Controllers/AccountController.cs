@@ -101,6 +101,7 @@ namespace Project_CCSB.Controllers
             return View();
         }
 
+        [Authorize]
         public IActionResult ChangePassWord()
         {
             return View();
@@ -108,6 +109,7 @@ namespace Project_CCSB.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> ChangePassWord(ChangePasswordViewModel model)
         {
             if (model.NewPassWord != model.NewPassWordConfirm)
@@ -162,6 +164,7 @@ namespace Project_CCSB.Controllers
             return View();
         }
         
+        [Authorize]
         public async Task<IActionResult> Profile()
         {
             var user = await _userManager.GetUserAsync(HttpContext.User);

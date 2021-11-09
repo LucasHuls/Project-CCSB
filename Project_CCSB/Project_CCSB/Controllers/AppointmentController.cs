@@ -24,13 +24,17 @@ namespace Project_CCSB.Controllers
         [Authorize]
         public IActionResult Index()
         {
-            // Check if contract needs to be renewed
-            _contractService.CheckContract();
+            ViewBag.Vehicles = new SelectList(_vehicleService.GetUserVehicleList(), "LicensePlate", "LicensePlate", "", "Brand");
+            return View("Calander");
+        }
 
+        [Authorize(Roles = "Admin")]
+        public IActionResult AdminCalander()
+        {
             ViewBag.Vehicles = new SelectList(_vehicleService.GetVehicleList(), "LicensePlate", "LicensePlate", "", "Brand");
 
             ViewBag.Users = new SelectList(_vehicleService.GetUserList(), "Name", "Name");
-            return View();
+            return View("Calander");
         }
 
         private string GetUserName(string licensePlate)
