@@ -1,8 +1,6 @@
 ﻿using MailKit.Net.Smtp;
 using MimeKit;
 using Project_CCSB.Models;
-using System;
-using System.IO;
 
 namespace Project_CCSB.Services
 {

@@ -35,6 +35,7 @@ namespace Project_CCSB
             services.AddTransient<IAppointmentService, AppointmentService>();
             services.AddTransient<IContractService, ContractService>();
             services.AddTransient<IBlockedDatesService, BlockedDatesService>();
+            services.AddTransient<IUserService, UserService>();
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();

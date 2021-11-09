@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Project_CCSB.Models;
 using Project_CCSB.Models.ViewModels;
+using Project_CCSB.Services;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -15,16 +16,19 @@ namespace Project_CCSB.Controllers
         readonly UserManager<ApplicationUser> _userManager;
         readonly SignInManager<ApplicationUser> _signInManager;
         readonly RoleManager<IdentityRole> _roleManager;
+        private readonly IEmailSender _emailSender;
 
         public AccountController(ApplicationDbContext db,
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
-            RoleManager<IdentityRole> roleManager)
+            RoleManager<IdentityRole> roleManager,
+            IEmailSender emailSender)
         {
             _db = db;
             _userManager = userManager;
             _signInManager = signInManager;
             _roleManager = roleManager;
+            _emailSender = emailSender;
         }
 
         public IActionResult Login()
@@ -90,6 +94,11 @@ namespace Project_CCSB.Controllers
                 if (result.Succeeded)
                 {
                     await _userManager.AddToRoleAsync(user, model.RoleName);
+
+                    var messageToAdmin = new Message(new string[] { "projectCCSB@gmail.com" }, "Account geregistreerd", "Profiel bekijken", "accountRegistered");
+                    var messageToUser = new Message(new string[] { model.Email }, "Account geregistreerd", "Profiel bekijken", "accountRegistered");
+                    _emailSender.SendEmail(messageToAdmin);
+                    _emailSender.SendEmail(messageToUser);
                     return RedirectToAction("AllUsers", "Account");
                 }
                 // Add all errors to the modelstate

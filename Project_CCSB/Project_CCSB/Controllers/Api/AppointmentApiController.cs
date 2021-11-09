@@ -49,8 +49,10 @@ namespace Project_CCSB.Controllers.Api
                 {
                     //Successful addition
                     commonResponse.Message = Helper.AppointmentAdded;
-                    //var message = new Message(new string[] { "projectCCSB@gmail.com" }, "Afspraak", "Afspraken bekijken", "addAppointment");
-                    //_emailSender.SendEmail(message);
+                    var messageToAdmin = new Message(new string[] { "projectCCSB@gmail.com" }, "Afspraak", "Afspraken bekijken", "addAppointment");
+                    var messageToUser = new Message(new string[] { await _userService.GetUserEmail() }, "Afspraak", "Afspraken bekijken", "addAppointment");
+                    _emailSender.SendEmail(messageToAdmin);
+                    _emailSender.SendEmail(messageToUser);
                 }
                 else if (commonResponse.Status == 3)
                 {
@@ -67,7 +69,7 @@ namespace Project_CCSB.Controllers.Api
 
         [HttpPost]
         [Route("EditAppointment")]
-        public IActionResult EditAppointment([FromHeader]string oldDate, AppointmentViewModel data)
+        public async Task<IActionResult> EditAppointment([FromHeader]string oldDate, AppointmentViewModel data)
         {
             CommonResponse<int> commonResponse = new CommonResponse<int>();
             try
@@ -80,8 +82,10 @@ namespace Project_CCSB.Controllers.Api
                 {
                     //Successful addition
                     commonResponse.Message = Helper.AppointmentUpdated;
-                    var message = new Message(new string[] { "projectCCSB@gmail.com" }, "Afspraak gewijzigd", "Afspraken bekijken", "changeAppointment");
-                    _emailSender.SendEmail(message);
+                    var messageToAdmin = new Message(new string[] { "projectCCSB@gmail.com" }, "Afspraak gewijzigd", "Afspraken bekijken", "changeAppointment");
+                    var messageToUser = new Message(new string[] { await _userService.GetUserEmail() }, "Afspraak gewijzigd", "Afspraken bekijken", "changeAppointment");
+                    _emailSender.SendEmail(messageToAdmin);
+                    _emailSender.SendEmail(messageToUser);
                 }
             }
             catch (Exception ex)
@@ -94,7 +98,7 @@ namespace Project_CCSB.Controllers.Api
 
         [HttpDelete]
         [Route("DeleteAppointment")]
-        public IActionResult DeleteAppointment([FromHeader]string startDate)
+        public async Task<IActionResult> DeleteAppointment([FromHeader]string startDate)
         {
             CommonResponse<int> commonResponse = new CommonResponse<int>();
             try
@@ -107,8 +111,10 @@ namespace Project_CCSB.Controllers.Api
                 {
                     // Delete Appointment success
                     commonResponse.Message = "Afspraak is verwijderd";
-                    var message = new Message(new string[] { "projectCCSB@gmail.com" }, "Afspraak verwijderd", "Afspraken bekijken", "deleteAppointment");
-                    _emailSender.SendEmail(message);
+                    var messageToAdmin = new Message(new string[] { "projectCCSB@gmail.com" }, "Afspraak verwijderd", "Afspraken bekijken", "deleteAppointment");
+                    var messageToUser = new Message(new string[] { await _userService.GetUserEmail() }, "Afspraak verwijderd", "Afspraken bekijken", "deleteAppointment");
+                    _emailSender.SendEmail(messageToAdmin);
+                    _emailSender.SendEmail(messageToUser);
                 }
             } catch (Exception ex)
             {

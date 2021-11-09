@@ -11,6 +11,12 @@ namespace Project_CCSB.Services
         /// <returns>String of users id</returns>
         public string GetUserId();
 
+        public Task<string> GetUserEmail();
+
+        /// <summary>
+        /// Gets a list of roles tied to the user
+        /// </summary>
+        /// <returns>A list of strings with user roles</returns>
         public Task<List<string>> GetUserRoles();
     }
 }

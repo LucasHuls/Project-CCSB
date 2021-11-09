@@ -22,6 +22,12 @@ namespace Project_CCSB.Services
             return _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
         }
 
+        public async Task<string> GetUserEmail()
+        {
+            ApplicationUser user = await _userManager.FindByIdAsync(_httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            return user.Email;
+        }
+
         public async Task<List<string>> GetUserRoles()
         {
             string userId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
