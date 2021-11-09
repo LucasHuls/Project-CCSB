@@ -15,10 +15,14 @@ namespace Project_CCSB.Services
 
         public Task MakeContract(AppointmentViewModel appointment);
 
+        public Task CheckContract();
+
         /// <summary>
         /// Changes price of vehicle
         /// </summary>
         /// <param name="model"></param>
         public void SetNewPrice(Rate model);
+
+        public Task RenewContracts();
     }
 }

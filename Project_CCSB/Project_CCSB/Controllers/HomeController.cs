@@ -1,10 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using Project_CCSB.Models;
 using Project_CCSB.Services;
 using System.Diagnostics;
-using System.Threading.Tasks;
 
 namespace Project_CCSB.Controllers
 {

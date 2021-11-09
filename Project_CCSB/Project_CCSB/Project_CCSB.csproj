@@ -11,9 +11,11 @@
 
   <ItemGroup>
     <None Remove="Views\EmailFormat\accountRegisteredFormat.html" />
+    <None Remove="Views\EmailFormat\addContractFormat.html" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Views\EmailFormat\addContractFormat.html" />
     <Content Include="Views\EmailFormat\accountRegisteredFormat.html" />
   </ItemGroup>
 
@@ -35,6 +37,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
+    <PackageReference Include="NCrontab.Signed" Version="3.3.2" />
     <PackageReference Include="NETCore.MailKit" Version="2.0.3" />
   </ItemGroup>
 

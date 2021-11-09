@@ -1,30 +1,45 @@
-﻿using Project_CCSB.Models;
+﻿using Microsoft.AspNetCore.Http;
+using Project_CCSB.Models;
 using Project_CCSB.Models.ViewModels;
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace Project_CCSB.Services
 {
     public class ContractService : IContractService
     {
-        //TODO: Figure out correct dates for contracts
-
         private readonly ApplicationDbContext _db;
+        private readonly IEmailSender _emailSender;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public ContractService(ApplicationDbContext db)
+        public ContractService(ApplicationDbContext db, IEmailSender emailSender, IHttpContextAccessor httpContextAccessor)
         {
             _db = db;
+            _emailSender = emailSender;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public bool IsFirstAppointment(string licensePlate)
         {
+            // First check if appointment exists
             bool isFirst = _db.Appointments.Any(x => x.LicensePlate == licensePlate);
 
-            if (isFirst) // If appointment match is found it is not the first appointment
-                return false;
-            
-            return true;
+            if (isFirst)
+            {
+                return false; // If appointment match is found it is not the first appointment
+            } else
+            {
+                // Check if vehicle already has a contract
+                bool hasContract = _db.Contracts.Any(x => x.Vehicle.LicensePlate == licensePlate);
+
+                if (hasContract)
+                    return false;
+
+                return true;
+            }
         }
 
         public async Task MakeContract(AppointmentViewModel appointment)
@@ -46,10 +61,82 @@ namespace Project_CCSB.Services
             // Create new contract
             Contract contract = CreateNewContract(user, vehicle, appointment, invoice);
 
+            // Calculate price for rest of year
+            CalculatePriceRestYear(vehicle, invoice.Amount, contract.Start);
+
             // Add the contract to the database then save
             _db.Contracts.Add(contract);
             await _db.SaveChangesAsync();
         }
+
+        public async Task CheckContract()
+        {
+            string userId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            // Check if user has a vehicle and appointment
+            bool vehicleExists = _db.Vehicles.Any(x => x.ApplicationUser.Id == userId);
+            if (!vehicleExists)
+                return;
+
+            List<Vehicle> vehicles = _db.Vehicles.Where(x => x.ApplicationUser.Id == userId).ToList();
+
+            foreach (Vehicle vehicle in vehicles)
+            {
+                if (IsFirstAppointment(vehicle.LicensePlate))
+                    return;
+
+                // Check for valid contract
+                bool validContract = _db.Contracts.Any(x => x.Start.Year == DateTime.Now.Year);
+            }
+
+            // Create new contract
+            Contract contract = _db.Contracts
+                            .Where(x => (x.ApplicationUser.Id == userId) && (x.Start.AddYears(-1).Year == DateTime.Now.AddYears(-1).Year)).FirstOrDefault();
+
+            AppointmentViewModel model = new AppointmentViewModel()
+            {
+                LicensePlate = contract.Vehicle.LicensePlate,
+                Date = contract.End,
+            };
+
+            await MakeContract(model);
+        }
+
+        /// <summary>
+        /// Calculates price to be paid until next year
+        /// </summary>
+        /// <param name="vehicle"></param>
+        /// <param name="price"></param>
+        /// <param name="contractStart"></param>
+        private void CalculatePriceRestYear(Vehicle vehicle, decimal price, DateTime contractStart)
+        {
+            decimal priceRestOfYear = Math.Round(price / 12 * MonthsLeft(contractStart), 2);
+
+            SendInvoiceMail(priceRestOfYear, vehicle);
+        }
+
+        /// <summary>
+        /// Sends an email with the invoice data
+        /// </summary>
+        /// <param name="price"></param>
+        /// <param name="vehicle"></param>
+        private void SendInvoiceMail(decimal price, Vehicle vehicle)
+        {
+            string emailContent =
+                "<div style=\"width: 250px; font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 50px;\">" +
+                    $"<p>Voertuig: <span style=\"float: right; font-weight: bold; \">{vehicle.Type}</span></p>" +
+                    $"<p>Kenteken: <span style=\"float: right; font-weight: bold; \">{vehicle.LicensePlate}</span></p>" +
+                    $"<p>Prijs: <span style=\"float: right; font-weight: bold; \">€{price}</span></p>" +
+                "</div>";
+
+            var message = new Message(new string[] { "projectCCSB@gmail.com" }, "Factuur", emailContent, "addContract");
+            _emailSender.SendEmail(message);
+        }
+
+        private static int MonthsLeft(DateTime contractStart)
+        {
+            DateTime newYears = DateTime.Parse($"01/01/{contractStart.AddYears(1).Year}");
+            return (newYears.Year * 12 + newYears.Month) - (contractStart.Year * 12 + contractStart.Month);
+        }        
 
         /// <summary>
         /// Creates a new Contract.
@@ -59,14 +146,15 @@ namespace Project_CCSB.Services
         /// <param name="appointment"></param>
         /// <param name="invoice"></param>
         /// <returns>Returns Contract</returns>
-        private Contract CreateNewContract(ApplicationUser user, Vehicle vehicle, AppointmentViewModel appointment, Invoice invoice)
+        private static Contract CreateNewContract(ApplicationUser user, Vehicle vehicle, AppointmentViewModel appointment, Invoice invoice)
         {
+            DateTime nextYear = appointment.Date.AddYears(1);
             return new Contract()
             {
                 ApplicationUser = user,
                 Vehicle = vehicle,
                 Start = appointment.Date,
-                End = DateTime.Now,
+                End = nextYear,
 
                 Invoice = invoice
             };
@@ -117,6 +205,12 @@ namespace Project_CCSB.Services
             _db.Rate.Add(model);
 
             _db.SaveChanges();
+        }
+
+        public async Task RenewContracts()
+        {
+            Console.WriteLine("Renewing contracts");
+            return;
         }
     }
 }

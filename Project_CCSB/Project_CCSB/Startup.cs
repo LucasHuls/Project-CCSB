@@ -7,7 +7,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Project_CCSB.Models;
 using Project_CCSB.Services;
-using System;
 
 namespace Project_CCSB
 {
@@ -38,12 +37,14 @@ namespace Project_CCSB
 
             services.AddHttpContextAccessor();
 
-            var emailConfig = Configuration
+            services.AddSingleton(Configuration
                                 .GetSection("EmailConfiguration")
-                                .Get<EmailConfiguration>();
-            services.AddSingleton(emailConfig);
+                                .Get<EmailConfiguration>());
 
             services.AddScoped<IEmailSender, EmailSender>();
+
+            services.AddTransient<CheckContractService>();
+            services.AddHostedService<CronJobService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
