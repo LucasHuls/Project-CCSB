@@ -14,6 +14,7 @@ namespace Project_CCSB.Models
         //Appointment messages
         public static string AppointmentAdded = "Afspraak succesvol opgeslagen.";
         public static string AppointmentConfirmed = "Afspraak bevestigd.";
+        public static string AppointmentBlocked = "Er ging iets mis. Op deze datum zijn we niet beschikbaar voor afspraken!";
         public static string AppointmentUpdated = "Afspraak succesvol gewijzigd.";
         public static string AppointmentDeleted = "Afspraak succesvol verwijderd.";
         public static string AppointmentExists = "Afspraak bestaat al op gegeven datum en tijdstip.";

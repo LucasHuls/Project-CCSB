@@ -21,6 +21,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Views\DateBlocking\AddBlockedDate.cshtml" />
+    <None Include="Views\DateBlocking\AllBlockedDates.cshtml" />
     <None Include="wwwroot\img\picto CCSB.png" />
   </ItemGroup>
 

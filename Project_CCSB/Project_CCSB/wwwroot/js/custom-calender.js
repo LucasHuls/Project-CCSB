@@ -155,7 +155,8 @@ function onSubmitForm() {
         data: JSON.stringify(requestData),
         contentType: "application/json",
         success: function (response) {
-            if (response.status === 1 || response.status === 2) {
+            console.log(response.status);
+            if (response.status === 1 || response.status === 2 || response.status === 3) {
                 $.notify(response.message, "succes");
                 onCloseModal();
                 calendar.refetchEvents()

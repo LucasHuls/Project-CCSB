@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Project_CCSB.Models.ViewModels;
 
 namespace Project_CCSB.Models
 {
@@ -15,6 +16,7 @@ namespace Project_CCSB.Models
         public DbSet<Contract> Contracts { get; set; }
         public DbSet<Invoice> Invoices { get; set; }
         public DbSet<Rate> Rate { get; set; }
+        public DbSet<BlockedDates> BlockedDates { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -1,0 +1,23 @@
+﻿@model Project_CCSB.Models.ViewModels.Appointment.BlockedDatesViewModel
+@{
+    ViewData["Title"] = "Blocked Dates";
+}
+
+<h2>Datums blokkeren</h2>
+<form method="POST" asp-action="AddBlockedDate" asp-controller="DateBlocking">
+    <h4>Datum toevoegen</h4>
+    <hr />
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="form-group row">
+        <label class="col-md-2" asp-for="SelectedDateToBeBlocked"></label>
+        <div class="col-md-10">
+            <input asp-for="SelectedDateToBeBlocked" class="form-control" id="SelectedDateToBeBlocked"/>
+            <span asp-validation-for="SelectedDateToBeBlocked" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-10 offset-md-2">
+            <input type="submit" value="Toevoegen" class="btn btn-success" />
+        </div>
+    </div>
+</form>

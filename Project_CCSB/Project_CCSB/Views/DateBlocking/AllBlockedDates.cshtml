@@ -1,0 +1,19 @@
+﻿@model Project_CCSB.Models.ViewModels.BlockedDates
+
+<h2>Alle geblokeerde datums</h2>
+<div class="container-fluid">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th scope="col">Datum</th>
+            </tr>
+        </thead>
+        @foreach (var blockeddate in ViewBag.AllBlockedDates)
+        {
+            <tr>
+
+                <td>@blockeddate.SelectedDateToBeBlocked</td>
+            </tr>
+        }
+    </table>
+</div>

@@ -34,6 +34,7 @@ namespace Project_CCSB
             services.AddTransient<IVehicleService, VehicleService>();
             services.AddTransient<IAppointmentService, AppointmentService>();
             services.AddTransient<IContractService, ContractService>();
+            services.AddTransient<IBlockedDatesService, BlockedDatesService>();
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();

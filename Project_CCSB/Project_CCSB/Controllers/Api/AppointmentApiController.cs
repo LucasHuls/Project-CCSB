@@ -31,7 +31,7 @@ namespace Project_CCSB.Controllers.Api
             if (_contractService.IsFirstAppointment(data.LicensePlate)) // Check if new contract is needed
             {
             }
-               await _contractService.MakeContract(data);
+            await _contractService.MakeContract(data);
 
             CommonResponse<int> commonResponse = new CommonResponse<int>();
             try
@@ -39,15 +39,19 @@ namespace Project_CCSB.Controllers.Api
                 commonResponse.Status = _appointmentService.AddUpdate(data).Result;
                 if (commonResponse.Status == 1)
                 {
-                    //Successful update
-                    commonResponse.Message = Helper.AppointmentUpdated;
+                    //Already exists
+                    commonResponse.Message = Helper.AppointmentExists;
                 }
                 else if (commonResponse.Status == 2)
                 {
                     //Successful addition
                     commonResponse.Message = Helper.AppointmentAdded;
-                    var message = new Message(new string[] { "projectCCSB@gmail.com" }, "Afspraak", "Afspraken bekijken", "addAppointment");
-                    _emailSender.SendEmail(message);
+                    //var message = new Message(new string[] { "projectCCSB@gmail.com" }, "Afspraak", "Afspraken bekijken", "addAppointment");
+                    //_emailSender.SendEmail(message);
+                }
+                else if (commonResponse.Status == 3)
+                {
+                    commonResponse.Message = Helper.AppointmentBlocked;
                 }
             }
             catch (Exception ex)
