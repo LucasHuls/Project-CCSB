@@ -1,13 +1,9 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Project_CCSB.Models;
 using Project_CCSB.Models.ViewModels;
 using Project_CCSB.Services;
 using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Security.Claims;
 using System.Text.Json;
 using System.Threading.Tasks;
 
@@ -20,17 +16,15 @@ namespace Project_CCSB.Controllers.Api
         private readonly IEmailSender _emailSender;
         private readonly IAppointmentService _appointmentService;
         private readonly IContractService _contractService;
-        private readonly IHttpContextAccessor _httpContextAccessor;
-        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IUserService _userService;
 
         public AppointmentApiController(IAppointmentService appointmentService, IEmailSender EmailSender,
-            IContractService contractService, IHttpContextAccessor httpContextAccessor, UserManager<ApplicationUser> userManager )
+            IContractService contractService, IUserService userService )
         {
             _appointmentService = appointmentService;
             _emailSender = EmailSender;
             _contractService = contractService;
-            _httpContextAccessor = httpContextAccessor;
-            _userManager = userManager;
+            _userService = userService;
         }
 
         [HttpPost]
@@ -128,9 +122,8 @@ namespace Project_CCSB.Controllers.Api
         [Route("GetCalendarEvents")]
         public async Task<string> GetCalendarEvents()
         {
-            string userId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            var user = await _userManager.FindByIdAsync(userId);
-            var roles = await _userManager.GetRolesAsync(user);
+            var userId = _userService.GetUserId();
+            var roles = await _userService.GetUserRoles();
 
             if (roles[0] == "Admin")
             {

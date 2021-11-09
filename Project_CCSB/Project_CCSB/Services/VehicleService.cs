@@ -1,12 +1,10 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Project_CCSB.Models;
 using Project_CCSB.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace Project_CCSB.Services
@@ -15,16 +13,16 @@ namespace Project_CCSB.Services
     {
         private readonly ApplicationDbContext _db;
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IUserService _userService;
 
         public VehicleService(
             ApplicationDbContext db,
             UserManager<ApplicationUser> userManager,
-            IHttpContextAccessor httpContextAccessor)
+            IUserService userService)
         {
             _db = db;
             _userManager = userManager;
-            _httpContextAccessor = httpContextAccessor;
+            _userService = userService;
         }
 
         public List<VehicleViewModel> GetVehicleList()
@@ -64,7 +62,7 @@ namespace Project_CCSB.Services
 
         public List<VehicleViewModel> GetUserVehicleList()
         {
-            string userId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            string userId = _userService.GetUserId();
             var vehicles = (from vehicle in _db.Vehicles
                             join user in _db.Users on vehicle.ApplicationUser.Id equals user.Id
                             where user.Id == userId
@@ -85,7 +83,7 @@ namespace Project_CCSB.Services
 
         public async Task<int> StoreVehicle(VehicleViewModel model)
         {
-            var user = await _userManager.FindByIdAsync(model.User);    // Get User
+            ApplicationUser user = await _userManager.FindByIdAsync(model.User);    // Get User
             decimal length = Decimal.Parse(model.Length);               // Convert string to correct type (decimal)
             bool power = model.Power == "true" ? true : false;          // Turn string into correct type (boolean)
 

@@ -1,10 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
-using Project_CCSB.Models;
+﻿using Project_CCSB.Models;
 using Project_CCSB.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace Project_CCSB.Services
@@ -13,13 +11,13 @@ namespace Project_CCSB.Services
     {
         private readonly ApplicationDbContext _db;
         private readonly IEmailSender _emailSender;
-        private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IUserService _userService;
 
-        public ContractService(ApplicationDbContext db, IEmailSender emailSender, IHttpContextAccessor httpContextAccessor)
+        public ContractService(ApplicationDbContext db, IEmailSender emailSender, IUserService userService)
         {
             _db = db;
             _emailSender = emailSender;
-            _httpContextAccessor = httpContextAccessor;
+            _userService = userService;
         }
 
         public bool IsFirstAppointment(string licensePlate)
@@ -71,7 +69,7 @@ namespace Project_CCSB.Services
 
         public async Task CheckContract()
         {
-            string userId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            string userId = _userService.GetUserId();
             // Check if user has a vehicle and appointment
             bool vehicleExists = _db.Vehicles.Any(x => x.ApplicationUser.Id == userId);
             if (!vehicleExists)
