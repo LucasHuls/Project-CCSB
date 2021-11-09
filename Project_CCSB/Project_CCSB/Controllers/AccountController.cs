@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Project_CCSB.Models;
 using Project_CCSB.Models.ViewModels;
 using Project_CCSB.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -31,8 +32,32 @@ namespace Project_CCSB.Controllers
             _emailSender = emailSender;
         }
 
-        public IActionResult Login()
+        public async Task<IActionResult> Login()
         {
+            if (!_roleManager.RoleExistsAsync(Helper.Admin).GetAwaiter().GetResult())
+            {
+                await _roleManager.CreateAsync(new IdentityRole(Helper.Admin));
+                await _roleManager.CreateAsync(new IdentityRole(Helper.User));
+            }
+            if (!_db.Users.Any()) // If no users exists create default admin
+            {
+                ApplicationUser defaultUser = new()
+                {
+                    UserName = "beheerder@gmail.com",
+                    Email = "beheerder@gmail.com",
+                    FirstName = "Beheerder",
+                    MiddleName = null,
+                    LastName = "Account",
+                    AccountNumber = "123456789",
+                    City = "Hengelo",
+                    Adress = "Gieterij 200",
+                    ZipCode = "1234DD",
+                    BirthDate = DateTime.Now
+                };
+                var result = await _userManager.CreateAsync(defaultUser, "Beheerder!1");
+                if (result.Succeeded)
+                    await _userManager.AddToRoleAsync(defaultUser, "Admin");
+            }
             return View();
         }
 
@@ -60,13 +85,8 @@ namespace Project_CCSB.Controllers
         }
 
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Register()
+        public IActionResult Register()
         {
-            if (!_roleManager.RoleExistsAsync(Helper.Admin).GetAwaiter().GetResult())
-            {
-                await _roleManager.CreateAsync(new IdentityRole(Helper.Admin));
-                await _roleManager.CreateAsync(new IdentityRole(Helper.User));
-            }
             return View();
         }
 
