@@ -56,7 +56,8 @@ namespace Project_CCSB
             services.AddSingleton<ContractJob>();
             services.AddSingleton(new JobSchedule(
                 jobType: typeof(ContractJob),
-                cronExpression: "0/5 * * * * ?")); // run every 5 seconds
+                cronExpression: "0 1 0 31 12 ? *")); // Run every last day of December
+            // CRON for every 10 seconds: "0/10 * * * * ?"
 
             services.AddHostedService<QuartzHostedService>();
         }
