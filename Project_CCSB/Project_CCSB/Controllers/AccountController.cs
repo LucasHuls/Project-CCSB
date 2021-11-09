@@ -7,6 +7,7 @@ using Project_CCSB.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Project_CCSB.Controllers
@@ -90,6 +91,15 @@ namespace Project_CCSB.Controllers
             return View();
         }
 
+        private static bool ValidateAccountNumber(string accountNumber)
+        {
+            if (Regex.IsMatch(accountNumber, @"^([A-Z]{2}[ \-]?[0-9]{2})(?=(?:[ \-]?[A-Z0-9]){9,30}$)((?:[ \-]?[A-Z0-9]{3,5}){2,7})([ \-]?[A-Z0-9]{1,3})?$"))
+            {
+                return true;
+            } else
+                return false;
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
@@ -97,34 +107,40 @@ namespace Project_CCSB.Controllers
         {
             if (ModelState.IsValid)
             {
-                ApplicationUser user = new ApplicationUser()
+                if (ValidateAccountNumber(model.AccountNumber))
                 {
-                    UserName = model.Email,
-                    Email = model.Email,
-                    FirstName = model.FirstName,
-                    MiddleName = model.MiddleName,
-                    LastName = model.LastName,
-                    AccountNumber = model.AccountNumber,
-                    City = model.City,
-                    Adress = model.Adress,
-                    ZipCode = model.ZipCode,
-                    BirthDate = model.BirthDate
-                };
-                var result = await _userManager.CreateAsync(user, model.Password);
-                if (result.Succeeded)
-                {
-                    await _userManager.AddToRoleAsync(user, model.RoleName);
+                    ApplicationUser user = new ApplicationUser()
+                    {
+                        UserName = model.Email,
+                        Email = model.Email,
+                        FirstName = model.FirstName,
+                        MiddleName = model.MiddleName,
+                        LastName = model.LastName,
+                        AccountNumber = model.AccountNumber,
+                        City = model.City,
+                        Adress = model.Adress,
+                        ZipCode = model.ZipCode,
+                        BirthDate = model.BirthDate
+                    };
+                    var result = await _userManager.CreateAsync(user, model.Password);
+                    if (result.Succeeded)
+                    {
+                        await _userManager.AddToRoleAsync(user, model.RoleName);
 
-                    var messageToAdmin = new Message(new string[] { "projectCCSB@gmail.com" }, "Account geregistreerd", "Profiel bekijken", "accountRegistered");
-                    var messageToUser = new Message(new string[] { model.Email }, "Account geregistreerd", "Profiel bekijken", "accountRegistered");
-                    _emailSender.SendEmail(messageToAdmin);
-                    _emailSender.SendEmail(messageToUser);
-                    return RedirectToAction("AllUsers", "Account");
-                }
-                // Add all errors to the modelstate
-                foreach (var error in result.Errors)
+                        var messageToAdmin = new Message(new string[] { "projectCCSB@gmail.com" }, "Account geregistreerd", "Profiel bekijken", "accountRegistered");
+                        var messageToUser = new Message(new string[] { model.Email }, "Account geregistreerd", "Profiel bekijken", "accountRegistered");
+                        _emailSender.SendEmail(messageToAdmin);
+                        _emailSender.SendEmail(messageToUser);
+                        return RedirectToAction("AllUsers", "Account");
+                    }
+                    // Add all errors to the modelstate
+                    foreach (var error in result.Errors)
+                    {
+                        ModelState.AddModelError("", error.Description);
+                    }
+                } else
                 {
-                    ModelState.AddModelError("", error.Description);
+                    ModelState.AddModelError("", "Geen valide rekening nummer");
                 }
             }
             return View();
