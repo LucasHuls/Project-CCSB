@@ -7,6 +7,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Project_CCSB.Models;
 using Project_CCSB.Services;
+using Quartz;
+using Quartz.Impl;
+using Quartz.Spi;
 
 namespace Project_CCSB
 {
@@ -44,8 +47,18 @@ namespace Project_CCSB
             services.AddScoped<IEmailSender, EmailSender>();
             services.AddScoped<CustomViewRendererService>();
 
-            //services.AddTransient<CheckContractService>();
-            //services.AddHostedService<CronJobService>();
+            // CRON jobs
+            // Add Quartz services
+            services.AddSingleton<IJobFactory, SingletonJobFactory>();
+            services.AddSingleton<ISchedulerFactory, StdSchedulerFactory>();
+
+            // Add our job
+            services.AddSingleton<ContractJob>();
+            services.AddSingleton(new JobSchedule(
+                jobType: typeof(ContractJob),
+                cronExpression: "0/5 * * * * ?")); // run every 5 seconds
+
+            services.AddHostedService<QuartzHostedService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
