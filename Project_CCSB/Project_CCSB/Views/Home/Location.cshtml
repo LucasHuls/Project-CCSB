@@ -15,17 +15,18 @@
     }
 </style>
 <script>
+    // Initialize and add the map
     function initMap() {
-
-        const stalling = { lat: 52.225, lng: 6.951 };
-
+        // The location of storage
+        const storage = { lat: 52.225, lng: 6.951 };
+        // The map, centered at storage
         const map = new google.maps.Map(document.getElementById("map"), {
             zoom: 16,
-            center: stalling,
+            center: storage,
         });
-
+        // The marker, positioned at storage
         const marker = new google.maps.Marker({
-          position: stalling,
+          position: storage,
           map: map,
         });
       }
