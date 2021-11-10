@@ -55,6 +55,11 @@ namespace Project_CCSB.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Sets a new price for vehicle type
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult SetNewPrice(Rate model)

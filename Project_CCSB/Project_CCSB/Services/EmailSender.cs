@@ -20,6 +20,11 @@ namespace Project_CCSB.Services
             Send(emailMessage);
         }
 
+        /// <summary>
+        /// Creates new email message based on params
+        /// </summary>
+        /// <param name="message"></param>
+        /// <returns>MimeMessage</returns>
         private MimeMessage CreateEmailMessage(Message message)
         {
             string emailFormat = System.IO.File.ReadAllText($"Views/EmailFormat/{message.Format}Format.html");
@@ -30,11 +35,13 @@ namespace Project_CCSB.Services
             emailMessage.Subject = message.Subject;
             emailMessage.Body = new TextPart(MimeKit.Text.TextFormat.Html) { Text = string.Format(emailFormat, message.Content) };
         
-            
-
             return emailMessage;
         }
 
+        /// <summary>
+        /// Sends to email to the user using SmtpClient
+        /// </summary>
+        /// <param name="mailMessage"></param>
         private void Send(MimeMessage mailMessage)
         {
             using (var client = new SmtpClient())

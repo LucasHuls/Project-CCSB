@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Project_CCSB.Models;
 using Project_CCSB.Services;
@@ -25,6 +24,10 @@ namespace Project_CCSB.Controllers
             _marksheetFileName = "PDF.cshtml";
         }
 
+        /// <summary>
+        /// Makes a new pdf file with appointments in the next 7 days
+        /// </summary>
+        /// <returns>Downloadable pdf file</returns>
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Pdf()
         {
@@ -54,6 +57,10 @@ namespace Project_CCSB.Controllers
             return File(bytes, "application/pdf", "Weekoverzicht.pdf");
         }
 
+        /// <summary>
+        /// Makes a new pdf file with all appointments
+        /// </summary>
+        /// <returns>Downloadable pdf file</returns>
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> PdfAll()
         {

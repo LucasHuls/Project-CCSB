@@ -11,6 +11,10 @@ namespace Project_CCSB.Services
         /// <returns>String of users id</returns>
         public string GetUserId();
 
+        /// <summary>
+        /// Gets a users email
+        /// </summary>
+        /// <returns>String with user email</returns>
         public Task<string> GetUserEmail();
 
         /// <summary>
