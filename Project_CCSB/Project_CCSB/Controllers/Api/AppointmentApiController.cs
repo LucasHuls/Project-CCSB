@@ -26,7 +26,11 @@ namespace Project_CCSB.Controllers.Api
             _contractService = contractService;
             _userService = userService;
         }
-
+        /// <summary>
+        /// Function for adding appointments to the calendar. Checks if it already exists and after that it checks if the date is blocked in the BlockedDates table
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
         [HttpPost]
         [Route("SaveCalendarData")]
         public async Task<IActionResult> SaveCalendarData(AppointmentViewModel data)
@@ -67,6 +71,12 @@ namespace Project_CCSB.Controllers.Api
             return Ok(commonResponse);
         }
 
+        /// <summary>
+        /// Function for editing appointment. It will send an email to the Admin and User
+        /// </summary>
+        /// <param name="oldDate"></param>
+        /// <param name="data"></param>
+        /// <returns>CommonResponse</returns>
         [HttpPost]
         [Route("EditAppointment")]
         public async Task<IActionResult> EditAppointment([FromHeader]string oldDate, AppointmentViewModel data)
@@ -95,7 +105,11 @@ namespace Project_CCSB.Controllers.Api
             }
             return Ok(commonResponse);
         }
-
+        /// <summary>
+        /// Function for removing an appointment. It will send an email to the Admin and User
+        /// </summary>
+        /// <param name="startDate"></param>
+        /// <returns>CommonResponse</returns>
         [HttpDelete]
         [Route("DeleteAppointment")]
         public async Task<IActionResult> DeleteAppointment([FromHeader]string startDate)
@@ -123,7 +137,10 @@ namespace Project_CCSB.Controllers.Api
             }
             return Ok(commonResponse);
         }
-
+        /// <summary>
+        /// Function for pulling the calendar events. It check if the user is an admin or user.
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [Route("GetCalendarEvents")]
         public async Task<string> GetCalendarEvents()
@@ -141,17 +158,24 @@ namespace Project_CCSB.Controllers.Api
                 return JsonSerializer.Serialize(appointments);
             }
         }
-
+        /// <summary>
+        /// Checks the owner of the vehicle by licenseplate
+        /// </summary>
+        /// <param name="licensePlate"></param>
+        /// <returns></returns>
         [HttpGet]
         [Route("GetUserByVehicle/{licensePlate}")]
         public string GetUserByVehicle(string licensePlate)
         {
             return _appointmentService.GetUserByLicensePlate(licensePlate);
         }
-
+        /// <summary>
+        /// Function for formatting dates.
+        /// </summary>
+        /// <param name="date"></param>
+        /// <returns>Formatted Date</returns>
         private DateTime FormatDate(string date)
         {
-            // Format date string to DateTime (https://stackoverflow.com/questions/31244552/how-to-parse-string-which-contains-gmt-to-datetime)
             DateTime formatDate;
             string dateFormat = "ddd MMM dd yyyy HH:mm:ss 'GMT'K";
             DateTime.TryParseExact(date,

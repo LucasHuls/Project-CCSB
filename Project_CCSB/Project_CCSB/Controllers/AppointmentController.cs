@@ -27,7 +27,10 @@ namespace Project_CCSB.Controllers
             ViewBag.Vehicles = new SelectList(_vehicleService.GetUserVehicleList(), "LicensePlate", "LicensePlate", "", "Brand");
             return View("Calander");
         }
-
+        /// <summary>
+        /// If the user is an Admin then it will show the admin calendar.
+        /// </summary>
+        /// <returns></returns>
         [Authorize(Roles = "Admin")]
         public IActionResult AdminCalander()
         {
@@ -36,7 +39,11 @@ namespace Project_CCSB.Controllers
             ViewBag.Users = new SelectList(_vehicleService.GetUserList(), "Name", "Name");
             return View("Calander");
         }
-
+        /// <summary>
+        /// Fuction for receiving a full name
+        /// </summary>
+        /// <param name="licensePlate"></param>
+        /// <returns>Users full name</returns>
         private string GetUserName(string licensePlate)
         {
             var name = (from vehicle in _db.Vehicles.Where(x => x.LicensePlate == licensePlate)

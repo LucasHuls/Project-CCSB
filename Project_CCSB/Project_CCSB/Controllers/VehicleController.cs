@@ -13,21 +13,30 @@ namespace Project_CCSB.Controllers
         {
             _vehicleService = vehicleService;
         }
-
+        /// <summary>
+        /// function for adding vehicles
+        /// </summary>
+        /// <returns>view</returns>
         [Authorize(Roles = "Admin")]
         public IActionResult AddVehicle()
         {
             ViewBag.UserList = new SelectList(_vehicleService.GetUserList(), "Id", "Name");
             return View();
         }
-
+        /// <summary>
+        /// Return users vehicles
+        /// </summary>
+        /// <returns>View</returns>
         public IActionResult UserVehicles()
         {
             var vehicles = _vehicleService.GetUserVehicleList();
             ViewBag.Vehicles = vehicles;
             return View();
         }
-
+        /// <summary>
+        /// Returns all existing vehicles
+        /// </summary>
+        /// <returns>View</returns>
         [Authorize(Roles = "Admin")]
         public IActionResult AllVehicles()
         {

@@ -16,7 +16,11 @@ namespace Project_CCSB.Controllers.Api
         {
             _vehicleService = vehicleService;
         }
-
+        /// <summary>
+        /// Function for adding vehicles. It checks the commonresponse and will send the connected message from the class helper.
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns>CommonResponse</returns>
         [HttpPost]
         [Route("SaveVehicle")]
         public IActionResult SaveVehicle(VehicleViewModel data)
@@ -43,7 +47,11 @@ namespace Project_CCSB.Controllers.Api
             }
             return Ok(commonResponse);
         }
-
+        /// <summary>
+        /// Function for removing vehicles. It checks the commonresponse and will send the connected message from the class helper.
+        /// </summary>
+        /// <param name="licensePlate"></param>
+        /// <returns>CommonResponse</returns>
         [HttpDelete]
         [Route("DeleteVehicle")]
         public IActionResult DeleteVehicle([FromHeader]string licensePlate)

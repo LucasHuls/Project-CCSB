@@ -1,9 +1,6 @@
 ﻿<h2>Beheerders paneel</h2>
 <hr />
 
-<partial name="_ChangeRate" />
-<hr />
-
 <div style="display: flex; justify-content: space-between; width: 100%;">
     <h3>PDF's:</h3>
     <div>
@@ -16,6 +13,10 @@
         <a asp-controller="Pdf" asp-action="PdfAll" class="btn pdfBtn">Alle afspraken</a>
     </div>
 </div>
+<hr />
+<partial name="_ChangeRate" />
+<hr />
+<h3>Datums blokkeren</h3>
 <div class="text-center">
     <a class="btn" asp-action="AddBlockedDate" asp-controller="DateBlocking"><button class="btn btn-success">Geblokeerde datum toevoegen</button></a>
     <a class="btn" asp-action="AllBlockedDates" asp-controller="DateBlocking"><button class="btn btn-success">Alle geblokkeerde datum</button></a>
