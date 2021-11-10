@@ -10,10 +10,11 @@
         </thead>
         @foreach (var blockeddate in ViewBag.AllBlockedDates)
         {
-            <tr>
+    <tr>
 
-                <td>@blockeddate.SelectedDateToBeBlocked</td>
-            </tr>
+        <td>@blockeddate.SelectedDateToBeBlocked.ToString("dd MMMM yyyy")</td>
+        <td class="col-1"><button class="btn" onclick="">X</button></td>
+    </tr>
         }
     </table>
 </div>
