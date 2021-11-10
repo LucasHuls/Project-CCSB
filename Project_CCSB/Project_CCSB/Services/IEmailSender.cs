@@ -4,6 +4,10 @@ namespace Project_CCSB.Services
 {
     public interface IEmailSender
     {
-        void SendEmail(Message message);
+        /// <summary>
+        /// Sends email with message
+        /// </summary>
+        /// <param name="message"></param>
+        public void SendEmail(Message message);
     }
 }

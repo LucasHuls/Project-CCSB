@@ -67,38 +67,6 @@ namespace Project_CCSB.Services
             await _db.SaveChangesAsync();
         }
 
-        public async Task CheckContract()
-        {
-            string userId = _userService.GetUserId();
-            // Check if user has a vehicle and appointment
-            bool vehicleExists = _db.Vehicles.Any(x => x.ApplicationUser.Id == userId);
-            if (!vehicleExists)
-                return;
-
-            List<Vehicle> vehicles = _db.Vehicles.Where(x => x.ApplicationUser.Id == userId).ToList();
-
-            foreach (Vehicle vehicle in vehicles)
-            {
-                if (IsFirstAppointment(vehicle.LicensePlate))
-                    return;
-
-                // Check for valid contract
-                bool validContract = _db.Contracts.Any(x => x.Start.Year == DateTime.Now.Year);
-            }
-
-            // Create new contract
-            Contract contract = _db.Contracts
-                            .Where(x => (x.ApplicationUser.Id == userId) && (x.Start.AddYears(-1).Year == DateTime.Now.AddYears(-1).Year)).FirstOrDefault();
-
-            AppointmentViewModel model = new AppointmentViewModel()
-            {
-                LicensePlate = contract.Vehicle.LicensePlate,
-                Date = contract.End,
-            };
-
-            await MakeContract(model);
-        }
-
         /// <summary>
         /// Calculates price to be paid until next year
         /// </summary>
@@ -130,6 +98,11 @@ namespace Project_CCSB.Services
             _emailSender.SendEmail(message);
         }
 
+        /// <summary>
+        /// Calculates months left in year
+        /// </summary>
+        /// <param name="contractStart"></param>
+        /// <returns>Interger of months left</returns>
         private static int MonthsLeft(DateTime contractStart)
         {
             DateTime newYears = DateTime.Parse($"01/01/{contractStart.AddYears(1).Year}");

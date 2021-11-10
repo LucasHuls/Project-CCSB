@@ -13,9 +13,13 @@ namespace Project_CCSB.Services
         /// <returns>True or False</returns>
         public bool IsFirstAppointment(string licensePlate);
 
+        /// <summary>
+        /// Creates a new contract in the database
+        /// </summary>
+        /// <param name="appointment"></param>
+        /// <returns></returns>
         public Task MakeContract(AppointmentViewModel appointment);
 
-        public Task CheckContract();
 
         /// <summary>
         /// Changes price of vehicle
