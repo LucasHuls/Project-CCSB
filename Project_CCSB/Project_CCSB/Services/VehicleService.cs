@@ -29,7 +29,7 @@ namespace Project_CCSB.Services
         {
             var vehicles = (from vehicle in _db.Vehicles
                             join user in _db.Users on vehicle.ApplicationUser.Id equals user.Id
-                            select new VehicleViewModel 
+                            select new VehicleViewModel
                             {
                                 LicensePlate = vehicle.LicensePlate,
                                 Brand = vehicle.Brand,
@@ -38,9 +38,9 @@ namespace Project_CCSB.Services
                                 Type = vehicle.Type,
                                 FirstName = user.FirstName,
                                 MiddleName = user.MiddleName,
-                                LastName = user.LastName
+                                LastName = user.LastName,
+                                IsDeleteAble = !_db.Appointments.Any(x => x.LicensePlate == vehicle.LicensePlate)
                             }).OrderBy(x => x.Brand).ToList();
-
             return vehicles;
         }
 

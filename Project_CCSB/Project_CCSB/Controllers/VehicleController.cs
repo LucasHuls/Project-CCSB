@@ -13,6 +13,7 @@ namespace Project_CCSB.Controllers
         {
             _vehicleService = vehicleService;
         }
+
         /// <summary>
         /// function for adding vehicles
         /// </summary>
@@ -23,6 +24,7 @@ namespace Project_CCSB.Controllers
             ViewBag.UserList = new SelectList(_vehicleService.GetUserList(), "Id", "Name");
             return View();
         }
+
         /// <summary>
         /// Return users vehicles
         /// </summary>
@@ -33,6 +35,7 @@ namespace Project_CCSB.Controllers
             ViewBag.Vehicles = vehicles;
             return View();
         }
+
         /// <summary>
         /// Returns all existing vehicles
         /// </summary>

@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Project_CCSB.Models.ViewModels;
 using Project_CCSB.Services;
 using System;
@@ -16,6 +15,7 @@ namespace Project_CCSB.Controllers.Api
         {
             _vehicleService = vehicleService;
         }
+
         /// <summary>
         /// Function for adding vehicles. It checks the commonresponse and will send the connected message from the class helper.
         /// </summary>
@@ -47,6 +47,7 @@ namespace Project_CCSB.Controllers.Api
             }
             return Ok(commonResponse);
         }
+
         /// <summary>
         /// Function for removing vehicles. It checks the commonresponse and will send the connected message from the class helper.
         /// </summary>
