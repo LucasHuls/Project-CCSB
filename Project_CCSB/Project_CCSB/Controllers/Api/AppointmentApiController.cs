@@ -26,6 +26,7 @@ namespace Project_CCSB.Controllers.Api
             _contractService = contractService;
             _userService = userService;
         }
+
         /// <summary>
         /// Function for adding appointments to the calendar. Checks if it already exists and after that it checks if the date is blocked in the BlockedDates table
         /// </summary>
@@ -105,6 +106,7 @@ namespace Project_CCSB.Controllers.Api
             }
             return Ok(commonResponse);
         }
+
         /// <summary>
         /// Function for removing an appointment. It will send an email to the Admin and User
         /// </summary>
@@ -137,6 +139,7 @@ namespace Project_CCSB.Controllers.Api
             }
             return Ok(commonResponse);
         }
+
         /// <summary>
         /// Function for pulling the calendar events. It check if the user is an admin or user.
         /// </summary>
@@ -158,6 +161,7 @@ namespace Project_CCSB.Controllers.Api
                 return JsonSerializer.Serialize(appointments);
             }
         }
+
         /// <summary>
         /// Checks the owner of the vehicle by licenseplate
         /// </summary>
@@ -169,6 +173,7 @@ namespace Project_CCSB.Controllers.Api
         {
             return _appointmentService.GetUserByLicensePlate(licensePlate);
         }
+
         /// <summary>
         /// Function for formatting dates.
         /// </summary>
