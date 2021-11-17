@@ -28,11 +28,11 @@
                         <button class="btn btn-danger deleteVehicleBtn" onclick="PopUpShow('@vehicle.LicensePlate')">X</button>
                     }
                 </td>
-        </tr>
+            </tr>
         }
     </table>
 
-    <partial name="_ConfirmPopUp" />
+    @await Html.PartialAsync("_ConfirmPopUp", "Delete")
 </div>
 
 <script>
