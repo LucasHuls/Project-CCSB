@@ -115,8 +115,15 @@ function ValidateNewAppointment(dateEl, dateElValidation, appointmentEl, appoint
         return false;
     }
 
-    // Validate appointment if date is in the past
     var date = $("#" + dateEl).val();
+    // Validate if date input is a real date
+    if (isNaN(Date.parse(date))) {
+        console.log("Geen geldige datum");
+        $("#" + dateElValidation).html("Vul een geldige datum in!");
+        return false;
+    }
+
+    // Validate appointment if date is in the past
     var test = new Date(date);
 
     if (test < new Date()) {
