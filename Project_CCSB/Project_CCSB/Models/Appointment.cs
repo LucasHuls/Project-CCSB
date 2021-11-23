@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Project_CCSB.Models
 {
-    public class Appointment
+    public class BlockedDate
     {
         [Key, Column(Order = 1)]
         public DateTime Date { get; set; }

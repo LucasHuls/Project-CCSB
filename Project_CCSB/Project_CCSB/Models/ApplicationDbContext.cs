@@ -12,7 +12,7 @@ namespace Project_CCSB.Models
         }
 
         public DbSet<Vehicle> Vehicles { get; set; }
-        public DbSet<Appointment> Appointments { get; set; }
+        public DbSet<BlockedDate> Appointments { get; set; }
         public DbSet<Contract> Contracts { get; set; }
         public DbSet<Invoice> Invoices { get; set; }
         public DbSet<Rate> Rate { get; set; }
@@ -20,7 +20,7 @@ namespace Project_CCSB.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Appointment>().HasKey(a => new { a.Date, a.LicensePlate });
+            modelBuilder.Entity<BlockedDate>().HasKey(a => new { a.Date, a.LicensePlate });
 
             modelBuilder.Entity<Vehicle>()
                 .Property(p => p.Length)

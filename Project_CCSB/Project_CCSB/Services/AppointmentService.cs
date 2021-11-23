@@ -47,7 +47,7 @@ namespace Project_CCSB.Services
                 else
                 {
                     //Create appointment based on viewmodel
-                    Appointment appointment = new Appointment()
+                    BlockedDate appointment = new BlockedDate()
                     {
                         Date = model.Date,
                         LicensePlate = model.LicensePlate,
@@ -109,7 +109,7 @@ namespace Project_CCSB.Services
         {
             var appointment = _db.Appointments.Where(x => x.Date == date).AsNoTracking().ToList();
 
-            Appointment appointmentToDelete = new Appointment
+            BlockedDate appointmentToDelete = new BlockedDate
             {
                 Date = appointment[0].Date,
                 AppointmentType = appointment[0].AppointmentType,
