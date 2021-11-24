@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Project_CCSB.Models.ViewModels.Appointment;
 using Project_CCSB.Services;
+using System;
 
 namespace Project_CCSB.Controllers
 {
@@ -28,6 +29,14 @@ namespace Project_CCSB.Controllers
         public IActionResult AddBlockedDate(BlockedDatesViewModel model)
         {
             _blockedDatesService.StoreDate(model);
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult DeleteBlockedDate(DateTime model)
+        {
+            _blockedDatesService.DeleteBlockedDate(model);
             return View();
         }
     }

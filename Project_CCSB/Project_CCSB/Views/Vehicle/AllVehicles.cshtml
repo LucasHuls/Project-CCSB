@@ -22,12 +22,17 @@
                 <td>@vehicle.Length meter</td>
                 <td>@vehicle.PowerText</td>
                 <td>@vehicle.FullName</td>
-                <td class="col-1"><button class="btn" onclick="PopUpShow('@vehicle.LicensePlate')">X</button></td>
+                <td class="col-1">
+                    @if (vehicle.IsDeleteAble)
+                    {
+                        <button class="btn btn-danger deleteVehicleBtn" onclick="PopUpShow('@vehicle.LicensePlate')">X</button>
+                    }
+                </td>
             </tr>
         }
     </table>
 
-    <partial name="_ConfirmPopUp" />
+    @await Html.PartialAsync("_ConfirmPopUp", "Delete")
 </div>
 
 <script>

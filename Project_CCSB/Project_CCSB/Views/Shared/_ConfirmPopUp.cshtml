@@ -1,16 +1,18 @@
-﻿<div class="popUpDeleteVehicleBackground" hidden>
-    <div class="popUpDeleteVehicle">
+﻿@model string
+
+<div class="popUpDeleteBackground" hidden>
+    <div class="popUpDelete">
         <h3>Weet je zeker dat je dit<br />voertuig wilt verwijderen?</h3>
         <p>Dit is niet terug te draaien!</p>
-        <div class="popUpDeleteVehicleButtonDiv">
-            <button class="btn deleteVehicleConfirm">JA</button>
+        <div class="popUpDeleteButtonDiv">
+            <button class="btn deleteConfirm">JA</button>
             <button class="btn" onclick="PopUpRemove()">NEE</button>
         </div>
     </div>
 </div>
 
 <style>
-    .popUpDeleteVehicleBackground {
+    .popUpDeleteBackground {
         display: block;
         position: absolute;
         top: 0;
@@ -20,7 +22,7 @@
         background: rgba(0, 0, 0, 0.5);
     }
 
-    .popUpDeleteVehicle {
+    .popUpDelete {
         display: block;
         position: absolute;
         left: 50%;
@@ -32,19 +34,19 @@
         border-radius: 0.2rem;
     }
 
-    .popUpDeleteVehicleButtonDiv {
+    .popUpDeleteButtonDiv {
         display: flex;
         justify-content: space-between;
         margin-top: 1rem;
     }
 
-    .popUpDeleteVehicleButtonDiv button {
+    .popUpDeleteButtonDiv button {
         outline: 0;
         height: 100%;
         border: 0.1rem solid #000;
         width: 40%;
     }
-    .popUpDeleteVehicleButtonDiv button:hover {
+    .popUpDeleteButtonDiv button:hover {
         background: black;
         color: white;
     }
@@ -52,14 +54,14 @@
 
 <script>
     function PopUpShow(licensePlate) {
-        $(".popUpDeleteVehicleBackground").attr("hidden", false);
+        $(".popUpDeleteBackground").attr("hidden", false);
 
-        $(".deleteVehicleConfirm").on("click", () => {
-            Delete(licensePlate);
+        $(".deleteConfirm").on("click", () => {
+            @string.Format("{0}(licensePlate);", Model)
             PopUpRemove();
         });
     }
     function PopUpRemove() {
-        $(".popUpDeleteVehicleBackground").attr("hidden", true);
+        $(".popUpDeleteBackground").attr("hidden", true);
     }
 </script>

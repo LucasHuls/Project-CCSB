@@ -1,6 +1,8 @@
-﻿using Project_CCSB.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using Project_CCSB.Models;
 using Project_CCSB.Models.ViewModels;
 using Project_CCSB.Models.ViewModels.Appointment;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -41,6 +43,17 @@ namespace Project_CCSB.Services
                 await _db.SaveChangesAsync();
                 return 2;
             }
+        }
+
+        public async Task<int> DeleteBlockedDate(DateTime date)
+        {
+            BlockedDates BlockedDateToDelete = new BlockedDates
+            {
+                SelectedDateToBeBlocked = date
+            };
+            _db.BlockedDates.Remove(BlockedDateToDelete);
+            await _db.SaveChangesAsync();
+            return 1;
         }
     }
 }

@@ -115,21 +115,33 @@ function ValidateNewAppointment(dateEl, dateElValidation, appointmentEl, appoint
         return false;
     }
 
-    // Validate appointment if date is in the past
     var date = $("#" + dateEl).val();
+    // Validate if date input is a real date
+    if (isNaN(Date.parse(date))) {
+        console.log("Geen geldige datum");
+        $("#" + dateElValidation).html("Vul een geldige datum in!");
+        return false;
+    }
+
+    // Validate appointment if date is in the past
     var test = new Date(date);
+
     if (test < new Date()) {
         $("#" + dateElValidation).html("Datum is in het verleden!");
         return false;
     }
 
+    var dateSplit = date.split("-");
+    var day = parseInt(dateSplit[2].substring(0, 2));
+    var month = parseInt(dateSplit[1]);
 
-    var day = parseInt(date.split("-")[2].substring(0, 2));
-    
     var currentDate = new Date().toISOString();
     var currentDay = parseInt(currentDate.split("-")[2].substring(0, 2));
+    var currentMonth = new Date().getMonth() + 1; // getMonth() is 0 Indexed
+    console.log((day - currentDay) <= 2 && month == currentMonth);
+    console.log(month, currentMonth);
     
-    if (day - currentDay <= 2) {
+    if ((day - currentDay) <= 2 && month == currentMonth) {
         $("#" + dateElValidation).html("Afspraak moet 2 dagen van tevoren gepland worden!");
         return false;
     }
@@ -155,7 +167,6 @@ function onSubmitForm() {
         data: JSON.stringify(requestData),
         contentType: "application/json",
         success: function (response) {
-            console.log(response.status);
             if (response.status === 1 || response.status === 2 || response.status === 3) {
                 $.notify(response.message, "succes");
                 onCloseModal();

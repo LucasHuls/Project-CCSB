@@ -1,5 +1,6 @@
 ﻿using Project_CCSB.Models.ViewModels;
 using Project_CCSB.Models.ViewModels.Appointment;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -19,5 +20,12 @@ namespace Project_CCSB.Services
         /// <param name="model"></param>
         /// <returns>Interger based on result</returns>
         public Task<int> StoreDate(BlockedDatesViewModel model);
+
+        /// <summary>
+        /// Removes a Blocked date from the database
+        /// </summary>
+        /// <param name="date"></param>
+        /// <returns>Interger based on result</returns>
+        public Task<int> DeleteBlockedDate(DateTime date);
     }
 }

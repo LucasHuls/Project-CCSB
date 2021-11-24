@@ -55,5 +55,7 @@ namespace Project_CCSB.Models.ViewModels
                     return "Nee";
             }
         }
+
+        public bool IsDeleteAble { get; set; }
     }
 }
