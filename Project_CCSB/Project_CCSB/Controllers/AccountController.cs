@@ -110,53 +110,74 @@ namespace Project_CCSB.Controllers
                 return false;
         }
 
+        private static bool ValidateIfUserIs18(DateTime birthday)
+        {
+            if (birthday.AddYears(18) <= DateTime.Now) //Check the zipcode with the following format:
+            {
+                return true;
+            }
+            else
+                return false;
+        }
+
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
+            if (ValidateIfUserIs18(model.BirthDate))
+            {
+                Console.WriteLine("HUTS");
+            }
             if (ModelState.IsValid)
             {
-                if (ValidateAccountNumber(model.AccountNumber))
+                if (ValidateIfUserIs18(model.BirthDate))
                 {
-                    if (ValidateZipCode(model.ZipCode)) {
-                        ApplicationUser user = new ApplicationUser()
-                        {
-                            UserName = model.Email,
-                            Email = model.Email,
-                            FirstName = model.FirstName,
-                            MiddleName = model.MiddleName,
-                            LastName = model.LastName,
-                            AccountNumber = model.AccountNumber,
-                            City = model.City,
-                            Adress = model.Adress,
-                            ZipCode = model.ZipCode,
-                            BirthDate = model.BirthDate
-                        };
-                        var result = await _userManager.CreateAsync(user, model.Password);
-                        if (result.Succeeded)
-                        {
-                            await _userManager.AddToRoleAsync(user, model.RoleName);
-
-                            var messageToAdmin = new Message(new string[] { "projectCCSB@gmail.com" }, "Account geregistreerd", "Profiel bekijken", "accountRegistered");
-                            var messageToUser = new Message(new string[] { model.Email }, "Account geregistreerd", "Profiel bekijken", "accountRegistered");
-                            _emailSender.SendEmail(messageToAdmin);
-                            _emailSender.SendEmail(messageToUser);
-                            return RedirectToAction("AllUsers", "Account");
-                        }
-                        // Add all errors to the modelstate
-                        foreach (var error in result.Errors)
-                        {
-                            ModelState.AddModelError("", error.Description);
-                        }
-                    }
-                    else
+                    if (ValidateAccountNumber(model.AccountNumber))
                     {
-                        ModelState.AddModelError("", "Postcode is niet geldig! Gebruik bijvoorveeld: 1234AB");
+                        if (ValidateZipCode(model.ZipCode)) {
+                            ApplicationUser user = new ApplicationUser()
+                            {
+                                UserName = model.Email,
+                                Email = model.Email,
+                                FirstName = model.FirstName,
+                                MiddleName = model.MiddleName,
+                                LastName = model.LastName,
+                                AccountNumber = model.AccountNumber,
+                                City = model.City,
+                                Adress = model.Adress,
+                                ZipCode = model.ZipCode,
+                                BirthDate = model.BirthDate
+                            };
+                            var result = await _userManager.CreateAsync(user, model.Password);
+                            if (result.Succeeded)
+                            {
+                                await _userManager.AddToRoleAsync(user, model.RoleName);
+
+                                var messageToAdmin = new Message(new string[] { "projectCCSB@gmail.com" }, "Account geregistreerd", "Profiel bekijken", "accountRegistered");
+                                var messageToUser = new Message(new string[] { model.Email }, "Account geregistreerd", "Profiel bekijken", "accountRegistered");
+                                _emailSender.SendEmail(messageToAdmin);
+                                _emailSender.SendEmail(messageToUser);
+                                return RedirectToAction("AllUsers", "Account");
+                            }
+                            // Add all errors to the modelstate
+                            foreach (var error in result.Errors)
+                            {
+                                ModelState.AddModelError("", error.Description);
+                            }
+                        }
+                        else
+                        {
+                            ModelState.AddModelError("", "Postcode is niet geldig! Gebruik bijvoorveeld: 1234AB");
+                        }
+                    } else
+                    {
+                        ModelState.AddModelError("", "Geen valide rekening nummer");
                     }
                 } else
                 {
-                    ModelState.AddModelError("", "Geen valide rekening nummer");
+                    ModelState.AddModelError("", "Voor het aanmaken van een account moet je 18 jaar of ouder zijn! Met de opgegeven gegevens is dit niet het geval.");
                 }
             }
             return View();
