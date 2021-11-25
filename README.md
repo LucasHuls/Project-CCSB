@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://github.com/LucasHuls/Project-CCSB">
-    <img src="images/logoCCSB.png" alt="Logo">
+    <img src="https://github.com/LucasHuls/Project-CCSB/blob/main/images/logoCCSB.png?raw=true" alt="Logo">
   </a>
 
   <h3 align="center">Project CCSB - Camper & Caravan Stalling Bentelo</h3>

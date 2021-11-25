@@ -38,6 +38,7 @@ namespace Project_CCSB.Models
 
         [DisplayName("Postcode")]
         [Required(ErrorMessage = "{0} is een verplicht veld")]
+        [RegularExpression(@"[1-9]\d{3}[A-Za-z]{2}", ErrorMessage = "Postcode is niet geldig! Gebruik bijvoorveeld: 1234AB")]
         public string ZipCode { get; set; }
 
         [DisplayName("Geboortedatum")]

@@ -35,7 +35,6 @@ namespace Project_CCSB.Controllers.Api
             try
             {
                 DateTime formatDate = FormatDate(startDate);
-                Console.WriteLine(formatDate);
 
                 commonResponse.Status = _blockedDatesService.DeleteBlockedDate(formatDate).Result;
                 if (commonResponse.Status == 1)

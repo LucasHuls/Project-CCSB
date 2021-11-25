@@ -1,4 +1,6 @@
-﻿var routeURL = location.protocol + "//" + location.host;
+﻿const { Alert } = require("bootstrap");
+
+var routeURL = location.protocol + "//" + location.host;
 $(document).ready(function () {
     $("#DateAndTime").kendoDateTimePicker({
         value: new Date(),
@@ -118,7 +120,6 @@ function ValidateNewAppointment(dateEl, dateElValidation, appointmentEl, appoint
     var date = $("#" + dateEl).val();
     // Validate if date input is a real date
     if (isNaN(Date.parse(date))) {
-        console.log("Geen geldige datum");
         $("#" + dateElValidation).html("Vul een geldige datum in!");
         return false;
     }
@@ -138,8 +139,6 @@ function ValidateNewAppointment(dateEl, dateElValidation, appointmentEl, appoint
     var currentDate = new Date().toISOString();
     var currentDay = parseInt(currentDate.split("-")[2].substring(0, 2));
     var currentMonth = new Date().getMonth() + 1; // getMonth() is 0 Indexed
-    console.log((day - currentDay) <= 2 && month == currentMonth);
-    console.log(month, currentMonth);
     
     if ((day - currentDay) <= 2 && month == currentMonth) {
         $("#" + dateElValidation).html("Afspraak moet 2 dagen van tevoren gepland worden!");
@@ -228,13 +227,12 @@ function EditAppointment() {
                 ClosePopUp();
                 calendar.refetchEvents();
             } else {
-                console.log(response.message);
                 $.notify(response.message, "error");
             }
         },
         error: function (err) {
             $.notify("Error", "Foutje");
-            console.log(err);
+            Alert(err);
         }
     });
 }

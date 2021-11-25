@@ -120,7 +120,6 @@ namespace Project_CCSB.Controllers.Api
             try
             {
                 DateTime formatDate = FormatDate(startDate);
-                Console.WriteLine(formatDate);
 
                 commonResponse.Status = _appointmentService.DeleteAppointment(formatDate).Result;
                 if (commonResponse.Status == 1)
