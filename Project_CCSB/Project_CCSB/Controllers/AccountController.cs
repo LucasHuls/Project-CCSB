@@ -100,6 +100,16 @@ namespace Project_CCSB.Controllers
                 return false;
         }
 
+        private static bool ValidateZipCode(string zipcode)
+        {
+            if (Regex.IsMatch(zipcode.ToUpper(), @"[1-9]\d{3}[A-Za-z]{2}")) //Check the zipcode with the following format:
+            {
+                return true;
+            }
+            else
+                return false;
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
@@ -109,34 +119,40 @@ namespace Project_CCSB.Controllers
             {
                 if (ValidateAccountNumber(model.AccountNumber))
                 {
-                    ApplicationUser user = new ApplicationUser()
-                    {
-                        UserName = model.Email,
-                        Email = model.Email,
-                        FirstName = model.FirstName,
-                        MiddleName = model.MiddleName,
-                        LastName = model.LastName,
-                        AccountNumber = model.AccountNumber,
-                        City = model.City,
-                        Adress = model.Adress,
-                        ZipCode = model.ZipCode,
-                        BirthDate = model.BirthDate
-                    };
-                    var result = await _userManager.CreateAsync(user, model.Password);
-                    if (result.Succeeded)
-                    {
-                        await _userManager.AddToRoleAsync(user, model.RoleName);
+                    if (ValidateZipCode(model.ZipCode)) {
+                        ApplicationUser user = new ApplicationUser()
+                        {
+                            UserName = model.Email,
+                            Email = model.Email,
+                            FirstName = model.FirstName,
+                            MiddleName = model.MiddleName,
+                            LastName = model.LastName,
+                            AccountNumber = model.AccountNumber,
+                            City = model.City,
+                            Adress = model.Adress,
+                            ZipCode = model.ZipCode,
+                            BirthDate = model.BirthDate
+                        };
+                        var result = await _userManager.CreateAsync(user, model.Password);
+                        if (result.Succeeded)
+                        {
+                            await _userManager.AddToRoleAsync(user, model.RoleName);
 
-                        var messageToAdmin = new Message(new string[] { "projectCCSB@gmail.com" }, "Account geregistreerd", "Profiel bekijken", "accountRegistered");
-                        var messageToUser = new Message(new string[] { model.Email }, "Account geregistreerd", "Profiel bekijken", "accountRegistered");
-                        _emailSender.SendEmail(messageToAdmin);
-                        _emailSender.SendEmail(messageToUser);
-                        return RedirectToAction("AllUsers", "Account");
+                            var messageToAdmin = new Message(new string[] { "projectCCSB@gmail.com" }, "Account geregistreerd", "Profiel bekijken", "accountRegistered");
+                            var messageToUser = new Message(new string[] { model.Email }, "Account geregistreerd", "Profiel bekijken", "accountRegistered");
+                            _emailSender.SendEmail(messageToAdmin);
+                            _emailSender.SendEmail(messageToUser);
+                            return RedirectToAction("AllUsers", "Account");
+                        }
+                        // Add all errors to the modelstate
+                        foreach (var error in result.Errors)
+                        {
+                            ModelState.AddModelError("", error.Description);
+                        }
                     }
-                    // Add all errors to the modelstate
-                    foreach (var error in result.Errors)
+                    else
                     {
-                        ModelState.AddModelError("", error.Description);
+                        ModelState.AddModelError("", "Postcode is niet geldig! Gebruik bijvoorveeld: 1234AB");
                     }
                 } else
                 {
