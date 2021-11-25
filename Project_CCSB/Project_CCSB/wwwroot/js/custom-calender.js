@@ -75,10 +75,23 @@ function onCloseModal() {   // Close popup modal
 
 function OpenPopUp(e) {  // Opens Remove pop up
     $('#removeAppointmentDiv').data("oldData", e); // Set data so that if inputs are changed appointment can still be deleted
-    
+
     $("#removeAppointment").modal("show");
     $("#subtitleRemove").text(date);
     var date = ConvertStringToDateInput(e.start);
+
+    var testdate = new Date(date);
+    var nowdate = new Date();
+
+    if (nowdate > testdate) {
+        $("#RemoveAppButton").attr("hidden", true);
+        $("#EditAppButton").attr("hidden", true);
+    }
+    else {
+        $("#RemoveAppButton").attr("hidden", false);
+        $("#EditAppButton").attr("hidden", false);
+    }
+
     $('#dateInputRemove').eq(0).val(date);
     $("#appointmentTypeRemove").val(e.extendedProps.description);
     $("#licensePlateRemove").val(e.title);
@@ -184,17 +197,8 @@ function DeleteAppointment() {
     var date = data.start;
     date = date.toString().substring(0, 33);
 
-    $.ajax({
-        url: "https://localhost:5001/api/AppointmentApi/DeleteAppointment",
-        type: "Delete",
-        headers: {
-            "startDate": date
-        },
-        success: function (response) {
-            calendar.refetchEvents();
-            ClosePopUp();
-        }
-    });
+    let today = new Date().toISOString().slice(0, 10);
+    console.log(today);
 }
 
 function EditAppointment() {
