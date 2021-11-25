@@ -180,7 +180,6 @@ namespace Project_CCSB.Services
 
         public void RenewContracts()
         {
-            Console.WriteLine("Renewing contracts");
 
             // Get all contracts
             List<ContractVehicleUser> contractsList = (from contracts in _db.Contracts

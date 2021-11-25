@@ -34,14 +34,12 @@ namespace Project_CCSB.Services
             if (model != null && _db.Appointments.Any(x => x.LicensePlate == model.LicensePlate) && _db.Appointments.Any(x => x.Date == model.Date))
             {
                 //Show message when appointment exists
-                Console.WriteLine("Appointment already exists!");
                 return 1;
             }
             else
             {
                 if (_db.BlockedDates.Any(x => x.SelectedDateToBeBlocked.Date == model.Date.Date))
                 {
-                    Console.WriteLine("This date is blocked for appointments!");
                     return 3;
                 }
                 else
@@ -56,7 +54,6 @@ namespace Project_CCSB.Services
                     _db.Appointments.Add(appointment);
                     await _db.SaveChangesAsync();
 
-                    Console.WriteLine("Appointment created!");
                     return 2;
                 }
             }

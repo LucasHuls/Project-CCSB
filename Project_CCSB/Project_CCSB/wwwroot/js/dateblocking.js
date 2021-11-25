@@ -1,5 +1,4 @@
 ﻿function DeleteBlockedDate() {
-    console.log("Verwijderen");
     return;
 
     var data = $('#removeAppointmentDiv').data('oldDate');
@@ -11,9 +10,6 @@
         type: "Delete",
         headers: {
             "startDate": date
-        },
-        success: function (response) {
-            console.log("SUCCES REEMOVED BLOCKEDDATE")
         }
     });
 }

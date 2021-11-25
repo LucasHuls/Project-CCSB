@@ -95,7 +95,6 @@
             data: JSON.stringify(data),
             contentType: "application/json",
             success: function (response) {
-                console.log(response);
                 if (response.status == 1) {
                     $("#licensePlateError").text("Dit kenteken bestaat al");
                 } else {
@@ -103,7 +102,7 @@
                 }
             },
             error: function (err) {
-                console.log(err.responseText);
+                alert(err.responseText);
             }
         });
     }
