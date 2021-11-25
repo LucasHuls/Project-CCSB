@@ -239,7 +239,7 @@ namespace Project_CCSB.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("Project_CCSB.Models.Appointment", b =>
+            modelBuilder.Entity("Project_CCSB.Models.BlockedDate", b =>
                 {
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
@@ -324,16 +324,49 @@ namespace Project_CCSB.Migrations
                     b.Property<string>("LicensePlate")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<bool>("Airconditioning")
+                        .HasColumnType("bit");
+
                     b.Property<string>("ApplicationUserId")
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<bool>("BicycleCarrier")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Brand")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("BuildYear")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CamperType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Color")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("EmptyWeight")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("HoldingTank")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("HorsePower")
+                        .HasColumnType("int");
+
                     b.Property<decimal>("Length")
                         .HasColumnType("decimal(18,4)");
 
+                    b.Property<int>("Mileage")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NumberOfBeds")
+                        .HasColumnType("int");
+
                     b.Property<bool>("Power")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("TowBar")
                         .HasColumnType("bit");
 
                     b.Property<string>("Type")

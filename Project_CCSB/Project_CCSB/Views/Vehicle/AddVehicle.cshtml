@@ -3,118 +3,189 @@
 <h2>Voertuig</h2>
     <h4>Nieuw voertuig</h4>
     <hr />
-    <div asp-validation-summary="All" class="text-danger"></div>
-    <div class="form-group row">
-        <label class="col-md-2" asp-for="LicensePlate"></label>
-        <div class="col-md-10">
-            <input asp-for="LicensePlate" id="inputLicensePlate" class="form-control" />
-            <span asp-validation-for="LicensePlate" id="licensePlateError" class="text-danger"></span>
-            <span asp-validation-for="LicensePlate" id="licensePlateWarning" class="text-warning"></span>
+    <form id="addVehicleForm" method="post" asp-action="AddVehicle" asp-controller="Vehicle">
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <div class="form-group row">
+            <label class="col-md-2" asp-for="LicensePlate"></label>
+            <div class="col-md-10">
+                <input asp-for="LicensePlate" id="inputLicensePlate" class="form-control" />
+                <span asp-validation-for="LicensePlate" id="licensePlateError" class="text-danger"></span>
+                <span asp-validation-for="LicensePlate" id="licensePlateWarning" class="text-warning"></span>
+            </div>
         </div>
-    </div>
-    <div class="form-group row">
-        <label class="col-md-2" asp-for="Type"></label>
-        <div class="col-md-10">
-            <select asp-for="Type"
-                    asp-items="@Project_CCSB.Models.Helper.GetVehicleType()"
-                    id="inputType"
-                    class="form-control">
-                <option selected>Kies caravan of camper</option>
-            </select>
-            <span asp-validation-for="Type" class="text-danger"></span>
-    </div>
-    </div>
-    <div class="form-group row">
-        <label class="col-md-2" asp-for="Brand"></label>
-        <div class="col-md-10">
-            <input asp-for="Brand" id="inputBrand" class="form-control" />
-            <span asp-validation-for="Brand" class="text-danger"></span>
+        <div class="form-group row">
+            <label class="col-md-2" asp-for="Type"></label>
+            <div class="col-md-10">
+                <select asp-for="Type"
+                        asp-items="@Project_CCSB.Models.Helper.GetVehicleType()"
+                        id="inputType"
+                        class="form-control"
+                        onchange="ShowProps()">
+                    <option selected>Kies caravan of camper</option>
+                </select>
+                <span asp-validation-for="Type" class="text-danger"></span>
+            </div>
         </div>
-    </div>
-    <div class="form-group row">
-        <label class="col-md-2" asp-for="Length"></label>
-        <div class="col-md-10">
-            <input asp-for="Length" id="inputLength" class="form-control" />
-            <span asp-validation-for="Length" id="errorLength" class="text-danger"></span>
+        <div class="form-group row">
+            <label class="col-md-2" asp-for="Brand"></label>
+            <div class="col-md-10">
+                <input asp-for="Brand" id="inputBrand" class="form-control" />
+                <span asp-validation-for="Brand" class="text-danger"></span>
+            </div>
         </div>
-    </div>
-    <div class="form-group row">
-        <label class="col-md-2" asp-for="Power"></label>
-        <div class="col-md-10">
-            <select asp-for="Power"
-                    asp-items="@Project_CCSB.Models.Helper.GetYesOrNo()"
-                    id="inputPower"
-                    class="form-control">
-                <option selected>Kies ja of nee</option>
-            </select>
-            <span asp-validation-for="Power" class="text-danger"></span>
+        <div class="form-group row">
+            <label class="col-md-2" asp-for="Length"></label>
+            <div class="col-md-10">
+                <input asp-for="Length" id="inputLength" class="form-control" />
+                <span asp-validation-for="Length" id="errorLength" class="text-danger"></span>
+            </div>
         </div>
-    </div>
-    <div class="form-group row">
-        <label class="col-md-2" asp-for="User"></label>
-        <div class="col-md-10">
-            <select asp-for="User"
-                    asp-items="@ViewBag.UserList"
-                    id="inputUser"
-                    class="form-control">
-                <option selected>Kies een gebruiker</option>
-            </select>
-            <span asp-validation-for="User" class="text-danger"></span>
+        <div class="form-group row">
+            <label class="col-md-2" asp-for="Power"></label>
+            <div class="col-md-10">
+                <select asp-for="Power"
+                        asp-items="@Project_CCSB.Models.Helper.GetYesOrNo()"
+                        id="inputPower"
+                        class="form-control">
+                    <option selected>Kies ja of nee</option>
+                </select>
+                <span asp-validation-for="Power" class="text-danger"></span>
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        <div class="col-md-10 offset-md-2">
-            <input type="submit" value="Toevoegen" onclick="OnSubmit()" class="btn btn-success" />
+
+        <div class="form-group row">
+            <label class="col-md-2" asp-for="Color"></label>
+            <div class="col-md-10">
+                <input asp-for="Color" id="inputColor" class="form-control" />
+                <span asp-validation-for="Color" id="errorColor" class="text-danger"></span>
+            </div>
         </div>
-    </div>
+        <div class="form-group row">
+            <label class="col-md-2" asp-for="BuildYear"></label>
+            <div class="col-md-10">
+                <input asp-for="BuildYear" id="inputBuildYear" class="form-control" />
+                <span asp-validation-for="BuildYear" id="errorBuildYear" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-2" asp-for="NumberOfBeds"></label>
+            <div class="col-md-10">
+                <input asp-for="NumberOfBeds" id="inputNumberOfBeds" class="form-control" />
+                <span asp-validation-for="NumberOfBeds" id="errorNumberOfBeds" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-2" asp-for="BicycleCarrier"></label>
+            <div class="col-md-10">
+                <select asp-for="BicycleCarrier"
+                        asp-items="@Project_CCSB.Models.Helper.GetYesOrNo()"
+                        id="inputBicycleCarrier"
+                        class="form-control">
+                    <option selected>Kies ja of nee</option>
+                </select>
+                <span asp-validation-for="BicycleCarrier" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-2" asp-for="Airconditioning"></label>
+            <div class="col-md-10">
+                <select asp-for="Airconditioning"
+                        asp-items="@Project_CCSB.Models.Helper.GetYesOrNo()"
+                        id="inputAirconditioning"
+                        class="form-control">
+                    <option selected>Kies ja of nee</option>
+                </select>
+                <span asp-validation-for="Airconditioning" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div id="camperProps" hidden>
+            <div class="form-group row">
+                <label class="col-md-2" asp-for="Mileage"></label>
+                <div class="col-md-10">
+                    <input asp-for="Mileage" id="inputMileage" class="form-control" />
+                    <span asp-validation-for="Mileage" id="errorMileage" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-2" asp-for="HorsePower"></label>
+                <div class="col-md-10">
+                    <input asp-for="HorsePower" id="inputHorsePower" class="form-control" />
+                    <span asp-validation-for="HorsePower" id="errorHorsePower" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-2" asp-for="CamperType"></label>
+                <div class="col-md-10">
+                    <input asp-for="CamperType" id="inputCamperType" class="form-control" />
+                    <span asp-validation-for="CamperType" id="errorCamperType" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-2" asp-for="TowBar"></label>
+                <div class="col-md-10">
+                    <select asp-for="TowBar"
+                            asp-items="@Project_CCSB.Models.Helper.GetYesOrNo()"
+                            id="inputTowBar"
+                            class="form-control">
+                        <option selected>Kies ja of nee</option>
+                    </select>
+                    <span asp-validation-for="TowBar" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+
+        <div id="caravanProps" hidden>
+            <div class="form-group row">
+                <label class="col-md-2" asp-for="EmptyWeight"></label>
+                <div class="col-md-10">
+                    <input asp-for="EmptyWeight" id="inputEmptyWeight" class="form-control" />
+                    <span asp-validation-for="EmptyWeight" id="errorEmptyWeight" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-2" asp-for="HoldingTank"></label>
+                <div class="col-md-10">
+                    <select asp-for="HoldingTank"
+                            asp-items="@Project_CCSB.Models.Helper.GetYesOrNo()"
+                            id="inputHoldingTank"
+                            class="form-control">
+                        <option selected>Kies ja of nee</option>
+                    </select>
+                    <span asp-validation-for="HoldingTank" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-md-2" asp-for="User"></label>
+            <div class="col-md-10">
+                <select asp-for="User"
+                        asp-items="@ViewBag.UserList"
+                        id="inputUser"
+                        class="form-control">
+                    <option selected>Kies een gebruiker</option>
+                </select>
+                <span asp-validation-for="User" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-10 offset-md-2">
+                <input type="submit" value="Toevoegen" class="btn btn-success" />
+            </div>
+        </div>
+    </form>
 <script>
-    function OnSubmit() {
-        RemoveErrorTexts();
+    function ShowProps() {
+        $("#camperProps").attr("hidden", true);
+        $("#caravanProps").attr("hidden", true);
 
-        var length = $("#inputLength").val();
-        if (!Validate(length)) return;
-
-        var licensePlate = $("#inputLicensePlate").val();
-        if (!CheckLicensePlate(licensePlate)) return;
-
-        length = length.replace(".", ","); // Change the . to a ,
-
-        var routeURL = location.protocol + "//" + location.host;
-        var data = {
-            LicensePlate: $("#inputLicensePlate").val(),
-            Type: $("#inputType").val(),
-            Brand: $("#inputBrand").val(),
-            Length: length,
-            Power: $("#inputPower").val(),
-            User: $("#inputUser").val()
+        var val = $("#inputType").val();
+        if (val == "Camper") {
+            $("#camperProps").attr("hidden", false);
+        } else if (val == "Caravan") {
+            $("#caravanProps").attr("hidden", false);
         }
-
-        $.ajax({
-            url: routeURL + "/api/VehicleApi/SaveVehicle",
-            type: "POST",
-            data: JSON.stringify(data),
-            contentType: "application/json",
-            success: function (response) {
-                if (response.status == 1) {
-                    $("#licensePlateError").text("Dit kenteken bestaat al");
-                } else {
-                    window.location = routeURL + "/Vehicle/AllVehicles";
-                }
-            },
-            error: function (err) {
-                alert(err.responseText);
-            }
-        });
-    }
-
-    function Validate(length) {
-        length = length.replace(",", ".");
-        if (isNaN(length)) {
-            $("#errorLength").text("Lengte is geen nummer");
-            return false;
-        }
-
-        return true;
     }
 
     function CheckLicensePlate(licensePlate) {

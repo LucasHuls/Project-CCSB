@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace Project_CCSB.Models.ViewModels
@@ -19,7 +17,7 @@ namespace Project_CCSB.Models.ViewModels
         [Required]
         public string Brand { get; set; }
 
-        [DisplayName("Lengte")]
+        [DisplayName("Lengte (in m)")]
         [Required]
         public string Length { get; set; }
 
@@ -57,5 +55,45 @@ namespace Project_CCSB.Models.ViewModels
         }
 
         public bool IsDeleteAble { get; set; }
+
+        [DisplayName("Kleur")]
+        [Required]
+        public string Color { get; set; }
+
+        [DisplayName("Bouwjaar")]
+        [Required]
+        public int BuildYear { get; set; }
+
+        [DisplayName("Aantal slaapplaatsen")]
+        [Required]
+        public int NumberOfBeds { get; set; }
+
+        [DisplayName("Fietsdrager")]
+        [Required]
+        public bool BicycleCarrier { get; set; }
+
+        [DisplayName("Airco")]
+        [Required]
+        public bool Airconditioning { get; set; }
+
+        // Extra properties for camper's
+        [DisplayName("Kilometerstand")]
+        public int Mileage { get; set; }
+
+        [DisplayName("Aantal pk's")]
+        public int HorsePower { get; set; }
+
+        [DisplayName("Camper type")]
+        public string CamperType { get; set; }
+
+        [DisplayName("Trekhaak")]
+        public bool TowBar { get; set; }
+
+        // Extra properties for caravan's
+        [DisplayName("Ledig gewicht")]
+        public int EmptyWeight { get; set; }
+
+        [DisplayName("Vuilwatertank")]
+        public bool HoldingTank { get; set; }
     }
 }
