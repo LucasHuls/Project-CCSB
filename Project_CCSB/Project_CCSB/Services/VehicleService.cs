@@ -34,7 +34,7 @@ namespace Project_CCSB.Services
                                 LicensePlate = vehicle.LicensePlate,
                                 Brand = vehicle.Brand,
                                 Power = vehicle.Power.ToString(),
-                                Length = vehicle.Length.ToString(),
+                                Length = vehicle.Length.ToString("0.00.##"),
                                 Type = vehicle.Type,
                                 FirstName = user.FirstName,
                                 MiddleName = user.MiddleName,
@@ -102,7 +102,18 @@ namespace Project_CCSB.Services
                     Brand = model.Brand,
                     Length = length,
                     Power = power,
-                    Type = model.Type
+                    Type = model.Type,
+                    Color = model.Color,
+                    BuildYear = model.BuildYear,
+                    NumberOfBeds = model.NumberOfBeds,
+                    BicycleCarrier = model.BicycleCarrier,
+                    Airconditioning = model.Airconditioning,
+                    Mileage = model.Mileage,
+                    HorsePower = model.HorsePower,
+                    CamperType = model.CamperType,
+                    TowBar = model.TowBar,
+                    EmptyWeight = model.EmptyWeight,
+                    HoldingTank = model.HoldingTank
                 };
                 _db.Vehicles.Add(vehicle);
                 await _db.SaveChangesAsync();
