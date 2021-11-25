@@ -1,6 +1,4 @@
-﻿const { Alert } = require("bootstrap");
-
-var routeURL = location.protocol + "//" + location.host;
+﻿var routeURL = location.protocol + "//" + location.host;
 $(document).ready(function () {
     $("#DateAndTime").kendoDateTimePicker({
         value: new Date(),
